@@ -170,12 +170,27 @@ mmmmmmmmmmmmmmmmmmmmmmmmmm \= \kill
 
 \large{\textbf{Zusammenfassung}}\\
 \\
-Das Thema Secrets Management wird zunehmend zu einem zentralen Thema in der elektronischen Datenverarbeitung. Unter dem Begriff des Secrets Management ist im folgenden vor allem der Umgang mit geheimen Informationen gemeint. Geheim sind Informationen dann, wenn es schädlich ist wenn diese Informationen Unbefugten zugänglich sind. Beispiele für derartige geheime Informationen sind Passwörter, geheime Schlüssel oder geheime Dokumente. In der Praxisarbeit soll evaluliert werden welche Anforderungen große Unternehmen an ihr Secrets Management stellen und welche Programme dabei häufig zum Einsatz kommen. In einem weiteren Schritt soll festgestellt werden welche Anforderungen durch jene Programme, nicht erfüllt werden. Im Anschluss soll eine vollumfängliche Secrets Management Software daraufhin untersucht werden, in wie fern unzulänglichkeiten von gängiger Software in diesem Bereich behoben werden können. Es soll auf beleuchtet werden welche zusätzlichen Anforderungen die Arbeit mit Cloud Umgebungen zu beachten sind welche Vorteile auch hier durch alternative Software zu erziehlen sind. Dazu soll eine virtuelle Umgebung erstellt werden um die Funktionen zu testen. 
-Nach erfolgreichem Test soll ein Plan erstellt werden, wie ein Umzug von gängiger Software auf ein vollumfägliches Secrets Management System aussehen kann und es soll festgestellt werden was bei einer solgen Umstellung sinnvollerweise zu beachten ist.
+Das Thema Secrets Management wird zunehmend zu einem zentralen Thema in der
+elektronischen Datenverarbeitung.  Unter dem Begriff ist im Folgenden vor
+allem der Umgang mit geheimen Informationen gemeint.  Geheim sind
+Informationen dann, wenn es schädlich ist wenn diese Informationen
+Unbefugten zugänglich sind. Beispiele für derartige Informationen sind
+Passwörter, geheime Schlüssel oder geheime Dokumente.  In der
+Praxisarbeit soll evaluiert werden welche Anforderungen große Unternehmen
+an ihr Secrets Management stellen und welche Programme dabei häufig zum
+Einsatz kommen.  In einem weiteren Schritt soll festgestellt werden welche
+Anforderungen durch jene Programme, nicht erfüllt werden.  Im Anschluss
+soll eine vollumfängliche Secrets Management Software daraufhin untersucht
+werden, in wie fern Unzulänglichkeiten von gängiger Software behoben
+werden können.  Es soll auch beleuchtet werden, welche zusätzlichen
+Anforderungen Cloud Umgebungen mit sich bringen.  Hierbei zu beachten ist,
+welche Vorteile durch alternative Software zu erzielen sind.  Für die
+Evaluierung soll eine virtuelle Umgebung erstellt werden, in welcher die
+Funktionen getestet werden.
 \newpage
 \thispagestyle{empty}
 
-\centering{\large{\textbf{Abstract}}}
+\large{\textbf{Abstract}}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -197,7 +212,9 @@ Nach erfolgreichem Test soll ein Plan erstellt werden, wie ein Umzug von gängig
 \section*{Abkürzungsverzeichnis} %%Title for list of acronyms
 \addcontentsline{toc}{section}{Abkürzungsverzeichnis}
 \begin{acronym}
- \acro{PC}{Personal Computer}
+ \acro{IT}{Informationstechnik}
+ \acro{KRITIS}{Kritische Infrastruktur}
+ \acro{OECD}{Organisation für wirtschaftliche Zusammenarbeit und Entwicklung}
 \end{acronym}
 \listoffigures
 \listoftables
@@ -220,9 +237,29 @@ Nach erfolgreichem Test soll ein Plan erstellt werden, wie ein Umzug von gängig
 \section{Einleitung}
 \label{sec:einleitung}
 
-Gegenstand und Ziele der Arbeit / Aufgabenbeschreibung
-Einführung in das Thema
-Stand der Technik / Forschung
+\subsection{Gegenstand und Ziele des Praxisberichts}
+\label{subsec:ziele}
+
+\subsection{Einführung in das Thema}
+\label{subsec:einführung}
+Mit der fortschreitenden Digitalisierung nahezu aller Wirtschaftszweige steigt auch die Relevanz für die Absicherung der daraus resultierenden \ac{IT}-Infrastrukturen.
+Zusätzlich zu den eigenen Sicherheitsbelangen des Betreibers einer informationstechnischen Umgebung kommen auch noch gesetzliche Regelungen wie das IT-Sicherheitsgesetz zum Tragen. 
+Vor allem im Bezug auf eine zunehmende Verlagung des \ac{IT}-Betriebs hin zum Cloud-Computing\footnote{Unter Cloud-Computing versteht man die Verwendung scheinbar  unendlicher  
+IT-Ressourcen,  die bedarfsgerecht und flexibel zur Verfügung gestellt werden können. Clouds können in unterschielichen Formen betrieben werden, so gibt es sogenannte private, public und hybrid-Clouds. Sie unterscheiden sich darin ob die Clouddienste auf eigener Infrastruktur, bei einem Cloudhoster oder gemischt betrieben werden.\cite[S. 3]{cloud}} und den damit verbundenen Problemen dezentraler Datenhaltung (vor allem bei den public und hybrid Modellen), entstehen häufig unübersichtliche Sicherheitskonzepte. Durch die große Varianz der Szenarien, vorallem auch in Anbetracht unterschiedlicher Sicherheitsniveaus der Daten sind die verwendeten Konzepte der unterschiedlich.\cite[S. 7f]{risiko}\newline
+Spionage- und Sabotage-Angriffe werden aus den unterschiedlichsten Motivationen und auch von den Unterschielichsten Objekten verübt. So reicht das Spektrum der Angreifer von Kleinkriminellen über Geheimdienste und Terroristen bis hin zur organisierten Kriminalität. Die Aufgabe der \ac{IT}-Sicherheit besteht also darin, die potentiellen Angreifer in ihren Erwägungen zu berücksichtigen und und die Werte und Gemeimisse der Unternehmen zu schützen. Ein zentraler Faktor bei der Entwicklung eines Sicherheitskonzepts auf dieser Grundlage ist es, ein stringentes Konzept zur Kontrolle der Authorisierung\footnote{Zugangsberechtigung} einer Person oder eines Dienstes\footnote{Ein Dienst ist eine autarke Einheit, welche eine spezifierte Aufgabe erfüllt bzw. Funktionaltät zur Verfügung stellt und diese über keine klar definierte Schnittstelle zur Verfügung stellt} auf unterschieliche Bereiche in der zu betreuenden Umgebung. 
+
+Der Aufwand welcher für \ac{IT}-Sicherheitskonzept betrieben wird bemisst sich meistens am Schaden, der zu erwarten ist, sollten geheime Daten in die Hände Dritter gelangen. Da es kaum verlässliche Daten zur Quantität der Kosten gibt, die durch einen kritischen Sicherheitsvorfall verursacht werden, ist die daran orientierte Bemessung der Sicherheitsvorkehrungen umstritten. Generell gibt es verschiedene Faktoren die bei der qualitativen Kostenabschätzung berücksichtigt werden müssen, so wird im allgemeinen zwischen direkten und indirekten Kosten unterschieden.\cite[S. 12]{kosten}
+\subsubsection{Direkte Kosten}
+Die direkten Kosten die durch Wirtschaftsspionage entstehen können bemessen sich zu allererst einmal an dem direkten Wert des gestohlenen Eigentums. Dieser Wert lässt sich ermitteln durch den finanziellen Gegenwert, den das Eigentum hat und an den zu erwartenden Gewinneinbußen durch den Verlust (der Exklusivität) des Eigentums. Weiterhin entstehen direkte Kosten durch die das Desaster-Recovery, das heißt durch die Schritte die eingeleitet werden müssen um den Status Quo wieder herzustellen. Zu guter Letzt werden auch noch diejenigen Kosten hinzugezählt, die durch die Prävention einer Widerholung des Ereignisses entstehen, dazu zählen Prozessänderungen, Sicherheitsunterweisungen und weitere direkte Maßnahmen.\cite[S. 13]{kosten}
+\subsubsection{Indirekte Kosten}
+Zu den indirekten Kosten werden vor allem die Umsatzausfälle durch Image- und Markenschäden gezählt. Außerdem entstehen hohe Umsatzeinbußen durch Plagiate welche in folge des Gestohlenen Eigentums verbreitet werden können. Plagiate können deutlich günstiger angeboten werden, da die Kosten für Forschung und Entwicklung nicht in den Preis eingerechnet werden müssen.\cite[S. 14]{kosten}
+\subsubsection{Versuch einer Quntifizierung}
+Nach Schätzungen der \ac{OECD} belaufen sich die Schäden durch Fälschungen und Produktpiraterie weltweit auf 638 Milliarden US-Dollar pro Jahr. Die Schätzungen diesbezüglich gehen aber weit auseinander. Es scheint jedoch Sicher zu sein, dass Sich die Schäden im dreistelligen Milliardenberich bewegen. Für die deutsche Wirtschaft liegen die Schätzungen zwischen 20 und 50 Milliarden Euro.\cite[S. 16f]{kosten}
+
+\subsection{Stand der Technik}
+\label{subsec:stand}
+
+
 Motivation der Aufgabenstellung
 Vorstellung Projektumgebung
 Vorausblick
