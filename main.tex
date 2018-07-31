@@ -246,8 +246,7 @@ Mit der fortschreitenden Digitalisierung nahezu aller Wirtschaftszweige steigt a
 Zusätzlich zu den eigenen Sicherheitsbelangen des Betreibers einer informationstechnischen Umgebung kommen auch noch gesetzliche Regelungen wie das IT-Sicherheitsgesetz zum Tragen. 
 Vor allem im Bezug auf eine zunehmende Verlagung des \ac{IT}-Betriebs hin zum Cloud-Computing\footnote{Unter Cloud-Computing versteht man die Verwendung scheinbar  unendlicher  
 IT-Ressourcen,  die bedarfsgerecht und flexibel zur Verfügung gestellt werden können. Clouds können in unterschielichen Formen betrieben werden, so gibt es sogenannte private, public und hybrid-Clouds. Sie unterscheiden sich darin ob die Clouddienste auf eigener Infrastruktur, bei einem Cloudhoster oder gemischt betrieben werden.\cite[S. 3]{cloud}} und den damit verbundenen Problemen dezentraler Datenhaltung (vor allem bei den public und hybrid Modellen), entstehen häufig unübersichtliche Sicherheitskonzepte. Durch die große Varianz der Szenarien, vorallem auch in Anbetracht unterschiedlicher Sicherheitsniveaus der Daten sind die verwendeten Konzepte der unterschiedlich.\cite[S. 7f]{risiko}\newline
-Spionage- und Sabotage-Angriffe werden aus den unterschiedlichsten Motivationen und auch von den Unterschielichsten Objekten verübt. So reicht das Spektrum der Angreifer von Kleinkriminellen über Geheimdienste und Terroristen bis hin zur organisierten Kriminalität. Die Aufgabe der \ac{IT}-Sicherheit besteht also darin, die potentiellen Angreifer in ihren Erwägungen zu berücksichtigen und und die Werte und Gemeimisse der Unternehmen zu schützen. Ein zentraler Faktor bei der Entwicklung eines Sicherheitskonzepts auf dieser Grundlage ist es, ein stringentes Konzept zur Kontrolle der Authorisierung\footnote{Zugangsberechtigung} einer Person oder eines Dienstes\footnote{Ein Dienst ist eine autarke Einheit, welche eine spezifierte Aufgabe erfüllt bzw. Funktionaltät zur Verfügung stellt und diese über keine klar definierte Schnittstelle zur Verfügung stellt} auf unterschieliche Bereiche in der zu betreuenden Umgebung. 
-
+Spionage- und Sabotage-Angriffe werden aus den unterschiedlichsten Motivationen und auch von den Unterschielichsten Objekten verübt. So reicht das Spektrum der Angreifer von Kleinkriminellen über Geheimdienste und Terroristen bis hin zur organisierten Kriminalität. Die Aufgabe der \ac{IT}-Sicherheit besteht also darin, die potentiellen Angreifer in ihren Erwägungen zu berücksichtigen und und die Werte und Gemeimisse der Unternehmen zu schützen. Ein zentraler Faktor bei der Entwicklung eines Sicherheitskonzepts auf dieser Grundlage ist es, ein stringentes Konzept zur Kontrolle der Authorisierung\footnote{Zugangsberechtigung} einer Person oder eines Dienstes\footnote{Ein Dienst ist eine autarke Einheit, welche eine spezifierte Aufgabe erfüllt bzw. Funktionaltät zur Verfügung stellt und diese über keine klar definierte Schnittstelle zur Verfügung stellt} auf unterschieliche Bereiche in der zu betreuenden Umgebung. Neben der Authorisierung spielt auch die Authentifizierung\footnote{Identitätsnachweis}, denn es muss zu jedem Zeitpunkt sichergestellt werden, dass die Authorisierung auch der richtigen Person oder Anwendung übertragen wurde.\cite[S. 9]{risiko} 
 Der Aufwand welcher für \ac{IT}-Sicherheitskonzept betrieben wird bemisst sich meistens am Schaden, der zu erwarten ist, sollten geheime Daten in die Hände Dritter gelangen. Da es kaum verlässliche Daten zur Quantität der Kosten gibt, die durch einen kritischen Sicherheitsvorfall verursacht werden, ist die daran orientierte Bemessung der Sicherheitsvorkehrungen umstritten. Generell gibt es verschiedene Faktoren die bei der qualitativen Kostenabschätzung berücksichtigt werden müssen, so wird im allgemeinen zwischen direkten und indirekten Kosten unterschieden.\cite[S. 12]{kosten}
 \subsubsection{Direkte Kosten}
 Die direkten Kosten die durch Wirtschaftsspionage entstehen können bemessen sich zu allererst einmal an dem direkten Wert des gestohlenen Eigentums. Dieser Wert lässt sich ermitteln durch den finanziellen Gegenwert, den das Eigentum hat und an den zu erwartenden Gewinneinbußen durch den Verlust (der Exklusivität) des Eigentums. Weiterhin entstehen direkte Kosten durch die das Desaster-Recovery, das heißt durch die Schritte die eingeleitet werden müssen um den Status Quo wieder herzustellen. Zu guter Letzt werden auch noch diejenigen Kosten hinzugezählt, die durch die Prävention einer Widerholung des Ereignisses entstehen, dazu zählen Prozessänderungen, Sicherheitsunterweisungen und weitere direkte Maßnahmen.\cite[S. 13]{kosten}
@@ -255,9 +254,34 @@ Die direkten Kosten die durch Wirtschaftsspionage entstehen können bemessen sic
 Zu den indirekten Kosten werden vor allem die Umsatzausfälle durch Image- und Markenschäden gezählt. Außerdem entstehen hohe Umsatzeinbußen durch Plagiate welche in folge des Gestohlenen Eigentums verbreitet werden können. Plagiate können deutlich günstiger angeboten werden, da die Kosten für Forschung und Entwicklung nicht in den Preis eingerechnet werden müssen.\cite[S. 14]{kosten}
 \subsubsection{Versuch einer Quntifizierung}
 Nach Schätzungen der \ac{OECD} belaufen sich die Schäden durch Fälschungen und Produktpiraterie weltweit auf 638 Milliarden US-Dollar pro Jahr. Die Schätzungen diesbezüglich gehen aber weit auseinander. Es scheint jedoch Sicher zu sein, dass Sich die Schäden im dreistelligen Milliardenberich bewegen. Für die deutsche Wirtschaft liegen die Schätzungen zwischen 20 und 50 Milliarden Euro.\cite[S. 16f]{kosten}
+\subsubsection{Anforderung an Sicherheitssoftware}
+\label{subsubsec:anforderung}
+Spezifische Anforderungen die an eine Sicherheitssoftware gestellt werden finden können wie folgt zusammengefasst werden:
+
+\begin{itemize}
+  \item Auffindbarkeit - Es muss zu jedem Zeitpunkt klar sein, wo sich Secrets im Unternehmen befinden 
+  \item Nachvollziebarkeit - Es muss möglich sein, Verantwortliche zu nennen 
+  \item Break Glass Szenario - Es muss einen Weg geben, im Fall eines Angriffs den Schaden einzugrenzen 
+  \item Verfügarkeit - Daten müssen jederzeit zugänglich sein 
+  \item Integrität - Daten müssen immer vollständig und korrekt sein  
+  \item Verlässlichkeit - Daten müssen authentisch sein, Kommunikationswege nachvollziehbar 
+  \item Vertraulichkeit - Der Zugriff auf Daten soll nur dann möglich sein, wenn die betroffene Person/Maschine berechtigt ist (minimale Berechtigungsvergabe)
+  \item Usability - Einfacher Zugriff von Mensch und Maschine 
+  \item Informationenklassifizierung - Informationen sollen dem Schutzniveau entsprechend geschützt werden 
+  \item Sichere Anmeldeverfahren müssen zur Verfügung stehen 
+  \item Credential Management Systeme zur sicheren Erstellung, Speicherung und Änderung sollen zur verfügung stehen 
+  \item Das Risiko, dass kompromittierte Verschlüsselung zum Verlust oder dem unberechtigten Offenlegen von Informationen führt, muss kontrollierbar sein
+\end{itemize}
+
+Rechtliche Aspekte werden durch den Vorliegenden Bericht nicht weiter beleuchtet.\footnote{Die Inhalte aus \autoref{subsubsec:anforderung} wurden in Anlehung an interne Dokumenten eines großen Unternehmens und Gesprächen mit \ac{IT}-Administratoren erarbeitet}
 
 \subsection{Stand der Technik}
 \label{subsec:stand}
+Um die in \autoref{subsec:einführung} beschriebenen Themenkomplexe der Authorisierung und Authentifizierung in Frimenumgebungen umzusetzten gibt es verschiedene Ansätze. Im folgenden sollen einige gängige Softwareprodukte, die die genannten Aufgaben erfüllen sollen vorgestellt und auf ihre Tauglichkeit zur vollumfänglichen Erfüllung der in \autoref{subsubsec:anforderung} beschriebenen Anforderung untersucht.
+\subsection{Microsoft Active Directory}
+\subsection{KeePassX}
+\subsection{CyberArk}
+\subsection{Hashicorp Vault}
 
 
 Motivation der Aufgabenstellung
