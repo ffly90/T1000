@@ -283,6 +283,27 @@ Um die in \autoref{subsec:einführung} beschriebenen Themenkomplexe der Authoris
 \subsection{CyberArk}
 \subsection{Hashicorp Vault}
 
+Funktionen von Vault:
+
+\begin{itemize}
+  \item Willkürliche Verbindungen von Identifikator und Wert können auf "sichere" Art und Weise durch Vault abgelgt werden. Dabei werden die Inhalte verschlüsselt bevor sie in einen persistenten Speicher geschrieben werden.
+  \item Für eine zunehmende Anzahl an Diensten kann Vault dynamische Zugangdaten generieren. Wenn zum Beispiel ein Dienst Zugriff auf eine Datenbank erhalten will, kann Vault einen (zeitlich Beschränkten) Zugriff geähren. Dabei werden temporäre Zugangsdaten (oder ein Schlüsselpaar) erstellt, welche durch Vault nach Ablauf der Gültigkeit widerrufen werden.
+  \item Daten welche sensible Inhalte haben, können durch Vault verschlüsselt werden, ohne dass sie durch Vault im eigenen Backend gespeichert werden müssen. Entwicker sind damit in der Lage Daten durch Vault verschlüsseln zu lassen um im Anschluss nach Belieben weiterzuverarbeiten.
+  \item Alle Geheimnisse welche durch Vault gespeichert werden haben eine Gültigkeitsdauer. Nach Ablauf der zugeordneten Gültikeitsdauer werden die betroffenen Geheimnisse durch Vault widerrufen. Clients können durch entsprechende APIs die Gültikeit eines Geheimnisses verlängern bzw. erneuern.
+  \item Geheimnisse können auch durch Administratoren widerrufen werden. Dabei bietet Vault die Funktion, dass bei Bedarf ganze Baumstrukturen an Geheimnissen auf einmal ihre Gültikeit verlieren. Es kann auf unterschiedliche Weisen gefiltert werden, so können zum Beispiel alle Geheimnisse widerrufen werden auf die ein spezieller User zugegriffen hat.
+
+Die Komponenten von Vault:
+  \item Storage Backend: Vault benötigt ein Storage Backend um verschlüsselte Daten abzulegen. Die einzige Anforderung an das Storage Backend ist, dass es möglichst strapazierfähig ist. Vault vertraut dem Storage Backend nicht und es wird nicht davon ausgegangen, dass es speziell gegen fremde Zugriffe geschützt ist. 
+  \item Barrier: Zwischen Storage und Vault wird jede Kommunikation durch eine Art Kontrollpunkt geprüft. Durch diesen Mechanismus soll sichergestellt werden, dass alle Daten welche von Vault in Richtung Storage Backend übermittelt werden, zwansläufig verschlüsslt werden. Außerdem ist der Mechanismus dafür zuständig alle Daten die aus dem Storage Backend gelesen werden zu verifizieren und zu entschlüsseln. 
+  \item Secret Backend: Das Secret Backend ist dafür Zuständig auf Anfrage ein angefordertes Geheimnis preiszugeben. Bei einigen Systemen ist der Prozess statisch organisiert. Das bedeutet, dass bei der gleichen Anfrage immer die gleiche Rückgabe zu erwarten ist. Andere Systeme arbeiten hier etwas komplexer, sie sind dazu in der Lage dynamische Zugangsdaten zu erzeugen. Diese Möglichkeit schafft eine zusätzliche Sicherheitsebene. Das Feature steht allerdings nicht für jede Anwendung zur Verfügung
+  \item Client Token: Ein Client Token wird ausgestellt, um einen Client über die dauer einer Sitzung gegenüber Vault zu authentisieren.
+  \item Server: Vault wird als einzelne Binärdatei zur Verfügung gestellt, es kann sowohl als Client als auch als Server ausgeführt werden. Wenn der Server gestartet wurde, kümmert er sich um die Kommunikation mit den Backends und stellt ein API für die Clientinteraktion bereit. Außerdem ist er verantwortlich für die Anwendung der ACLs und den Widerruf abgelaufener Geheimnisse. Neben einigen weiteren Aufgaben erstellt der Server auch ein Log in welchem jede Interaktion mit Vault dokumentiert wird. 
+
+
+
+
+
+
 
 Motivation der Aufgabenstellung
 Vorstellung Projektumgebung
