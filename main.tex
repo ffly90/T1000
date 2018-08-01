@@ -20,7 +20,7 @@ halfparskip,
 \usepackage{ae,aecompl}
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
-%\usepackage{amsmath,amssymb,amstext}
+\usepackage{amsmath,amssymb,amstext}
 \usepackage{psfrag}
 %\usepackage{listings}
 %\lstset{language=Python} 
@@ -35,7 +35,8 @@ halfparskip,
 \usepackage{setspace}
 \usepackage{fancyhdr}
 \usepackage{tablefootnote}
-\usepackage[printonlyused]{acronym}
+\usepackage{acronym}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -118,7 +119,7 @@ halfparskip,
 % \vspace*{3mm} an der Dualen Hochschule Baden-Württemberg\\
 \vspace*{12mm} von\\
 \vspace*{3mm} {\large\bf Steffen Walter}\\
-\vspace*{12mm} 30.08.2018\\
+\vspace*{12mm} 03.09.2018\\
 \end{center}
 \vfill
 \begin{spacing}{1.5}
@@ -179,7 +180,7 @@ Passwörter, geheime Schlüssel oder geheime Dokumente.  In der
 Praxisarbeit soll evaluiert werden welche Anforderungen große Unternehmen
 an ihr Secrets Management stellen und welche Programme dabei häufig zum
 Einsatz kommen.  In einem weiteren Schritt soll festgestellt werden welche
-Anforderungen durch jene Programme, nicht erfüllt werden.  Im Anschluss
+Anforderungen durch jene Programme nicht erfüllt werden.  Im Anschluss
 soll eine vollumfängliche Secrets Management Software daraufhin untersucht
 werden, in wie fern Unzulänglichkeiten von gängiger Software behoben
 werden können.  Es soll auch beleuchtet werden, welche zusätzlichen
@@ -190,7 +191,18 @@ Funktionen getestet werden.
 \newpage
 \thispagestyle{empty}
 
-\large{\textbf{Abstract}}
+\large{\textbf{Abstract}}\\
+\\
+The topic of secrets management is becoming an uprising matter in digital data processing.
+In this report the term of secrets management is mainly used to describe the handling of confidential information.
+Information is considered confidetial, if it can be used to to harm the owner of the secret in any way.  
+Examples for information that meets this criteria would be password, private digital key or simply confidential documents.
+In the paper shall be evaluated which requirements enterprises have for their secrets management and which software is currently used to try and fulfill those needs.
+Subsequently the gaps between requirements and the functional range of the used Software shall be emphasised.
+Furthermore a secrets managemet software with a modern apporoach shall be examined to find out whether or not this software is able to fill in the gaps of the traditional software.
+Also the aspect of cloud environment shall be considered as a factor of importance. 
+To achieve this task a virtual environment shall be implemented to test the features of the chosen software.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -212,6 +224,7 @@ Funktionen getestet werden.
 \section*{Abkürzungsverzeichnis} %%Title for list of acronyms
 \addcontentsline{toc}{section}{Abkürzungsverzeichnis}
 \begin{acronym}
+ \acro{AD}{Active Directory}
  \acro{IT}{Informationstechnik}
  \acro{KRITIS}{Kritische Infrastruktur}
  \acro{OECD}{Organisation für wirtschaftliche Zusammenarbeit und Entwicklung}
@@ -241,12 +254,11 @@ Funktionen getestet werden.
 \label{subsec:ziele}
 
 \subsection{Einführung in das Thema}
-\label{subsec:einführung}
+\label{subsec:einfuehrung}
 Mit der fortschreitenden Digitalisierung nahezu aller Wirtschaftszweige steigt auch die Relevanz für die Absicherung der daraus resultierenden \ac{IT}-Infrastrukturen.
 Zusätzlich zu den eigenen Sicherheitsbelangen des Betreibers einer informationstechnischen Umgebung kommen auch noch gesetzliche Regelungen wie das IT-Sicherheitsgesetz zum Tragen. 
-Vor allem im Bezug auf eine zunehmende Verlagung des \ac{IT}-Betriebs hin zum Cloud-Computing\footnote{Unter Cloud-Computing versteht man die Verwendung scheinbar  unendlicher  
-IT-Ressourcen,  die bedarfsgerecht und flexibel zur Verfügung gestellt werden können. Clouds können in unterschielichen Formen betrieben werden, so gibt es sogenannte private, public und hybrid-Clouds. Sie unterscheiden sich darin ob die Clouddienste auf eigener Infrastruktur, bei einem Cloudhoster oder gemischt betrieben werden.\cite[S. 3]{cloud}} und den damit verbundenen Problemen dezentraler Datenhaltung (vor allem bei den public und hybrid Modellen), entstehen häufig unübersichtliche Sicherheitskonzepte. Durch die große Varianz der Szenarien, vorallem auch in Anbetracht unterschiedlicher Sicherheitsniveaus der Daten sind die verwendeten Konzepte der unterschiedlich.\cite[S. 7f]{risiko}\newline
-Spionage- und Sabotage-Angriffe werden aus den unterschiedlichsten Motivationen und auch von den Unterschielichsten Objekten verübt. So reicht das Spektrum der Angreifer von Kleinkriminellen über Geheimdienste und Terroristen bis hin zur organisierten Kriminalität. Die Aufgabe der \ac{IT}-Sicherheit besteht also darin, die potentiellen Angreifer in ihren Erwägungen zu berücksichtigen und und die Werte und Gemeimisse der Unternehmen zu schützen. Ein zentraler Faktor bei der Entwicklung eines Sicherheitskonzepts auf dieser Grundlage ist es, ein stringentes Konzept zur Kontrolle der Authorisierung\footnote{Zugangsberechtigung} einer Person oder eines Dienstes\footnote{Ein Dienst ist eine autarke Einheit, welche eine spezifierte Aufgabe erfüllt bzw. Funktionaltät zur Verfügung stellt und diese über keine klar definierte Schnittstelle zur Verfügung stellt} auf unterschieliche Bereiche in der zu betreuenden Umgebung. Neben der Authorisierung spielt auch die Authentifizierung\footnote{Identitätsnachweis}, denn es muss zu jedem Zeitpunkt sichergestellt werden, dass die Authorisierung auch der richtigen Person oder Anwendung übertragen wurde.\cite[S. 9]{risiko} 
+Vor allem im Bezug auf eine zunehmende Verlagung des \ac{IT}-Betriebs hin zum Cloud-Computing und den damit verbundenen Problemen dezentraler Datenhaltung (vor allem bei den public und hybrid Modellen), entstehen häufig unübersichtliche Sicherheitskonzepte. Durch die große Varianz der Szenarien, vorallem auch in Anbetracht unterschiedlicher Sicherheitsniveaus der Daten sind die verwendeten Konzepte der unterschiedlich.\cite[S. 7f]{risiko}\newline
+Spionage- und Sabotage-Angriffe werden aus den unterschiedlichsten Motivationen und auch von den Unterschielichsten Objekten verübt. So reicht das Spektrum der Angreifer von Kleinkriminellen über Geheimdienste und Terroristen bis hin zur organisierten Kriminalität. Die Aufgabe der \ac{IT}-Sicherheit besteht also darin, die potentiellen Angreifer in ihren Erwägungen zu berücksichtigen und und die Werte und Gemeimisse der Unternehmen zu schützen. Ein zentraler Faktor bei der Entwicklung eines Sicherheitskonzepts auf dieser Grundlage ist es, ein stringentes Konzept zur Kontrolle der Autorisierung einer Person oder eines Dienstes auf unterschieliche Bereiche in der zu betreuenden Umgebung. Neben der Autorisierung spielt auch die Authentifizierung, denn es muss zu jedem Zeitpunkt sichergestellt werden, dass die Autorisierung auch der richtigen Person oder Anwendung übertragen wurde.\cite[S. 9]{risiko} 
 Der Aufwand welcher für \ac{IT}-Sicherheitskonzept betrieben wird bemisst sich meistens am Schaden, der zu erwarten ist, sollten geheime Daten in die Hände Dritter gelangen. Da es kaum verlässliche Daten zur Quantität der Kosten gibt, die durch einen kritischen Sicherheitsvorfall verursacht werden, ist die daran orientierte Bemessung der Sicherheitsvorkehrungen umstritten. Generell gibt es verschiedene Faktoren die bei der qualitativen Kostenabschätzung berücksichtigt werden müssen, so wird im allgemeinen zwischen direkten und indirekten Kosten unterschieden.\cite[S. 12]{kosten}
 \subsubsection{Direkte Kosten}
 Die direkten Kosten die durch Wirtschaftsspionage entstehen können bemessen sich zu allererst einmal an dem direkten Wert des gestohlenen Eigentums. Dieser Wert lässt sich ermitteln durch den finanziellen Gegenwert, den das Eigentum hat und an den zu erwartenden Gewinneinbußen durch den Verlust (der Exklusivität) des Eigentums. Weiterhin entstehen direkte Kosten durch die das Desaster-Recovery, das heißt durch die Schritte die eingeleitet werden müssen um den Status Quo wieder herzustellen. Zu guter Letzt werden auch noch diejenigen Kosten hinzugezählt, die durch die Prävention einer Widerholung des Ereignisses entstehen, dazu zählen Prozessänderungen, Sicherheitsunterweisungen und weitere direkte Maßnahmen.\cite[S. 13]{kosten}
@@ -256,32 +268,69 @@ Zu den indirekten Kosten werden vor allem die Umsatzausfälle durch Image- und M
 Nach Schätzungen der \ac{OECD} belaufen sich die Schäden durch Fälschungen und Produktpiraterie weltweit auf 638 Milliarden US-Dollar pro Jahr. Die Schätzungen diesbezüglich gehen aber weit auseinander. Es scheint jedoch Sicher zu sein, dass Sich die Schäden im dreistelligen Milliardenberich bewegen. Für die deutsche Wirtschaft liegen die Schätzungen zwischen 20 und 50 Milliarden Euro.\cite[S. 16f]{kosten}
 \subsubsection{Anforderung an Sicherheitssoftware}
 \label{subsubsec:anforderung}
-Spezifische Anforderungen die an eine Sicherheitssoftware gestellt werden finden können wie folgt zusammengefasst werden:
+Spezifische Anforderungen die an eine Software zum Secrets Management gestellt werden, können wie folgt zusammengefasst werden:
 
 \begin{itemize}
-  \item Auffindbarkeit - Es muss zu jedem Zeitpunkt klar sein, wo sich Secrets im Unternehmen befinden 
-  \item Nachvollziebarkeit - Es muss möglich sein, Verantwortliche zu nennen 
-  \item Break Glass Szenario - Es muss einen Weg geben, im Fall eines Angriffs den Schaden einzugrenzen 
-  \item Verfügarkeit - Daten müssen jederzeit zugänglich sein 
-  \item Integrität - Daten müssen immer vollständig und korrekt sein  
-  \item Verlässlichkeit - Daten müssen authentisch sein, Kommunikationswege nachvollziehbar 
-  \item Vertraulichkeit - Der Zugriff auf Daten soll nur dann möglich sein, wenn die betroffene Person/Maschine berechtigt ist (minimale Berechtigungsvergabe)
-  \item Usability - Einfacher Zugriff von Mensch und Maschine 
-  \item Informationenklassifizierung - Informationen sollen dem Schutzniveau entsprechend geschützt werden 
-  \item Sichere Anmeldeverfahren müssen zur Verfügung stehen 
-  \item Credential Management Systeme zur sicheren Erstellung, Speicherung und Änderung sollen zur verfügung stehen 
-  \item Das Risiko, dass kompromittierte Verschlüsselung zum Verlust oder dem unberechtigten Offenlegen von Informationen führt, muss kontrollierbar sein
+  \item Auffindbarkeit - Es muss zu jedem Zeitpunkt klar sein, wo sich Secrets im Unternehmen befinden.
+  \item Nachvollziebarkeit - Es muss möglich sein, Verantwortliche zu nennen.
+  \item Break Glass Szenario - Es muss einen Weg geben, im Fall eines Angriffs den Schaden einzugrenzen.
+  \item Verfügarkeit - Daten müssen jederzeit zugänglich sein.
+  \item Integrität - Daten müssen immer vollständig und korrekt sein.
+  \item Verlässlichkeit - Daten müssen authentisch sein, Kommunikationswege nachvollziehbar.
+  \item Autorisierung - Der Zugriff auf Daten soll nur dann möglich sein, wenn die betroffene Person/Maschine berechtigt ist (minimale Berechtigungsvergabe).
+  \item Benutzerfreundlichkeit - Einfacher Zugriff von Mensch und Maschine.
+  \item Authentifizierung - Sichere Anmeldeverfahren müssen zur Verfügung stehen.
+  \item Credential Management Systeme zur sicheren Erstellung, Speicherung und Änderung sollen zur verfügung stehen.
+  \item Das Risiko, dass kompromittierte Verschlüsselung zum Verlust oder dem unberechtigten Offenlegen von Informationen führt, muss kontrollierbar sein.
 \end{itemize}
 
 Rechtliche Aspekte werden durch den Vorliegenden Bericht nicht weiter beleuchtet.\footnote{Die Inhalte aus \autoref{subsubsec:anforderung} wurden in Anlehung an interne Dokumenten eines großen Unternehmens und Gesprächen mit \ac{IT}-Administratoren erarbeitet}
 
 \subsection{Stand der Technik}
 \label{subsec:stand}
-Um die in \autoref{subsec:einführung} beschriebenen Themenkomplexe der Authorisierung und Authentifizierung in Frimenumgebungen umzusetzten gibt es verschiedene Ansätze. Im folgenden sollen einige gängige Softwareprodukte, die die genannten Aufgaben erfüllen sollen vorgestellt und auf ihre Tauglichkeit zur vollumfänglichen Erfüllung der in \autoref{subsubsec:anforderung} beschriebenen Anforderung untersucht.
-\subsection{Microsoft Active Directory}
-\subsection{KeePassX}
-\subsection{CyberArk}
-\subsection{Hashicorp Vault}
+Um die in \autoref{subsec:einfuehrung} beschriebenen Themenkomplexe der Autorisierung und Authentifizierung in Frimenumgebungen umzusetzten gibt es verschiedene Ansätze. Im folgenden sollen einige gängige Softwareprodukte, die die genannten Aufgaben erfüllen sollen vorgestellt und auf ihre Tauglichkeit zur vollumfänglichen Erfüllung der in \autoref{subsubsec:anforderung} beschriebenen Anforderung untersucht.
+\begin{table}[h]
+\centering
+
+  \begin{tabular}{|l|c|c|c|}
+  \hline
+  \textbf{Funktion} & \textbf{Kerberos} & \textbf{Pleasant Pass-} & \textbf{Hashicorp}\\
+  Näheres: & & \textbf{word Server} & \textbf{Vault} \\
+  \autoref{subsubsec:anforderung} & & (Multi-User KeePass) &\\
+  \hline
+  \hline
+  Auffindbarkeit & \checkmark & \checkmark & \checkmark\\
+  \hline
+  Nachvollziebarkeit & $\times$ & \checkmark & \checkmark\\
+  \hline  
+  Break Glass Szenario & $\times$ & $\times$ & \checkmark\\
+  \hline
+  Verfügbarkeit & \checkmark & \checkmark & \checkmark\\
+  \hline
+  Integrität & \checkmark & \checkmark & \checkmark\\
+  \hline
+  Verlässlichkeit & \checkmark & ? & \checkmark\\
+  \hline
+  Autorisierung & $\times$ & \checkmark & \checkmark\\
+  \hline
+  Authentifizierung & \checkmark & \checkmark & \checkmark\\
+  \hline
+  Credential Management & \checkmark & \checkmark & \checkmark\\
+  \hline
+  Kontrollierbarkeit & $\times$ & \checkmark & \checkmark\\
+  \hline
+  \end{tabular}
+\caption[Softwarevergleich]{Vergleich verschiedener Softwareprodukte\cite[S. 4f, 13, 57 ]{kerberos}\cite{pleasant}\cite{vault}Die Programme werden in unterschieldichen Versionen angeboten. Einige der beschriebenen Funktionen stehen möglicherweise in der kostenfreien Version nicht zur Verfügung.}
+\end{table}
+
+\subsubsection{Microsoft \acf{AD}}
+
+
+
+
+\subsubsection{KeePassX}
+\subsubsection{CyberArk}
+\subsubsection{Hashicorp Vault}
 
 Funktionen von Vault:
 
@@ -298,7 +347,7 @@ Die Komponenten von Vault:
   \item Secret Backend: Das Secret Backend ist dafür Zuständig auf Anfrage ein angefordertes Geheimnis preiszugeben. Bei einigen Systemen ist der Prozess statisch organisiert. Das bedeutet, dass bei der gleichen Anfrage immer die gleiche Rückgabe zu erwarten ist. Andere Systeme arbeiten hier etwas komplexer, sie sind dazu in der Lage dynamische Zugangsdaten zu erzeugen. Diese Möglichkeit schafft eine zusätzliche Sicherheitsebene. Das Feature steht allerdings nicht für jede Anwendung zur Verfügung
   \item Client Token: Ein Client Token wird ausgestellt, um einen Client über die dauer einer Sitzung gegenüber Vault zu authentisieren.
   \item Server: Vault wird als einzelne Binärdatei zur Verfügung gestellt, es kann sowohl als Client als auch als Server ausgeführt werden. Wenn der Server gestartet wurde, kümmert er sich um die Kommunikation mit den Backends und stellt ein API für die Clientinteraktion bereit. Außerdem ist er verantwortlich für die Anwendung der ACLs und den Widerruf abgelaufener Geheimnisse. Neben einigen weiteren Aufgaben erstellt der Server auch ein Log in welchem jede Interaktion mit Vault dokumentiert wird. 
-
+\end{itemize}
 
 
 
@@ -310,7 +359,7 @@ Vorstellung Projektumgebung
 Vorausblick
 
 \section{Hauptteil}
-\label{sec:Hauptteil}
+\label{sec:hauptteil}
 
 Teil 1
 Theoretische Ausarbeitung als Vorarbeit zur Durchführung
@@ -326,8 +375,32 @@ Umsetzung
 \section{Zusammenfassung und Ausblick}
 \label{sec:ausblick}
 
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+%%% glossary
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 
+\pagestyle{fancy}
+\fancyhf{} %% clear all previous settings
+\fancyhead[R]{\thepage} %% pagenumber in the upper right corner
+\fancyhead[L]{GLOSSAR} %% section description in the upper left corner
 
+\section*{Glossar} 
+\addcontentsline{toc}{section}{Glossar}
+\begin{acronym}
+ \acro{Authentifizierung}{der Identitätsnachweis einer Person, Maschine oder eines Dienstes, gegenüber einer weiteren Instanz} 
+ \acro{Autorisierung}{die explizite Freigabe um auf einen geheimen Inhalt zuzugreifen}
+ \acro{Cloud-Computing} {die Verwendung scheinbar  unendlicher IT-Ressourcen,  die bedarfsgerecht und flexibel zur Verfügung gestellt werden können. Clouds können in unterschielichen Formen betrieben werden, so gibt es sogenannte private, public und hybrid-Clouds. Sie unterscheiden sich darin ob die Clouddienste auf eigener Infrastruktur, bei einem Cloudhoster oder gemischt betrieben werden.\cite[S. 3]{cloud}}
+ \acro{Dienst}{eine autarke Einheit, welche eine spezifizierte Aufgabe bzw. Funktionalitaet erfuellt und diese ueber keine klar definierte Schnittstelle zur Verfuegung stellt}
+\end{acronym}
+
+\newpage
+\pagestyle{fancy}
+\fancyhf{} %% clear all previous settings
+\fancyhead[R]{\thepage} %% pagenumber in the upper right corner
+\fancyhead[L]{\leftmark} %% section description in the upper left corner
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% end main document
@@ -336,7 +409,6 @@ Umsetzung
 
 \appendix
 \bibliographystyle{plain}
-\newpage
 \bibliography{literatur}
 
 \end{onehalfspacing}
