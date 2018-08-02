@@ -181,7 +181,7 @@ Praxisarbeit soll evaluiert werden welche Anforderungen große Unternehmen
 an ihr Secrets Management stellen und welche Programme dabei häufig zum
 Einsatz kommen.  In einem weiteren Schritt soll festgestellt werden welche
 Anforderungen durch jene Programme nicht erfüllt werden.  Im Anschluss
-soll eine vollumfängliche Secrets Management Software daraufhin untersucht
+soll eine voll umfängliche Secrets Management Software daraufhin untersucht
 werden, in wie fern Unzulänglichkeiten von gängiger Software behoben
 werden können.  Es soll auch beleuchtet werden, welche zusätzlichen
 Anforderungen Cloud Umgebungen mit sich bringen.  Hierbei zu beachten ist,
@@ -195,11 +195,11 @@ Funktionen getestet werden.
 \\
 The topic of secrets management is becoming an uprising matter in digital data processing.
 In this report the term of secrets management is mainly used to describe the handling of confidential information.
-Information is considered confidetial, if it can be used to to harm the owner of the secret in any way.  
+Information is considered confidential, if it can be used to to harm the owner of the secret in any way.  
 Examples for information that meets this criteria would be password, private digital key or simply confidential documents.
 In the paper shall be evaluated which requirements enterprises have for their secrets management and which software is currently used to try and fulfill those needs.
-Subsequently the gaps between requirements and the functional range of the used Software shall be emphasised.
-Furthermore a secrets managemet software with a modern apporoach shall be examined to find out whether or not this software is able to fill in the gaps of the traditional software.
+Subsequently the gaps between requirements and the functional range of the used Software shall be emphasized.
+Furthermore a secrets management software with a modern approach shall be examined to find out whether or not this software is able to fill in the gaps of traditional software.
 Also the aspect of cloud environment shall be considered as a factor of importance. 
 To achieve this task a virtual environment shall be implemented to test the features of the chosen software.
 
@@ -227,12 +227,39 @@ To achieve this task a virtual environment shall be implemented to test the feat
  \acro{AD}{Active Directory}
  \acro{IT}{Informationstechnik}
  \acro{KRITIS}{Kritische Infrastruktur}
+ \acro{MIT}{Massachusetts Institute of Technology}
  \acro{OECD}{Organisation für wirtschaftliche Zusammenarbeit und Entwicklung}
 \end{acronym}
 \listoffigures
 \listoftables
-\setcounter{table}{0} %% sets tabel counter to 0 to ignore table from frontpage
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+%%% glossary
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
+
+\pagestyle{fancy}
+\fancyhf{} %% clear all previous settings
+\fancyhead[R]{\thepage} %% pagenumber in the upper right corner
+\fancyhead[L]{GLOSSAR} %% section description in the upper left corner
+
+\section*{Glossar} 
+\addcontentsline{toc}{section}{Glossar}
+\begin{acronym}
+	\acro{Authentifizierung:}{der Identitätsnachweis einer Person, Maschine oder eines Dienstes, gegenüber einer weiteren Instanz} 
+	\acro{Autorisierung:}{die explizite Freigabe um auf einen geheimen Inhalt zuzugreifen}
+	\acro{Cloud-Computing:} {die Verwendung scheinbar  unendlicher IT-Ressourcen,  die bedarfsgerecht und flexibel zur Verfügung gestellt werden können. Clouds können in unterschielichen Formen betrieben werden, so gibt es sogenannte private, public und hybrid-Clouds. Sie unterscheiden sich darin ob die Clouddienste auf eigener Infrastruktur, bei einem Cloudhoster oder gemischt betrieben werden.\cite[S. 3]{cloud}}
+	\acro{Dienst:}{eine autarke Einheit, welche eine spezifizierte Aufgabe bzw. Funktionalitaet erfuellt und diese ueber keine klar definierte Schnittstelle zur Verfuegung stellt}
+	\acro{Skalierbarkeit:}{beschreibt die Fähigkeit eines Systems zur flexiblen Änderung ihrer Größe. Der Begriff wird meist dann verwendet wenn es um ein Ausweitung des gefragten Systems geht.}
+\end{acronym}
+
+\newpage
+\pagestyle{fancy}
+\fancyhf{} %% clear all previous settings
+\fancyhead[R]{\thepage} %% pagenumber in the upper right corner
+\fancyhead[L]{\leftmark} %% section description in the upper left corner
+\setcounter{table}{0} %% sets tabel counter to 0 to ignore table from frontpage
 \begin{onehalfspacing} %% set space between lines to 1.5
 \pagestyle{fancy}
 \fancyhf{} %% remove all previous settings
@@ -257,41 +284,41 @@ To achieve this task a virtual environment shall be implemented to test the feat
 \label{subsec:einfuehrung}
 Mit der fortschreitenden Digitalisierung nahezu aller Wirtschaftszweige steigt auch die Relevanz für die Absicherung der daraus resultierenden \ac{IT}-Infrastrukturen.
 Zusätzlich zu den eigenen Sicherheitsbelangen des Betreibers einer informationstechnischen Umgebung kommen auch noch gesetzliche Regelungen wie das IT-Sicherheitsgesetz zum Tragen. 
-Vor allem im Bezug auf eine zunehmende Verlagung des \ac{IT}-Betriebs hin zum Cloud-Computing und den damit verbundenen Problemen dezentraler Datenhaltung (vor allem bei den public und hybrid Modellen), entstehen häufig unübersichtliche Sicherheitskonzepte. Durch die große Varianz der Szenarien, vorallem auch in Anbetracht unterschiedlicher Sicherheitsniveaus der Daten sind die verwendeten Konzepte der unterschiedlich.\cite[S. 7f]{risiko}\newline
-Spionage- und Sabotage-Angriffe werden aus den unterschiedlichsten Motivationen und auch von den Unterschielichsten Objekten verübt. So reicht das Spektrum der Angreifer von Kleinkriminellen über Geheimdienste und Terroristen bis hin zur organisierten Kriminalität. Die Aufgabe der \ac{IT}-Sicherheit besteht also darin, die potentiellen Angreifer in ihren Erwägungen zu berücksichtigen und und die Werte und Gemeimisse der Unternehmen zu schützen. Ein zentraler Faktor bei der Entwicklung eines Sicherheitskonzepts auf dieser Grundlage ist es, ein stringentes Konzept zur Kontrolle der Autorisierung einer Person oder eines Dienstes auf unterschieliche Bereiche in der zu betreuenden Umgebung. Neben der Autorisierung spielt auch die Authentifizierung, denn es muss zu jedem Zeitpunkt sichergestellt werden, dass die Autorisierung auch der richtigen Person oder Anwendung übertragen wurde.\cite[S. 9]{risiko} 
+Vor allem im Bezug auf eine zunehmende Verlagerung des \ac{IT}-Betriebs hin zum Cloud-Computing und den damit verbundenen Problemen dezentraler Datenhaltung (vor allem bei den public und hybrid Modellen), entstehen häufig unübersichtliche Sicherheitskonzepte. Durch die große Varianz der Szenarien, vor allem auch in Anbetracht unterschiedlicher Sicherheitsniveaus der Daten sind die verwendeten Konzepte der unterschiedlich.\cite[S. 7f]{risiko}\newline
+Spionage- und Sabotage-Angriffe werden aus den unterschiedlichsten Motivationen und auch von den Unterschiedlichsten Objekten verübt. So reicht das Spektrum der Angreifer von Kleinkriminellen über Geheimdienste und Terroristen bis hin zur organisierten Kriminalität. Die Aufgabe der \ac{IT}-Sicherheit besteht also darin, die potentiellen Angreifer in ihren Erwägungen zu berücksichtigen und und die Werte und Geheimnisse der Unternehmen zu schützen. Ein zentraler Faktor bei der Entwicklung eines Sicherheitskonzepts auf dieser Grundlage ist es, ein stringentes Konzept zur Kontrolle der Autorisierung einer Person oder eines Dienstes auf unterschiedliche Bereiche in der zu betreuenden Umgebung. Neben der Autorisierung spielt auch die Authentifizierung, denn es muss zu jedem Zeitpunkt sichergestellt werden, dass die Autorisierung auch der richtigen Person oder Anwendung übertragen wurde.\cite[S. 9]{risiko} 
 Der Aufwand welcher für \ac{IT}-Sicherheitskonzept betrieben wird bemisst sich meistens am Schaden, der zu erwarten ist, sollten geheime Daten in die Hände Dritter gelangen. Da es kaum verlässliche Daten zur Quantität der Kosten gibt, die durch einen kritischen Sicherheitsvorfall verursacht werden, ist die daran orientierte Bemessung der Sicherheitsvorkehrungen umstritten. Generell gibt es verschiedene Faktoren die bei der qualitativen Kostenabschätzung berücksichtigt werden müssen, so wird im allgemeinen zwischen direkten und indirekten Kosten unterschieden.\cite[S. 12]{kosten}
 \subsubsection{Direkte Kosten}
-Die direkten Kosten die durch Wirtschaftsspionage entstehen können bemessen sich zu allererst einmal an dem direkten Wert des gestohlenen Eigentums. Dieser Wert lässt sich ermitteln durch den finanziellen Gegenwert, den das Eigentum hat und an den zu erwartenden Gewinneinbußen durch den Verlust (der Exklusivität) des Eigentums. Weiterhin entstehen direkte Kosten durch die das Desaster-Recovery, das heißt durch die Schritte die eingeleitet werden müssen um den Status Quo wieder herzustellen. Zu guter Letzt werden auch noch diejenigen Kosten hinzugezählt, die durch die Prävention einer Widerholung des Ereignisses entstehen, dazu zählen Prozessänderungen, Sicherheitsunterweisungen und weitere direkte Maßnahmen.\cite[S. 13]{kosten}
+Die direkten Kosten die durch Wirtschaftsspionage entstehen können bemessen sich zu allererste einmal an dem direkten Wert des gestohlenen Eigentums. Dieser Wert lässt sich ermitteln durch den finanziellen Gegenwert, den das Eigentum hat und an den zu erwartenden Gewinneinbußen durch den Verlust (der Exklusivität) des Eigentums. Weiterhin entstehen direkte Kosten durch die das Desaster-Recovery, das heißt durch die Schritte die eingeleitet werden müssen um den Status Quo wieder herzustellen. Zu guter Letzt werden auch noch diejenigen Kosten hinzugezählt, die durch die Prävention einer Wiederholung des Ereignisses entstehen, dazu zählen Prozessänderungen, Sicherheitsunterweisungen und weitere direkte Maßnahmen.\cite[S. 13]{kosten}
 \subsubsection{Indirekte Kosten}
 Zu den indirekten Kosten werden vor allem die Umsatzausfälle durch Image- und Markenschäden gezählt. Außerdem entstehen hohe Umsatzeinbußen durch Plagiate welche in folge des Gestohlenen Eigentums verbreitet werden können. Plagiate können deutlich günstiger angeboten werden, da die Kosten für Forschung und Entwicklung nicht in den Preis eingerechnet werden müssen.\cite[S. 14]{kosten}
-\subsubsection{Versuch einer Quntifizierung}
-Nach Schätzungen der \ac{OECD} belaufen sich die Schäden durch Fälschungen und Produktpiraterie weltweit auf 638 Milliarden US-Dollar pro Jahr. Die Schätzungen diesbezüglich gehen aber weit auseinander. Es scheint jedoch Sicher zu sein, dass Sich die Schäden im dreistelligen Milliardenberich bewegen. Für die deutsche Wirtschaft liegen die Schätzungen zwischen 20 und 50 Milliarden Euro.\cite[S. 16f]{kosten}
+\subsubsection{Versuch einer Quantifizierung}
+Nach Schätzungen der \ac{OECD} belaufen sich die Schäden durch Fälschungen und Produktpiraterie weltweit auf 638 Milliarden US-Dollar pro Jahr. Die Schätzungen diesbezüglich gehen aber weit auseinander. Es scheint jedoch Sicher zu sein, dass Sich die Schäden im dreistelligen Milliardenbereich bewegen. Für die deutsche Wirtschaft liegen die Schätzungen zwischen 20 und 50 Milliarden Euro.\cite[S. 16f]{kosten}
 \subsubsection{Anforderung an Sicherheitssoftware}
 \label{subsubsec:anforderung}
 Spezifische Anforderungen die an eine Software zum Secrets Management gestellt werden, können wie folgt zusammengefasst werden:
 
 \begin{itemize}
   \item Auffindbarkeit - Es muss zu jedem Zeitpunkt klar sein, wo sich Secrets im Unternehmen befinden.
-  \item Nachvollziebarkeit - Es muss möglich sein, Verantwortliche zu nennen.
+  \item Nachvollziehbarkeit - Es muss möglich sein, Verantwortliche zu nennen.
   \item Break Glass Szenario - Es muss einen Weg geben, im Fall eines Angriffs den Schaden einzugrenzen.
-  \item Verfügarkeit - Daten müssen jederzeit zugänglich sein.
+  \item Verfügbarkeit - Daten müssen jederzeit zugänglich sein.
   \item Integrität - Daten müssen immer vollständig und korrekt sein.
   \item Verlässlichkeit - Daten müssen authentisch sein, Kommunikationswege nachvollziehbar.
   \item Autorisierung - Der Zugriff auf Daten soll nur dann möglich sein, wenn die betroffene Person/Maschine berechtigt ist (minimale Berechtigungsvergabe).
   \item Benutzerfreundlichkeit - Einfacher Zugriff von Mensch und Maschine.
   \item Authentifizierung - Sichere Anmeldeverfahren müssen zur Verfügung stehen.
-  \item Credential Management Systeme zur sicheren Erstellung, Speicherung und Änderung sollen zur verfügung stehen.
+  \item Credential Management Systeme zur sicheren Erstellung, Speicherung und Änderung sollen zur Verfügung stehen.
   \item Das Risiko, dass kompromittierte Verschlüsselung zum Verlust oder dem unberechtigten Offenlegen von Informationen führt, muss kontrollierbar sein.
 \end{itemize}
 
-Rechtliche Aspekte werden durch den Vorliegenden Bericht nicht weiter beleuchtet.\footnote{Die Inhalte aus \autoref{subsubsec:anforderung} wurden in Anlehung an interne Dokumenten eines großen Unternehmens und Gesprächen mit \ac{IT}-Administratoren erarbeitet}
+Rechtliche Aspekte werden durch den Vorliegenden Bericht nicht weiter beleuchtet.\footnote{Die Inhalte aus \autoref{subsubsec:anforderung} wurden in Anlehnung an interne Dokumenten eines großen Unternehmens und Gesprächen mit \ac{IT}-Administratoren erarbeitet}
 
-\subsection{Stand der Technik}
+\section{Stand der Technik}
 \label{subsec:stand}
-Um die in \autoref{subsec:einfuehrung} beschriebenen Themenkomplexe der Autorisierung und Authentifizierung in Frimenumgebungen umzusetzten gibt es verschiedene Ansätze. Im folgenden sollen einige gängige Softwareprodukte, die die genannten Aufgaben erfüllen sollen vorgestellt und auf ihre Tauglichkeit zur vollumfänglichen Erfüllung der in \autoref{subsubsec:anforderung} beschriebenen Anforderung untersucht.
+Um die in \autoref{subsec:einfuehrung} beschriebenen Themenkomplexe der Autorisierung und Authentifizierung in Firmenumgebungen umzusetzen gibt es verschiedene Ansätze. Im folgenden sollen einige gängige Softwareprodukte, die die genannten Aufgaben erfüllen sollen vorgestellt und auf ihre Tauglichkeit zur voll umfänglichen Erfüllung der in \autoref{subsubsec:anforderung} beschriebenen Anforderung untersucht.
 \begin{table}[h]
+\label{tab:vergleich}
 \centering
-
   \begin{tabular}{|l|c|c|c|}
   \hline
   \textbf{Funktion} & \textbf{Kerberos} & \textbf{Pleasant Pass-} & \textbf{Hashicorp}\\
@@ -320,17 +347,30 @@ Um die in \autoref{subsec:einfuehrung} beschriebenen Themenkomplexe der Autorisi
   Kontrollierbarkeit & $\times$ & \checkmark & \checkmark\\
   \hline
   \end{tabular}
-\caption[Softwarevergleich]{Vergleich verschiedener Softwareprodukte\cite[S. 4f, 13, 57 ]{kerberos}\cite{pleasant}\cite{vault}Die Programme werden in unterschieldichen Versionen angeboten. Einige der beschriebenen Funktionen stehen möglicherweise in der kostenfreien Version nicht zur Verfügung.}
+\caption[Softwarevergleich]{Vergleich verschiedener Softwareprodukte\cite[S. 4f, 13, 57 ]{kerberos}\cite{pleasant}\cite{vault}}
 \end{table}
+Die Programme werden in unterschiedlichen Versionen angeboten. Einige der beschriebenen Funktionen stehen möglicherweise in der kostenfreien Version nicht zur Verfügung.
 
-\subsubsection{Microsoft \acf{AD}}
+\subsubsection{Kerberos}
+Der Name Kerberos kommt ursprünglich aus der griechischen Mythologie, wo er für den dreiköpfigen Hund verwendet wurde, der den Eingang zu Unterwelt bewacht. 
+Das Projekt wurde in den achtziger Jahren am \ac{MIT} ins als Teil des sogenannten Athena-Projekts ins Leben gerufen. Die großen Stärken von Kerberos liegen in der Authentifizierung und der verschlüsselten Nachrichtenübermittlung. Schon zu Beginn des Projekts lag, neben den Sicherheitsaspekten, der Fokus ganz klar auf der Skalierbarkeit des Systems. 
+Verschlüsselt wird mit symmetrischer Verschlüsselung und einem vorher vereinbarten geheimen Schlüssel. Kerberos unterstützt inzwischen auch den Einsatz von Passwörtern, ist dafür aber ursprünglich nicht entwickelt worden. 
+Mit diesen Grundfunktionen kann eine relative sichere und authentisierte Kommunikation zwischen Nutzer und Dienst in einem Umfangreichen Netzwerk gewährleistet werden.\newline
+Durch die Tatsachen, dass die Software unter einer Open-Source-Lizenz veröffentlicht wurde, können Sicherheitslücken schnell aufgespürt und behoben werden. Außerdem ist es dadurch möglich, dass Unterschildleiche Unternehmen an dem Code mitarbeiten und diesen ständig verbessern und dies geschieht auch zum Beispiel durch Microsoft. Kerberos kommt heutzutage selten als Einzelsystem vor, sondern es wird entweder mit anderen Softwarekomponenten kombiniert, oder es kommt als Bestandteil einer umfangreicheren Software wie zum Beispiel Microsoft \ac{AD} vor.\cite[S. 137f]{kerberos2}\newline
+Die Authentifizierung mit Kerberos wird über sogenannte Tickets organisiert. Der Client fordert ein Ticket beim Authentifizierungsserver an. Der Authentifizierungsserver verschlüsselt anschließend das Ticket mit dem Schlüssel des Clients und dem Schlüssel des gewünschten Dienstes. Mit diesem Ticket kann der Client sich nun mit dem gewünschten Dienst verbinden und es ist gewährleistet, dass sowohl der Dienst, als auch der Client diejenigen sind für die sie sich ausgeben. Der Zugrundeliegende Ablauf wird in \autoref{fig:kerb} nochmal genauer und anschaulicher gezeigt.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{kerberos.png}
+	\caption[Kerberos]{Authentifizierung mit Kerberberos \cite[vgl. S.140]{kerberos2}}
+	\label{fig:kerb}
+\end{figure}
+Kritisch im Zusammenhang mit Kerberos ist die Fokussierung auf einen Zentralen Server, dieser muss so dimensioniert sein, dass er alle Anfragen verarbeiten kann und, dass durch einen Hardwaredefekt der Betrieb nicht stoppt. Ein weiterer Nachteil ist die fehlende Verschlüsselung des Netzwerkverkehrs. Außerdem werden Sitzungsschlüssel zwischenzeitlich auf dem Client gespeichert und sind so ein leichtes Ziel für Angreifer die Zugriff auf die Clientmaschine haben. Es kann ebenfalls kritisiert werden, dass die Änderung eines Nutzerpassworts immer mit der Änderung des geheimen Schlüssels einhergeht.\newline
+Im allgemeinen macht Kerberos aber genau das was es soll und seine Popularität zeigt auch, dass es diese Aufgabe sehr zufriedenstellend löst.
 
-
-
-
-\subsubsection{KeePassX}
+\subsubsection{Pleasant Password Server}
 \subsubsection{CyberArk}
 \subsubsection{Hashicorp Vault}
+\subsubsection{Das Passwort als Problem}
 
 Funktionen von Vault:
 
@@ -375,32 +415,7 @@ Umsetzung
 \section{Zusammenfassung und Ausblick}
 \label{sec:ausblick}
 
-%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%
-%%% glossary
-%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
 
-\pagestyle{fancy}
-\fancyhf{} %% clear all previous settings
-\fancyhead[R]{\thepage} %% pagenumber in the upper right corner
-\fancyhead[L]{GLOSSAR} %% section description in the upper left corner
-
-\section*{Glossar} 
-\addcontentsline{toc}{section}{Glossar}
-\begin{acronym}
- \acro{Authentifizierung}{der Identitätsnachweis einer Person, Maschine oder eines Dienstes, gegenüber einer weiteren Instanz} 
- \acro{Autorisierung}{die explizite Freigabe um auf einen geheimen Inhalt zuzugreifen}
- \acro{Cloud-Computing} {die Verwendung scheinbar  unendlicher IT-Ressourcen,  die bedarfsgerecht und flexibel zur Verfügung gestellt werden können. Clouds können in unterschielichen Formen betrieben werden, so gibt es sogenannte private, public und hybrid-Clouds. Sie unterscheiden sich darin ob die Clouddienste auf eigener Infrastruktur, bei einem Cloudhoster oder gemischt betrieben werden.\cite[S. 3]{cloud}}
- \acro{Dienst}{eine autarke Einheit, welche eine spezifizierte Aufgabe bzw. Funktionalitaet erfuellt und diese ueber keine klar definierte Schnittstelle zur Verfuegung stellt}
-\end{acronym}
-
-\newpage
-\pagestyle{fancy}
-\fancyhf{} %% clear all previous settings
-\fancyhead[R]{\thepage} %% pagenumber in the upper right corner
-\fancyhead[L]{\leftmark} %% section description in the upper left corner
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% end main document
