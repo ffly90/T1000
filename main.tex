@@ -251,6 +251,7 @@ To achieve this task a virtual environment shall be implemented to test the feat
 	\acro{Autorisierung:}{die explizite Freigabe um auf einen geheimen Inhalt zuzugreifen}
 	\acro{Cloud-Computing:} {die Verwendung scheinbar  unendlicher IT-Ressourcen,  die bedarfsgerecht und flexibel zur Verfügung gestellt werden können. Clouds können in unterschielichen Formen betrieben werden, so gibt es sogenannte private, public und hybrid-Clouds. Sie unterscheiden sich darin ob die Clouddienste auf eigener Infrastruktur, bei einem Cloudhoster oder gemischt betrieben werden.\cite[S. 3]{cloud}}
 	\acro{Dienst:}{eine autarke Einheit, welche eine spezifizierte Aufgabe bzw. Funktionalitaet erfuellt und diese ueber keine klar definierte Schnittstelle zur Verfuegung stellt}
+	\acro{KeePass Passwort Safe}{ist ein quelloffener Passwortmanager, dazu designed wurde viele Passörter auf sichere Art und Weise zu speichern. Der Zugang zu diesem Passwortsafe wird allein durch ein einziges Masterpasswort gewährt.}
 	\acro{Skalierbarkeit:}{beschreibt die Fähigkeit eines Systems zur flexiblen Änderung ihrer Größe. Der Begriff wird meist dann verwendet wenn es um ein Ausweitung des gefragten Systems geht.}
 \end{acronym}
 
@@ -357,21 +358,28 @@ Das Projekt wurde in den achtziger Jahren am \ac{MIT} ins als Teil des sogenannt
 Verschlüsselt wird mit symmetrischer Verschlüsselung und einem vorher vereinbarten geheimen Schlüssel. Kerberos unterstützt inzwischen auch den Einsatz von Passwörtern, ist dafür aber ursprünglich nicht entwickelt worden. 
 Mit diesen Grundfunktionen kann eine relative sichere und authentisierte Kommunikation zwischen Nutzer und Dienst in einem Umfangreichen Netzwerk gewährleistet werden.\newline
 Durch die Tatsachen, dass die Software unter einer Open-Source-Lizenz veröffentlicht wurde, können Sicherheitslücken schnell aufgespürt und behoben werden. Außerdem ist es dadurch möglich, dass Unterschildleiche Unternehmen an dem Code mitarbeiten und diesen ständig verbessern und dies geschieht auch zum Beispiel durch Microsoft. Kerberos kommt heutzutage selten als Einzelsystem vor, sondern es wird entweder mit anderen Softwarekomponenten kombiniert, oder es kommt als Bestandteil einer umfangreicheren Software wie zum Beispiel Microsoft \ac{AD} vor.\cite[S. 137f]{kerberos2}\newline
-Die Authentifizierung mit Kerberos wird über sogenannte Tickets organisiert. Der Client fordert ein Ticket beim Authentifizierungsserver an. Der Authentifizierungsserver verschlüsselt anschließend das Ticket mit dem Schlüssel des Clients und dem Schlüssel des gewünschten Dienstes. Mit diesem Ticket kann der Client sich nun mit dem gewünschten Dienst verbinden und es ist gewährleistet, dass sowohl der Dienst, als auch der Client diejenigen sind für die sie sich ausgeben. Der Zugrundeliegende Ablauf wird in \autoref{fig:kerb} nochmal genauer und anschaulicher gezeigt.
+Die Authentifizierung mit Kerberos wird über sogenannte Tickets organisiert. Der Client fordert ein Ticket beim Authentifizierungsserver an. Der Authentifizierungsserver verschlüsselt anschließend das Ticket mit dem Schlüssel des Clients und dem Schlüssel des gewünschten Dienstes. Mit diesem Ticket kann der Client sich nun mit dem gewünschten Dienst verbinden und es ist gewährleistet, dass sowohl der Dienst, als auch der Client diejenigen sind für die sie sich ausgeben.  Der Zugrundeliegende Ablauf wird in \autoref{fig:kerb} nochmal genauer und anschaulicher gezeigt. Bei der gegenseitigen Authentifizierung ist es nicht entscheidend auf welchem Betriebssystem Client und Server basieren, weil dies der Fall ist kann bei Kerberos von einer plattformübergreifenden Software gesprochen werden.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\linewidth]{kerberos.png}
 	\caption[Kerberos]{Authentifizierung mit Kerberberos \cite[vgl. S.140]{kerberos2}}
 	\label{fig:kerb}
 \end{figure}
-Kritisch im Zusammenhang mit Kerberos ist die Fokussierung auf einen Zentralen Server, dieser muss so dimensioniert sein, dass er alle Anfragen verarbeiten kann und, dass durch einen Hardwaredefekt der Betrieb nicht stoppt. Ein weiterer Nachteil ist die fehlende Verschlüsselung des Netzwerkverkehrs. Außerdem werden Sitzungsschlüssel zwischenzeitlich auf dem Client gespeichert und sind so ein leichtes Ziel für Angreifer die Zugriff auf die Clientmaschine haben. Es kann ebenfalls kritisiert werden, dass die Änderung eines Nutzerpassworts immer mit der Änderung des geheimen Schlüssels einhergeht.\newline
-Im allgemeinen macht Kerberos aber genau das was es soll und seine Popularität zeigt auch, dass es diese Aufgabe sehr zufriedenstellend löst.
+Kritisch im Zusammenhang mit Kerberos ist die Fokussierung auf einen Zentralen Server, dieser muss so dimensioniert sein, dass er alle Anfragen verarbeiten kann und, dass durch einen Hardwaredefekt der Betrieb nicht stoppt. Ein weiterer Nachteil ist die fehlende Verschlüsselung des Netzwerkverkehrs. Außerdem werden Sitzungsschlüssel zwischenzeitlich auf dem Client gespeichert und sind so ein leichtes Ziel für Angreifer die Zugriff auf die Clientmaschine haben. Es kann ebenfalls kritisiert werden, dass die Änderung eines Nutzerpassworts immer mit der Änderung des geheimen Schlüssels einhergeht. Im allgemeinen macht Kerberos aber genau das was es soll und seine Popularität zeigt auch, dass es diese Aufgabe sehr zufriedenstellend löst. Mit diversen Erweiterungen lassen sich die erwähnten Unzulänglichkeiten auch umgehen.\cite[vgl. S.138f]{kerberos2}
 
 \subsubsection{Pleasant Password Server}
-\subsubsection{CyberArk}
-\subsubsection{Hashicorp Vault}
-\subsubsection{Das Passwort als Problem}
+Beim Pleasant Password Server Handelt es sich nach eigenen Angaben um eine serverbasierte KeePass Passwort Safe. Im Unterschied zu seinem kleinen Bruder ist der Pleasant Passowrd Server allerdings, wie der Name schon vermuten lässt, keine reine Client Software mehr, sondern er fügt sich als Serverdienst in eine \ac{IT}-Umgebung ein. Das Ziel der Anwendung ist es eine sichere Ablagemöglichkeit für Passwörter, Produkt-Keys, Kreditkarteninformationen und Dateien zu bieten. Zur verschlüsselten Netzwerkkommunikation werden \ac{TLS}-Zertifikate verwendet. Die Client-Software wird als installierbares Programm zur Verfügung gestellt welches auf einigen gängigen Betriebssystemen installiert werden während die Serveranwendung nur für Microsoft Windows zur Verfügung gestellt wird. Es gibt auch einen Webanwendung die eine clientseitig plattformunabhängige Nutzung ermöglicht. 
+Eine Rollen- und Eintragsbasierte Rechtevergabe ist vorgesehen und ermöglicht somit die eine Kontrolle der Autorisierung. Diese Funktion ermöglicht es aut Mit seiner Initialen Veröffentlichung im Oktober 2012 handelt es sich beim Pleasant Password Server noch um eine relativ junge Software, die jedoch durch den Hersteller, dem Versionsstand nach zu urteilen, regelmäßig mit Updates versorgt wird.\cite{pleasant}
+Wie aus \autoref{tab:vergleich} hervorgeht, erfüllt die Software schon relativ viele der festgelegten Kriterien. Da es sich jedoch nicht um ein quelloffenes Programm handelt, gibt es wenige Informationen über die internen Mechanismen und deren Sicherheit. Aus dem Lizenzmodell geht zudem hervor, dass sich die Software eher an kleine bis mittelständige Unternehmen richtet und somit an der Anforderung eine Lösung für ein Großunternehmen zu bieten vorbei geht.
 
+\subsubsection{Das Passwort Dilemma}
+Das Passwort ist die einfachste und am häufigsten verwendete Methode um eine Authentifizierung zwischen einem Mensch und einem Computersystem durchzuführen. Es ist leicht zu implementieren und leicht zu bedienen. Es gibt allerdings eine Reihe an Angriffsszenarien bei denen das klassische Passwort als authentifizierender Faktor versagt.
+\begin{itemize}
+	\item Das Passwort kann beim Eintippen durch einen dritten gesehen oder gefilmt werden. 
+	\item Passwörter können über sogenannte Brute-force Angriffe ``erraten`` werden. Um diese Angriffe durchzuführen gibt es spezielle Programme, die so lange alle möglichen Kobinationen an Tastaturzeichen ausprobieren, bis sie das Passwort herausgefunden haben.
+\end{itemize}
+\subsubsection{Hashicorp Vault}
+Bei Hashicorp Vault handelt es sich um ein vollumfängliches Secrets Management System 
 Funktionen von Vault:
 
 \begin{itemize}
@@ -388,6 +396,7 @@ Die Komponenten von Vault:
   \item Client Token: Ein Client Token wird ausgestellt, um einen Client über die dauer einer Sitzung gegenüber Vault zu authentisieren.
   \item Server: Vault wird als einzelne Binärdatei zur Verfügung gestellt, es kann sowohl als Client als auch als Server ausgeführt werden. Wenn der Server gestartet wurde, kümmert er sich um die Kommunikation mit den Backends und stellt ein API für die Clientinteraktion bereit. Außerdem ist er verantwortlich für die Anwendung der ACLs und den Widerruf abgelaufener Geheimnisse. Neben einigen weiteren Aufgaben erstellt der Server auch ein Log in welchem jede Interaktion mit Vault dokumentiert wird. 
 \end{itemize}
+
 
 
 
