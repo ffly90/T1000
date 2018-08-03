@@ -224,11 +224,13 @@ To achieve this task a virtual environment shall be implemented to test the feat
 \section*{Abkürzungsverzeichnis} %%Title for list of acronyms
 \addcontentsline{toc}{section}{Abkürzungsverzeichnis}
 \begin{acronym}
+ \acro{ACL}{Zugriffskontrollliste (engl. Access Control List)}
  \acro{AD}{Active Directory}
+ \acro{API}{Schnittstelle zur Anwendungsprogrammierung (engl. Application Programming Interface)}
  \acro{IT}{Informationstechnik}
- \acro{KRITIS}{Kritische Infrastruktur}
  \acro{MIT}{Massachusetts Institute of Technology}
- \acro{OECD}{Organisation für wirtschaftliche Zusammenarbeit und Entwicklung}
+ \acro{OECD}{Organisation für wirtschaftliche Zusammenarbeit und Entwicklung (engl. Organisation for Economic Co-operation and Development)}
+ \acro{TLS}{Transportschicht Sicherheit (engl. Transport Layer Security)}
 \end{acronym}
 \listoffigures
 \listoftables
@@ -352,7 +354,7 @@ Um die in \autoref{subsec:einfuehrung} beschriebenen Themenkomplexe der Autorisi
 \end{table}
 Die Programme werden in unterschiedlichen Versionen angeboten. Einige der beschriebenen Funktionen stehen möglicherweise in der kostenfreien Version nicht zur Verfügung.
 
-\subsubsection{Kerberos}
+\subsection{Kerberos}
 Der Name Kerberos kommt ursprünglich aus der griechischen Mythologie, wo er für den dreiköpfigen Hund verwendet wurde, der den Eingang zu Unterwelt bewacht. 
 Das Projekt wurde in den achtziger Jahren am \ac{MIT} ins als Teil des sogenannten Athena-Projekts ins Leben gerufen. Die großen Stärken von Kerberos liegen in der Authentifizierung und der verschlüsselten Nachrichtenübermittlung. Schon zu Beginn des Projekts lag, neben den Sicherheitsaspekten, der Fokus ganz klar auf der Skalierbarkeit des Systems. 
 Verschlüsselt wird mit symmetrischer Verschlüsselung und einem vorher vereinbarten geheimen Schlüssel. Kerberos unterstützt inzwischen auch den Einsatz von Passwörtern, ist dafür aber ursprünglich nicht entwickelt worden. 
@@ -367,44 +369,48 @@ Die Authentifizierung mit Kerberos wird über sogenannte Tickets organisiert. De
 \end{figure}
 Kritisch im Zusammenhang mit Kerberos ist die Fokussierung auf einen Zentralen Server, dieser muss so dimensioniert sein, dass er alle Anfragen verarbeiten kann und, dass durch einen Hardwaredefekt der Betrieb nicht stoppt. Ein weiterer Nachteil ist die fehlende Verschlüsselung des Netzwerkverkehrs. Außerdem werden Sitzungsschlüssel zwischenzeitlich auf dem Client gespeichert und sind so ein leichtes Ziel für Angreifer die Zugriff auf die Clientmaschine haben. Es kann ebenfalls kritisiert werden, dass die Änderung eines Nutzerpassworts immer mit der Änderung des geheimen Schlüssels einhergeht. Im allgemeinen macht Kerberos aber genau das was es soll und seine Popularität zeigt auch, dass es diese Aufgabe sehr zufriedenstellend löst. Mit diversen Erweiterungen lassen sich die erwähnten Unzulänglichkeiten auch umgehen.\cite[vgl. S.138f]{kerberos2}
 
-\subsubsection{Pleasant Password Server}
+\subsection{Pleasant Password Server}
 Beim Pleasant Password Server Handelt es sich nach eigenen Angaben um eine serverbasierte KeePass Passwort Safe. Im Unterschied zu seinem kleinen Bruder ist der Pleasant Passowrd Server allerdings, wie der Name schon vermuten lässt, keine reine Client Software mehr, sondern er fügt sich als Serverdienst in eine \ac{IT}-Umgebung ein. Das Ziel der Anwendung ist es eine sichere Ablagemöglichkeit für Passwörter, Produkt-Keys, Kreditkarteninformationen und Dateien zu bieten. Zur verschlüsselten Netzwerkkommunikation werden \ac{TLS}-Zertifikate verwendet. Die Client-Software wird als installierbares Programm zur Verfügung gestellt welches auf einigen gängigen Betriebssystemen installiert werden während die Serveranwendung nur für Microsoft Windows zur Verfügung gestellt wird. Es gibt auch einen Webanwendung die eine clientseitig plattformunabhängige Nutzung ermöglicht. 
 Eine Rollen- und Eintragsbasierte Rechtevergabe ist vorgesehen und ermöglicht somit die eine Kontrolle der Autorisierung. Diese Funktion ermöglicht es aut Mit seiner Initialen Veröffentlichung im Oktober 2012 handelt es sich beim Pleasant Password Server noch um eine relativ junge Software, die jedoch durch den Hersteller, dem Versionsstand nach zu urteilen, regelmäßig mit Updates versorgt wird.\cite{pleasant}
 Wie aus \autoref{tab:vergleich} hervorgeht, erfüllt die Software schon relativ viele der festgelegten Kriterien. Da es sich jedoch nicht um ein quelloffenes Programm handelt, gibt es wenige Informationen über die internen Mechanismen und deren Sicherheit. Aus dem Lizenzmodell geht zudem hervor, dass sich die Software eher an kleine bis mittelständige Unternehmen richtet und somit an der Anforderung eine Lösung für ein Großunternehmen zu bieten vorbei geht.
 
-\subsubsection{Das Passwort Dilemma}
+\subsection{Das Passwort Dilemma}
+\label{subsec:pass}
 Das Passwort ist die einfachste und am häufigsten verwendete Methode um eine Authentifizierung zwischen einem Mensch und einem Computersystem durchzuführen. Es ist leicht zu implementieren und leicht zu bedienen. Es gibt allerdings eine Reihe an Angriffsszenarien bei denen das klassische Passwort als authentifizierender Faktor versagt.
 \begin{itemize}
 	\item Das Passwort kann beim Eintippen durch einen dritten gesehen oder gefilmt werden. 
-	\item Passwörter können über sogenannte Brute-force Angriffe ``erraten`` werden. Um diese Angriffe durchzuführen gibt es spezielle Programme, die so lange alle möglichen Kobinationen an Tastaturzeichen ausprobieren, bis sie das Passwort herausgefunden haben.
+	\item Passwörter können über sogenannte Brute-force Angriffe ``erraten`` werden. Um diese Angriffe durchzuführen gibt es spezielle Programme, die so lange alle möglichen Kombinationen an Tastaturzeichen ausprobieren, bis sie das Passwort herausgefunden haben. 
+	\item Wenn Passwörter über das ein Netzwerk übertragen werden, können sie durch spezielle Software abgegriffen werden. Außerdem gibt es spezielle Software, welche die Tastatureingaben am Computer protkollieren kann. Solche Software kann dazu verwendet werden Passwörter die an betreffenden Endgeräten eingegeben werden an einen Angreifer zu übermitteln.
+	Ein weiteres Angriffsszenario stellt das sogenannte Login Spoofing dar. Hierbei wird ein Anmeldefenster gefälscht, welches möglichst gleich aussieht wie das original. Wenn der Nutzer sein Passwort in das gefälschte Fenter eingibt, wird es gespeichert oder direkt an den Angreifer übermittelt. 
 \end{itemize}
-\subsubsection{Hashicorp Vault}
-Bei Hashicorp Vault handelt es sich um ein vollumfängliches Secrets Management System 
-Funktionen von Vault:
+Jeder dieser Angriffe reicht aus um Systeme zu täuschen die zur Authentifizierung allein auf Passwörter setzen. In den meisten Unternehmen ist es aus diesen Gründen nicht erlaubt das gleiche Passwort für unterschiedliche Dienste zu verwenden. Außerdem gibt es versuche durch Passwortrichtlinien die Komplexität der Passwörter zu steigern, sodass zum Beispiel Brute-force Angriffe länger dauern und sich nicht mehr lohnen. Zusätzlich werden Schwellwerte für fehlgeschlagene Anmeldeversuche festgelegt um zu vermeiden, dass Passörter beliebig oft ausprobiert werden können. Diese Maßnahmen verringern zwar die Zahl der erfolgreichen Angriffe, stehen jedoch im Widerspruch zur einfachen Benutzbarkeit. Ein hoher Aufwand für die \ac{IT}-Abteilungen muss aufgebracht werden um Passwörter zurückzusetzen und die Sicherheitsmechanismen für jeden Dienst zu implementieren.\cite[S. 3ff]{hong}
+Auf Grund der vielen Angriffsmöglichkeiten gibt es viele Stimmen, die das Ende des Passworts wie wir es kennen fordern. Es gibt außerdem viele Empfehlungen wie man ein Passwort erzeugen sollte um zu gewährleisten, dass es nur schwer angreifbar ist, aber was bleibt ist die menschliche Komponente beim Umgang mit Passwörtern. Da Menschen sich auf Bequemlichkeit nicht an die Empfehlungen zur Erstellung eines ``sicheren`` Passworts halten und dies sich auch nur bedingt überprüfen lässt ohne neue Angriffsflächen zu bieten, bleibt das Problem bestehen, dass Passwörter ``geknackt`` werden und Angreifer Zugriff auf sensible Daten bekommen. Es gibt mittlerweile einen Trend zur sogenannten Zwei-Faktor Authentifizierung wobei die zum Identitätsnachweis nicht allein das Passwort verwendet wird, sondern ein weiterer Faktor hinzugenommen wird. Es gibt unterschiedliche Methoden wie solch ein weiterer Faktor aussehen kann, so gibt es zum Beispiel Codes die über die Mobiltelefone der User zugeschickt werden und die nur einmal und für eine kurze Zeitperiode verwendet werden können. Da es bis jetzt aber noch keine vollkommene Alternative zu Passwörtern gibt, ist es sehr wahrscheinlich, dass das Passwort noch einige Zeit also Teil der Authentifizierung bestehen bleiben wird.\cite{pass}
+\subsection{Hashicorp Vault}
 
+Bei Vault handelt es sich dem Hersteller Hashicorp zufolge um ein vollumfängliches Secrets Management System. Die Software wird in der Community Edition unter einer Quelloffenen Lizenz veröffentlicht und verfügt über eine umfangreiche Dokumentation. Folgende Funktionen und Funktionsweisen liefert Vault dem Hersteller zufolge:
+
+\textbf{Funktionen von Vault:}
 \begin{itemize}
-  \item Willkürliche Verbindungen von Identifikator und Wert können auf "sichere" Art und Weise durch Vault abgelgt werden. Dabei werden die Inhalte verschlüsselt bevor sie in einen persistenten Speicher geschrieben werden.
-  \item Für eine zunehmende Anzahl an Diensten kann Vault dynamische Zugangdaten generieren. Wenn zum Beispiel ein Dienst Zugriff auf eine Datenbank erhalten will, kann Vault einen (zeitlich Beschränkten) Zugriff geähren. Dabei werden temporäre Zugangsdaten (oder ein Schlüsselpaar) erstellt, welche durch Vault nach Ablauf der Gültigkeit widerrufen werden.
-  \item Daten welche sensible Inhalte haben, können durch Vault verschlüsselt werden, ohne dass sie durch Vault im eigenen Backend gespeichert werden müssen. Entwicker sind damit in der Lage Daten durch Vault verschlüsseln zu lassen um im Anschluss nach Belieben weiterzuverarbeiten.
-  \item Alle Geheimnisse welche durch Vault gespeichert werden haben eine Gültigkeitsdauer. Nach Ablauf der zugeordneten Gültikeitsdauer werden die betroffenen Geheimnisse durch Vault widerrufen. Clients können durch entsprechende APIs die Gültikeit eines Geheimnisses verlängern bzw. erneuern.
-  \item Geheimnisse können auch durch Administratoren widerrufen werden. Dabei bietet Vault die Funktion, dass bei Bedarf ganze Baumstrukturen an Geheimnissen auf einmal ihre Gültikeit verlieren. Es kann auf unterschiedliche Weisen gefiltert werden, so können zum Beispiel alle Geheimnisse widerrufen werden auf die ein spezieller User zugegriffen hat.
-
-Die Komponenten von Vault:
-  \item Storage Backend: Vault benötigt ein Storage Backend um verschlüsselte Daten abzulegen. Die einzige Anforderung an das Storage Backend ist, dass es möglichst strapazierfähig ist. Vault vertraut dem Storage Backend nicht und es wird nicht davon ausgegangen, dass es speziell gegen fremde Zugriffe geschützt ist. 
-  \item Barrier: Zwischen Storage und Vault wird jede Kommunikation durch eine Art Kontrollpunkt geprüft. Durch diesen Mechanismus soll sichergestellt werden, dass alle Daten welche von Vault in Richtung Storage Backend übermittelt werden, zwansläufig verschlüsslt werden. Außerdem ist der Mechanismus dafür zuständig alle Daten die aus dem Storage Backend gelesen werden zu verifizieren und zu entschlüsseln. 
-  \item Secret Backend: Das Secret Backend ist dafür Zuständig auf Anfrage ein angefordertes Geheimnis preiszugeben. Bei einigen Systemen ist der Prozess statisch organisiert. Das bedeutet, dass bei der gleichen Anfrage immer die gleiche Rückgabe zu erwarten ist. Andere Systeme arbeiten hier etwas komplexer, sie sind dazu in der Lage dynamische Zugangsdaten zu erzeugen. Diese Möglichkeit schafft eine zusätzliche Sicherheitsebene. Das Feature steht allerdings nicht für jede Anwendung zur Verfügung
-  \item Client Token: Ein Client Token wird ausgestellt, um einen Client über die dauer einer Sitzung gegenüber Vault zu authentisieren.
-  \item Server: Vault wird als einzelne Binärdatei zur Verfügung gestellt, es kann sowohl als Client als auch als Server ausgeführt werden. Wenn der Server gestartet wurde, kümmert er sich um die Kommunikation mit den Backends und stellt ein API für die Clientinteraktion bereit. Außerdem ist er verantwortlich für die Anwendung der ACLs und den Widerruf abgelaufener Geheimnisse. Neben einigen weiteren Aufgaben erstellt der Server auch ein Log in welchem jede Interaktion mit Vault dokumentiert wird. 
+  \item Willkürliche Verbindungen von Identifikator und Wert können auf ``sichere`` Art und Weise durch Vault abgelegt werden. Dabei werden die Inhalte verschlüsselt bevor sie in einen persistenten Speicher geschrieben werden.
+  \item Für eine zunehmende Anzahl an Diensten kann Vault dynamische Zugangsdaten generieren. Wenn zum Beispiel ein Dienst Zugriff auf eine Datenbank erhalten will, kann Vault einen (zeitlich Beschränkten) Zugriff gewähren. Dabei werden temporäre Zugangsdaten (oder ein Schlüsselpaar) erstellt, welche durch Vault nach Ablauf der Gültigkeit widerrufen werden.
+  \item Daten welche sensible Inhalte haben, können durch Vault verschlüsselt werden, ohne dass sie durch Vault im eigenen Backend gespeichert werden müssen. Entwickler sind damit in der Lage Daten durch Vault verschlüsseln zu lassen um im Anschluss nach Belieben weiterzuverarbeiten.
+  \item Alle Geheimnisse welche durch Vault gespeichert werden haben eine Gültigkeitsdauer. Nach Ablauf der zugeordneten Gültigkeitsdauer werden die betroffenen Geheimnisse durch Vault widerrufen. Clients können durch entsprechende Schnittstellen zu Anwendungsprogrammierung (API) die Gültigkeit eines Geheimnisses verlängern bzw. erneuern.
+  \item Geheimnisse können auch durch Administratoren widerrufen werden. Dabei bietet Vault die Funktion, dass bei Bedarf ganze Baumstrukturen an Geheimnissen auf einmal ihre Gültigkeit verlieren. Es kann auf unterschiedliche Weisen gefiltert werden, so können zum Beispiel alle Geheimnisse widerrufen werden auf die ein spezieller User zugegriffen hat.
 \end{itemize}
+\textbf{Die Komponenten von Vault:}
+\begin{itemize}
+  \item Storage Backend: Vault benötigt ein Storage Backend um verschlüsselte Daten abzulegen. Die einzige Anforderung an das Storage Backend ist, dass es möglichst strapazieren ist. Vault vertraut dem Storage Backend nicht und es wird nicht davon ausgegangen, dass es speziell gegen fremde Zugriffe geschützt ist. 
+  \item Barriere: Zwischen Storage und Vault wird jede Kommunikation durch eine Art Kontrollpunkt geprüft. Durch diesen Mechanismus soll sichergestellt werden, dass alle Daten welche von Vault in Richtung Storage Backend übermittelt werden, zwangsläufig verschlüsselt werden. Außerdem ist der Mechanismus dafür zuständig alle Daten die aus dem Storage Backend gelesen werden zu verifizieren und zu entschlüsseln. 
+  \item Secrets Speicher: Das Secrets Speicher ist dafür Zuständig auf Anfrage ein angefordertes Geheimnis preiszugeben. Bei einigen Systemen ist der Prozess statisch organisiert. Das bedeutet, dass bei der gleichen Anfrage immer die gleiche Rückgabe zu erwarten ist. Andere Systeme arbeiten hier etwas komplexer, sie sind dazu in der Lage dynamische Zugangsdaten zu erzeugen. Diese Möglichkeit schafft eine zusätzliche Sicherheitsebene. Das Feature steht allerdings nicht für jede Anwendung zur Verfügung
+  \item Client Token: Ein Client Token wird ausgestellt, um einen Client über die Dauer einer Sitzung gegenüber Vault zu authentisieren.
+  \item Server: Vault wird als einzelne Binärdatei zur Verfügung gestellt, es kann sowohl als Client als auch als Server ausgeführt werden. Wenn der Server gestartet wurde, kümmert er sich um die Kommunikation mit Hintergrunddiensten und stellt ein \acs{API} für die Clientinteraktion bereit. Außerdem ist er verantwortlich für die Anwendung der \ac{ACL}s und den Widerruf abgelaufener Geheimnisse. Neben einigen weiteren Aufgaben erstellt der Server auch ein Log in welchem jede Interaktion mit Vault dokumentiert wird. 
+\end{itemize}\cite{vault}
 
+\subsection{Motivation}
+In den vorigen Abschnitten wurden Problematiken und Widersprüche aufgezeigt, die zur Wahl des Themas für die vorliegende Arbeit geführt haben. Der Diskurs um Sicherheits- und Secrets- Management in großen Firmenumgebungen (mehrere Niederlassungen) und der Trend hin zur Auslagerung eigener Rechenzentren zu Cloud-Providern, wirft immer wieder die Frage nach funktionierenden Sicherheitskonzepten auf. Nicht zu Letzt, die zunehmenden erfolgreichen Angriffe, die auf ein unzureichendes Sicherheitskonzept zurückzuführen sind werfen die Frage nach einem Umfangreichen Sicherheitssystem auf, welches dazu in der Lage ist neue Bedrohungen und sich verändernde Bedingungen abzudecken. 
+Eine der wichtigsten Herausforderungen bei Cloudumgebungen stellt nicht allein das Management von User Zugangsdaten dar es wird immer wichtiger auch die Verwaltung von Diensten und deren Zugangsdaten zu beleuchten. Klassischerweise geht es dabei um Datenbankpasswörter, es kommen aber immmer mehr sogenannte Microservices dazu. Bei Mirsoservices handelt es sich um kleine Programme, die meist eine einzige Aufgabe erfüllen und über eine \ac{API} steuerbar sind. Wenn im Netzwerk viele Microservices aktiv sind, die nicht unwahrscheinlich auch untereinander kommunizieren und sich Authentifizieren müssen, verliert ein Administrator leicht die Übersicht. Auf Grund der Problematiken die in \autoref{subsec:pass} aufgezeigt wurden ist es also essentiell auch hier für einen möglichst sicheren Ablauf zu sorgen um zu erreichen, dass es für Angreifer sehr schwer wird gefälschte Dienste einzuschleusen um an geheime Informationen zu kommen, bzw. bestehende Dienst dafür zu verwenden.\footnote{Eigene Darstellung zur Basis der vorangegangen Abschnitte}
 
-
-
-
-
-
-Motivation der Aufgabenstellung
-Vorstellung Projektumgebung
+\subsection{Projektumgebung}
 Vorausblick
 
 \section{Hauptteil}
