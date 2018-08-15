@@ -17,6 +17,7 @@ halfparskip,
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\setkomafont{sectioning}{\bfseries}
 \usepackage{ae,aecompl}
 %\usepackage{helvet}
 %\renewcommand{\familydefault}{\sfdefault}
@@ -36,6 +37,7 @@ halfparskip,
 \usepackage{fancyhdr}
 \usepackage{tablefootnote}
 \usepackage{acronym}
+\usepackage[hyphens]{url}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -67,7 +69,8 @@ halfparskip,
     bookmarks=true,   
     bookmarksopen=false,
     bookmarksnumbered=false, 
-    pdfpagemode=None   
+    pdfpagemode=None,
+    hidelinks
   ]{hyperref}
   \DeclareGraphicsExtensions{.pdf}
 \else %else -> latex 
@@ -83,8 +86,10 @@ halfparskip,
   pdfsubject={Secrets Management in großen Firmenumgebungen},
   pdfcreator={Accomplished with LaTeX2e and pdfLaTeX with hyperref-package.},
   pdfproducer={science + computing ag},
-  pdfkeywords={}
+  pdfkeywords={},
+  breaklinks=true
 }
+\urlstyle{same}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -227,10 +232,12 @@ To achieve this task a virtual environment shall be implemented to test the feat
  \acro{ACL}{Zugriffskontrollliste (engl. Access Control List)}
  \acro{AD}{Active Directory}
  \acro{API}{Schnittstelle zur Anwendungsprogrammierung (engl. Application Programming Interface)}
+ \acro{CA}{Certificate Authority}
  \acro{CAE}{Computer Aided Engineering}
  \acro{IT}{Informationstechnik}
  \acro{MIT}{Massachusetts Institute of Technology}
  \acro{OECD}{Organisation für wirtschaftliche Zusammenarbeit und Entwicklung (engl. Organisation for Economic Co-operation and Development)}
+ \acro{SSL}{Secure Socket Layer}
  \acro{TLS}{Transportschicht Sicherheit (engl. Transport Layer Security)}
 \end{acronym}
 \listoffigures
@@ -260,16 +267,11 @@ To achieve this task a virtual environment shall be implemented to test the feat
 \end{acronym}
 
 \newpage
-\pagestyle{fancy}
-\fancyhf{} %% clear all previous settings
-\fancyhead[R]{\thepage} %% pagenumber in the upper right corner
-\fancyhead[L]{\leftmark} %% section description in the upper left corner
-\setcounter{table}{0} %% sets tabel counter to 0 to ignore table from frontpage
 \begin{onehalfspacing} %% set space between lines to 1.5
 \pagestyle{fancy}
 \fancyhf{} %% remove all previous settings
 %\renewcommand{\headrulewidth}{0pt} %%% activate to remove seperation line between head and main body
-\fancyhead[L]{\leftmark} %% section name and number in the upper left corner
+\fancyhead[L]{\rightmark} %% section name and number in the upper left corner
 \fancyhead[R]{\thepage} %% pagenumber in upper right corner
 \pagenumbering{arabic}
 
@@ -319,7 +321,40 @@ Spezifische Anforderungen die an eine Software zum Secrets Management gestellt w
 Rechtliche Aspekte werden durch den Vorliegenden Bericht nicht weiter beleuchtet.\footnote{Die Inhalte aus \autoref{subsubsec:anforderung} wurden in Anlehnung an interne Dokumenten eines großen Unternehmens und Gesprächen mit \ac{IT}-Administratoren erarbeitet}
 
 \section{Stand der Technik}
-\label{subsec:stand}
+Das folgende Kapitel liefert die theoretischen Grundlagen für die praktische Umsetzung der Projektarbeit. Es wird eine Breite Übersicht über den Themenkomplex des Secrets Management gegeben und es wird gezeigt welche Softwareprodukte aktuell in Unternehmen zum Einsatz kommen um Probleme die mit den Themenkomplexen Authentifizierung und Autorisierung in Verbindung stehen zu lösen. Außerdem wird aufgezeigt welche neuen Herausforderungen das Arbeiten unter Verwendung von Cloud-Computing mit sich bringt. 
+
+\subsection{Das Passwort Dilemma}
+\label{subsec:pass}
+Das Passwort ist die einfachste und am häufigsten verwendete Methode um eine Authentifizierung zwischen einem Mensch und einem Computersystem durchzuführen. Es ist leicht zu implementieren und leicht zu bedienen. Es gibt allerdings eine Reihe an Angriffsszenarien bei denen das klassische Passwort als authentifizierender Faktor versagt.
+\begin{itemize}
+	\item Das Passwort kann beim Eintippen durch einen dritten gesehen oder gefilmt werden. 
+	\item Passwörter können über sogenannte Brute-force Angriffe ``erraten`` werden. Um diese Angriffe durchzuführen gibt es spezielle Programme, die so lange alle möglichen Kombinationen an Tastaturzeichen ausprobieren, bis sie das Passwort herausgefunden haben. 
+	\item Wenn Passwörter über das ein Netzwerk übertragen werden, können sie durch spezielle Software abgegriffen werden. Außerdem gibt es spezielle Software, welche die Tastatureingaben am Computer protkollieren kann. Solche Software kann dazu verwendet werden Passwörter die an betreffenden Endgeräten eingegeben werden an einen Angreifer zu übermitteln.
+	Ein weiteres Angriffsszenario stellt das sogenannte Login Spoofing dar. Hierbei wird ein Anmeldefenster gefälscht, welches möglichst gleich aussieht wie das original. Wenn der Nutzer sein Passwort in das gefälschte Fenter eingibt, wird es gespeichert oder direkt an den Angreifer übermittelt. 
+\end{itemize}
+Jeder dieser Angriffe reicht aus um Systeme zu täuschen die zur Authentifizierung allein auf Passwörter setzen. In den meisten Unternehmen ist es aus diesen Gründen nicht erlaubt das gleiche Passwort für unterschiedliche Dienste zu verwenden. Außerdem gibt es versuche durch Passwortrichtlinien die Komplexität der Passwörter zu steigern, sodass zum Beispiel Brute-force Angriffe länger dauern und sich nicht mehr lohnen. Zusätzlich werden Schwellwerte für fehlgeschlagene Anmeldeversuche festgelegt um zu vermeiden, dass Passörter beliebig oft ausprobiert werden können. Diese Maßnahmen verringern zwar die Zahl der erfolgreichen Angriffe, stehen jedoch im Widerspruch zur einfachen Benutzbarkeit. Ein hoher Aufwand für die \ac{IT}-Abteilungen muss aufgebracht werden um Passwörter zurückzusetzen und die Sicherheitsmechanismen für jeden Dienst zu implementieren.\cite[S. 3ff]{hong}
+Auf Grund der vielen Angriffsmöglichkeiten gibt es viele Stimmen, die das Ende des Passworts, wie wir es kennen, fordern. Es gibt außerdem viele Empfehlungen ein Passwort am besten zu erzeugen ist um eine Steigerung der Sicherheit gegenüber Angriffen zu erreichen. Was bleibt ist die menschliche Komponente beim Umgang mit Passwörtern. Da Menschen sich auf Bequemlichkeit nicht an die Empfehlungen zur Erstellung eines ``sicheren`` Passworts halten und dies sich auch nur bedingt überprüfen lässt ohne neue Angriffsflächen zu bieten, bleibt das Problem bestehen, dass Passwörter ``geknackt`` werden und Angreifer Zugriff auf sensible Daten bekommen. Es gibt mittlerweile einen Trend zur sogenannten Zwei-Faktor Authentifizierung wobei die zum Identitätsnachweis nicht allein das Passwort verwendet wird, sondern ein weiterer Faktor hinzugenommen wird. Es gibt unterschiedliche Methoden wie solch ein weiterer Faktor aussehen kann, so gibt es zum Beispiel Codes die über die Mobiltelefone der User zugeschickt werden und die nur einmal und für eine kurze Zeitperiode verwendet werden können. Da es bis jetzt aber noch keine vollkommene Alternative zu Passwörtern gibt, ist es sehr wahrscheinlich, dass das Passwort noch einige Zeit also Teil der Authentifizierung bestehen bleiben wird.\cite{pass}
+
+\subsection{Identitäten}
+\label{subsec:ident}
+Vorwiegend wird der Begriff der Identität in der Soziologie besprochen, er spielt allerdings auch in der Informatik eine wichtige Rolle. Identitäten sind in der Regel definierte Zusammensetzung von Rollen und Eigenschaften eines Objekts. Zu dieser Kombination kommt ein, innerhalb einer Organisationseinheit, eindeutiger Identifikator. Durch ihre Beschreibung kann abgeleitet werden wie die Identität vorzugehen hat und welche Schnittstellen für sie von Relevanz sind. Zudem wird davon ausgegangen, dass eine Identität einer gewissen Persistenz unterliegt, das heißt, dass sich Eigenschaften und Rollen nicht ständig ändern. Genauso wie es möglich ist, dass mehrere Objekte die gleiche Zusammensetzung von Eigenschaften haben, ist es ebenso möglich dass einzelne Objekte mehreren Identitäten zugeordnet werden können. Für Menschen die sich selten im Kontext der \ac{IT} Administration bewegen mag der Gedanke Nahe liegen, dass es sich bei einer Identität um eine natürliche Person handelt. Dieser Schluss ist zwar nicht falsch, greift aber etwas zu kurz, denn nicht ausschließlich natürliche Personen erfüllen die Voraussetzungen die eine Identität ausmachen. Neben natürlichen Personen werden auch \ac{IT}-Systeme und \ac{IT}-Anwendungen durch Identitäten beschrieben. \cite[S. 21ff]{kerberos2}
+
+\subsection{Digitale Zertifikate}
+\label{subsec:zert}
+Neben der in \autoref{subsec:pass} beschriebenen Authentifizierungsmethode via Passwort gibt es weitere Möglichkeiten die Integrität einer Identität gegenüber einem informationstechnischen System nachzuweisen. Eine wichtige Rolle spielen hierbei sogenannte digitale Zertifikate. Diese Zertifikate können dazu verwendet werden den öffentlichen Schlüssel eines asymmetrischen Verschlüsselungssystems einer Identität zuzuordnen. Der öffentliche Schlüssel wird zu diesem Zweck mit mehreren Merkmalen verknüpft, die gesammelt dazu geeignet sind den Eigentümer des Schlüssels eindeutig zu authentifizieren. Zur Validierung eines Zertifikats wird eine sogenannte \ac{CA} verwendet; diese übernimmt die Aufgabe der Verknüpfung der zu authentifizierenden Instanz und dem öffentlichen Schlüssel. Grundlage für die eine erfolgreiche Authentifizierung mit digitalen Zertifikaten ist das Vertrauen gegenüber der Zertifizierungsinstanz (engl. \ac{CA}). Jedes Zertifikat enthält eine Seriennummer die von der \ac{CA} nur einmal vergeben wird und damit den Halter des Schlüssels eindeutig identifizieren kann. Die bekannteste Implementierung eines derartigen Zertifizierungssystems ist das X.509 Zertifikat, welches zum Beispiel bei der Absicherung von Netzwerkkommunikation mit \ac{TLS} (häufig als \ac{SSL} bezeichnet) eingesetzt wird. Neben der Seriennummer enthalten digitale Zertifikate in der Regel noch Informationen wie Versionsnummer, Informationen über die Identität, Informationen über die Gültigkeitsdauer, die digitale Signatur der validierenden \ac{CA}, Informationen zum verwendeten Verschlüsselungsalgorithmus und Informationen zum Gültigkeitsbereich sowie des vorgesehenen Anwendungsbereichs des kryptographischen Schlüssels.\cite[S. 144]{kerberos2}\newline
+Das Zertifikat an sich enthält also ausschließlich öffentliche Informationen und kann somit nicht allein zur Authentisierung verwendet werden. Allein der Besitz des privaten Gegenstücks zum öffentlichen Schlüssel, der im Zertifikat seine Zuordnung erhält, eignet sich schlussendlich zum eindeutigen Identitätsnachweis. Der kritische Punkt ist als der private Schlüssel, welcher unbedingt vor dem Zugriff dritter geschützt werden muss, denn andernfalls kann ein unrechtmäßiger Besitzer das Zertifikat verwenden um sich für den eigentlichen Halter des Zertifikats auszugeben und damit beispielsweise an geheime Informationen gelangen. Typischerweise sind derartige Zertifikate ein bis zwei Jahre gültig\cite[S. 145f]{kerberos2}\newline
+
+\subsection{Cloud-Computing}
+\subsubsection{Dynamische Zertifizierung}
+Das in \autoref{subsec:zert} beschriebene Verfahren der Nutzung von digitalen Zertifikaten in seiner klassischen Form stößt beim Betrieb von Cloud Anwendungen an seine Grenzen und wird daher durch neue Konzepte wie zum Beispiel die dynamische Zertifizierung ersetzt. Klassische Methoden zur Zertifizierung liegt die Annahme zu Grunde, dass die Identitäten , wie in \autoref{subsec:ident} beschrieben, über längere Zeit eine konstante Zusammensetzung von Rollen und Eigenschaften haben. Falls nicht manuell getriggert, wird nach der definierten Gültigkeitsperiode eines Zertifikats geprüft ob das Objekt, weiterhin die Voraussetzungen für des Zertifizierungsprozesses erfüllt, um bei erfolgreicher Prüfung eine Rezertifizierung einzuleiten.\newline\cite{cloudabs}
+Durch die Schnelllebigkeit von Cloud-Diensten kommt es häufig vor, dass sich die Eigenschaften eines Dienstes im laufenden Cloudbetrieb ändern. Durch den Aufbau von Cloudumgebungen sind diese Änderungen für den Endnutzer allerdings nicht erkennbar und ein Zertifikat, welches nach den klassischen Prozessen erzeugt wurde lässt darauf schließen, dass der Dienst für die Gültigkeitsdauer des Zertifikats weiterhin die Ursprünglichen Eigenschaften aufweist. Dynamische Zertifizierung versucht dieses Problem zu lösen indem eine ständige Kontrolle der Zertifikatsanforderungen von Cloud-Diensten zur Laufzeit durchgeführt wird, um infolgedessen jede Änderung in den Eigenschaften direkt Protokollieren zu können. Um eine kontinuierliche Auditierung der Dienste zu realisieren werden verschiedene Ansätze verfolgt. Neben spezieller Test- und Monitoringsoftware welche die eine Anwendung zur Laufzeit überprüfen können auch sogenannte Trusted Platform Module verwendet werden um eine Prüfsumme über ein gewünschte Ziel (zum Beispiel die zu kontrollierende Cloud-Anwendung) zu bilden und diese mit dem historischen Zustand zu vergleichen. Um diese Art von Auditierungvorgänge ich bestehende Zertifizierungsmodelle zu integrieren, werden häufig zusätzlich noch ausgebildete Auditoren beschäftigt, die Änderungen in Dokumenten und bei den beteiligten Stakeholdern feststellen sollen.\cite[S. 114ff]{cloudsec}
+
+\subsubsection{Cloud KRITIS}
+
+\cite[S. 11ff]{risiko}
+
+\subsection{Vergleichende Aufstellung unterschiedlicher Softwareprodukte}
+\label{subsubsec:stand}
 Um die in \autoref{subsec:einfuehrung} beschriebenen Themenkomplexe der Autorisierung und Authentifizierung in Firmenumgebungen umzusetzen gibt es verschiedene Ansätze. Im folgenden sollen einige gängige Softwareprodukte, die die genannten Aufgaben erfüllen sollen vorgestellt und auf ihre Tauglichkeit zur voll umfänglichen Erfüllung der in \autoref{subsubsec:anforderung} beschriebenen Anforderung untersucht.
 \begin{table}[h]
 \centering
@@ -356,7 +391,7 @@ Um die in \autoref{subsec:einfuehrung} beschriebenen Themenkomplexe der Autorisi
 \end{table}
 Die Programme werden in unterschiedlichen Versionen angeboten. Einige der beschriebenen Funktionen stehen möglicherweise in der kostenfreien Version nicht zur Verfügung.
 
-\subsection{Kerberos}
+\subsubsection{Kerberos}
 Der Name Kerberos kommt ursprünglich aus der griechischen Mythologie, wo er für den dreiköpfigen Hund verwendet wurde, der den Eingang zu Unterwelt bewacht. 
 Das Projekt wurde in den achtziger Jahren am \ac{MIT} ins als Teil des sogenannten Athena-Projekts ins Leben gerufen. Die großen Stärken von Kerberos liegen in der Authentifizierung und der verschlüsselten Nachrichtenübermittlung. Schon zu Beginn des Projekts lag, neben den Sicherheitsaspekten, der Fokus ganz klar auf der Skalierbarkeit des Systems. 
 Verschlüsselt wird mit symmetrischer Verschlüsselung und einem vorher vereinbarten geheimen Schlüssel. Kerberos unterstützt inzwischen auch den Einsatz von Passwörtern, ist dafür aber ursprünglich nicht entwickelt worden. 
@@ -371,23 +406,12 @@ Die Authentifizierung mit Kerberos wird über sogenannte Tickets organisiert. De
 \end{figure}
 Kritisch im Zusammenhang mit Kerberos ist die Fokussierung auf einen Zentralen Server, dieser muss so dimensioniert sein, dass er alle Anfragen verarbeiten kann und, dass durch einen Hardwaredefekt der Betrieb nicht stoppt. Ein weiterer Nachteil ist die fehlende Verschlüsselung des Netzwerkverkehrs. Außerdem werden Sitzungsschlüssel zwischenzeitlich auf dem Client gespeichert und sind so ein leichtes Ziel für Angreifer die Zugriff auf die Clientmaschine haben. Es kann ebenfalls kritisiert werden, dass die Änderung eines Nutzerpassworts immer mit der Änderung des geheimen Schlüssels einhergeht. Im allgemeinen macht Kerberos aber genau das was es soll und seine Popularität zeigt auch, dass es diese Aufgabe sehr zufriedenstellend löst. Mit diversen Erweiterungen lassen sich die erwähnten Unzulänglichkeiten auch umgehen.\cite[vgl. S.138f]{kerberos2}
 
-\subsection{Pleasant Password Server}
+\subsubsection{Pleasant Password Server}
 Beim Pleasant Password Server Handelt es sich nach eigenen Angaben um eine serverbasierte KeePass Passwort Safe. Im Unterschied zu seinem kleinen Bruder ist der Pleasant Passowrd Server allerdings, wie der Name schon vermuten lässt, keine reine Client Software mehr, sondern er fügt sich als Serverdienst in eine \ac{IT}-Umgebung ein. Das Ziel der Anwendung ist es eine sichere Ablagemöglichkeit für Passwörter, Produkt-Keys, Kreditkarteninformationen und Dateien zu bieten. Zur verschlüsselten Netzwerkkommunikation werden \ac{TLS}-Zertifikate verwendet. Die Client-Software wird als installierbares Programm zur Verfügung gestellt welches auf einigen gängigen Betriebssystemen installiert werden während die Serveranwendung nur für Microsoft Windows zur Verfügung gestellt wird. Es gibt auch einen Webanwendung die eine clientseitig plattformunabhängige Nutzung ermöglicht. 
-Eine Rollen- und Eintragsbasierte Rechtevergabe ist vorgesehen, womit der Zugriff durch ausschließlich autorisierte Entitäten sichergestellt werden soll. Mit seiner Initialen Veröffentlichung im Oktober 2012 handelt es sich beim Pleasant Password Server noch um eine relativ junge Software, die jedoch durch den Hersteller, dem Versionsstand nach zu urteilen, regelmäßig mit Updates versorgt wird.\cite{pleasant}
+Eine Rollen- und Eintragsbasierte Rechtevergabe ist vorgesehen, womit der Zugriff durch ausschließlich autorisierte Identitäten sichergestellt werden soll. Mit seiner Initialen Veröffentlichung im Oktober 2012 handelt es sich beim Pleasant Password Server noch um eine relativ junge Software, die jedoch durch den Hersteller, dem Versionsstand nach zu urteilen, regelmäßig mit Updates versorgt wird.\cite{pleasant}
 Wie aus \autoref{tab:ver} hervorgeht, erfüllt die Software schon relativ viele der festgelegten Kriterien. Da es sich jedoch nicht um ein quelloffenes Programm handelt, gibt es wenige Informationen über die internen Mechanismen und deren Sicherheit. Aus dem Lizenzmodell geht zudem hervor, dass sich die Software eher an kleine bis mittelständige Unternehmen richtet und somit an der Anforderung eine Lösung für ein Großunternehmen zu bieten vorbei geht.
 
-\subsection{Das Passwort Dilemma}
-\label{subsec:pass}
-Das Passwort ist die einfachste und am häufigsten verwendete Methode um eine Authentifizierung zwischen einem Mensch und einem Computersystem durchzuführen. Es ist leicht zu implementieren und leicht zu bedienen. Es gibt allerdings eine Reihe an Angriffsszenarien bei denen das klassische Passwort als authentifizierender Faktor versagt.
-\begin{itemize}
-	\item Das Passwort kann beim Eintippen durch einen dritten gesehen oder gefilmt werden. 
-	\item Passwörter können über sogenannte Brute-force Angriffe ``erraten`` werden. Um diese Angriffe durchzuführen gibt es spezielle Programme, die so lange alle möglichen Kombinationen an Tastaturzeichen ausprobieren, bis sie das Passwort herausgefunden haben. 
-	\item Wenn Passwörter über das ein Netzwerk übertragen werden, können sie durch spezielle Software abgegriffen werden. Außerdem gibt es spezielle Software, welche die Tastatureingaben am Computer protkollieren kann. Solche Software kann dazu verwendet werden Passwörter die an betreffenden Endgeräten eingegeben werden an einen Angreifer zu übermitteln.
-	Ein weiteres Angriffsszenario stellt das sogenannte Login Spoofing dar. Hierbei wird ein Anmeldefenster gefälscht, welches möglichst gleich aussieht wie das original. Wenn der Nutzer sein Passwort in das gefälschte Fenter eingibt, wird es gespeichert oder direkt an den Angreifer übermittelt. 
-\end{itemize}
-Jeder dieser Angriffe reicht aus um Systeme zu täuschen die zur Authentifizierung allein auf Passwörter setzen. In den meisten Unternehmen ist es aus diesen Gründen nicht erlaubt das gleiche Passwort für unterschiedliche Dienste zu verwenden. Außerdem gibt es versuche durch Passwortrichtlinien die Komplexität der Passwörter zu steigern, sodass zum Beispiel Brute-force Angriffe länger dauern und sich nicht mehr lohnen. Zusätzlich werden Schwellwerte für fehlgeschlagene Anmeldeversuche festgelegt um zu vermeiden, dass Passörter beliebig oft ausprobiert werden können. Diese Maßnahmen verringern zwar die Zahl der erfolgreichen Angriffe, stehen jedoch im Widerspruch zur einfachen Benutzbarkeit. Ein hoher Aufwand für die \ac{IT}-Abteilungen muss aufgebracht werden um Passwörter zurückzusetzen und die Sicherheitsmechanismen für jeden Dienst zu implementieren.\cite[S. 3ff]{hong}
-Auf Grund der vielen Angriffsmöglichkeiten gibt es viele Stimmen, die das Ende des Passworts, wie wir es kennen, fordern. Es gibt außerdem viele Empfehlungen ein Passwort am besten zu erzeugen ist um eine Steigerung der Sicherheit gegenüber Angriffen zu erreichen. Was bleibt ist die menschliche Komponente beim Umgang mit Passwörtern. Da Menschen sich auf Bequemlichkeit nicht an die Empfehlungen zur Erstellung eines ``sicheren`` Passworts halten und dies sich auch nur bedingt überprüfen lässt ohne neue Angriffsflächen zu bieten, bleibt das Problem bestehen, dass Passwörter ``geknackt`` werden und Angreifer Zugriff auf sensible Daten bekommen. Es gibt mittlerweile einen Trend zur sogenannten Zwei-Faktor Authentifizierung wobei die zum Identitätsnachweis nicht allein das Passwort verwendet wird, sondern ein weiterer Faktor hinzugenommen wird. Es gibt unterschiedliche Methoden wie solch ein weiterer Faktor aussehen kann, so gibt es zum Beispiel Codes die über die Mobiltelefone der User zugeschickt werden und die nur einmal und für eine kurze Zeitperiode verwendet werden können. Da es bis jetzt aber noch keine vollkommene Alternative zu Passwörtern gibt, ist es sehr wahrscheinlich, dass das Passwort noch einige Zeit also Teil der Authentifizierung bestehen bleiben wird.\cite{pass}
-\subsection{Hashicorp Vault}
+\subsubsection{Hashicorp Vault}
 
 Bei Vault handelt es sich dem Hersteller Hashicorp zufolge um ein vollumfängliches Secrets Management System. Die Software wird in der Community Edition unter einer Quelloffenen Lizenz veröffentlicht und verfügt über eine umfangreiche Dokumentation. Folgende Funktionen und Funktionsweisen liefert Vault dem Hersteller zufolge:
 
@@ -410,36 +434,27 @@ Bei Vault handelt es sich dem Hersteller Hashicorp zufolge um ein vollumfänglic
 
 \subsection{Motivation}
 In den vorigen Abschnitten wurden Problematiken und Widersprüche aufgezeigt, die zur Wahl des Themas für die vorliegende Arbeit geführt haben. Der Diskurs um Sicherheits- und Secrets- Management in großen Firmenumgebungen (mehrere Niederlassungen) und der Trend hin zur Auslagerung eigener Rechenzentren zu Cloud-Providern, wirft immer wieder die Frage nach funktionierenden Sicherheitskonzepten auf. Nicht zu Letzt, die zunehmenden erfolgreichen Angriffe, die auf ein unzureichendes Sicherheitskonzept zurückzuführen sind werfen die Frage nach einem Umfangreichen Sicherheitssystem auf, welches dazu in der Lage ist neue Bedrohungen und sich verändernde Bedingungen abzudecken. 
-Eine der wichtigsten Herausforderungen bei Cloudumgebungen stellt nicht allein das Management von User Zugangsdaten dar es wird immer wichtiger auch die Verwaltung von Diensten und deren Zugangsdaten zu beleuchten. Klassischerweise geht es dabei um Datenbankpasswörter, es kommen aber immmer mehr sogenannte Microservices dazu. Bei Mirsoservices handelt es sich um kleine Programme, die meist eine einzige Aufgabe erfüllen und über eine \ac{API} steuerbar sind. Wenn im Netzwerk viele Microservices aktiv sind, die nicht unwahrscheinlich auch untereinander kommunizieren und sich Authentifizieren müssen, verliert ein Administrator leicht die Übersicht. Auf Grund der Problematiken die in \autoref{subsec:pass} aufgezeigt wurden ist es also essentiell auch hier für einen möglichst sicheren Ablauf zu sorgen um zu erreichen, dass es für Angreifer sehr schwer wird gefälschte Dienste einzuschleusen um an geheime Informationen zu kommen, bzw. bestehende Dienst dafür zu verwenden.\footnote{Eigene Darstellung zur Basis der vorangegangen Abschnitte}
+Eine der wichtigsten Herausforderungen bei Cloudumgebungen stellt nicht allein das Management von User Zugangsdaten dar es wird immer wichtiger auch die Verwaltung von Diensten und deren Zugangsdaten zu beleuchten. Klassischerweise geht es dabei um Datenbankpasswörter, es kommen aber immmer mehr sogenannte Microservices dazu. Bei Mirsoservices handelt es sich um kleine Programme, die meist eine einzige Aufgabe erfüllen und über eine \ac{API} steuerbar sind. Wenn im Netzwerk viele Microservices aktiv sind, die nicht unwahrscheinlich auch untereinander kommunizieren und sich Authentifizieren müssen, verliert ein Administrator leicht die Übersicht. Auf Grund der Problematiken die in \autoref{subsec:pass} aufgezeigt wurden ist es also essentiell auch hier für einen möglichst sicheren Ablauf zu sorgen um zu erreichen, dass es für Angreifer sehr schwer wird gefälschte Dienste einzuschleusen um an geheime Informationen zu kommen, bzw. bestehende Dienst für diesen Zweck zu missbrauchen.\footnote{Eigene Darstellung zur Basis der vorangegangen Abschnitte}
 
 \subsection{Projektumgebung}
 Das Thema Sicherheit in der Datenverarbeitung ist seit der Einführung eben jener ein wichtiges Thema. Über die Jahre haben sich die Möglichkeiten zur Absicherung in der \ac{IT} stetig weiterentwickelt, sodass die Absicherung von Computern, Netzwerken, Servern und ganz allgemein Informationen zu einem wichtigen Zweig der Branche geworden ist. Mit neuen Technologien stellt sich immer auch die Frage nach den Sicherheitsaspekten.\newline
-Cloud-Computing ist aktuell ein sehr wichtiger und schnell wachsendes Faktor in der \ac{IT}-Branche, vor allem im Ausland werden Technologien rund um das Thema Cloud stark gefördert und es gibt eine Vielzahl an Softwareprodukten die sich diesem Feld verpflichtet haben. Für die Nutzung der Vorteile dieser Technologien in Deutschland gibt es einige Faktoren die es zu betrachten gilt. Zum Beispiel gilt es zu kalkulieren, ob eine Verlagerung von Anwendungen oder Daten auf Cloud Infrastruktur wirtschaftlich ist oder nicht. Dabei spielt die vorhandene Infrastruktur eine Zentrale Rolle und es gilt zu betrachten ob ein schrittweiser oder teilweiser Umzug das Mittel der Wahl sein könnte. Vor diesem Hintergrund spielt natürlich wieder das Thema Sicherheit eine wichtige Rolle. Daten auf ``fremder`` Hardware zu speichern, wie es in Cloud Umgebungen gängige Praxis ist, stellt immer ein Risiko dar. In diesem Kontext muss als immer darauf geachtet werden, dass kritische Daten und Anwendungen nur autorisierten Personen und Anwendungen zur Verfügung gestellt werden. Weiterhin ist abzuwägen in wie fern sich die aktuelle Software, welche zur Authentifizierung und Autorisierung eingesetzt wird, dazu eignet die genannten Herausforderungen zu lösen. In dieser Arbeit soll dieser Aspekt genauer beleuchtet werden.
+Cloud-Computing ist aktuell ein sehr wichtiger und schnell wachsendes Faktor in der \ac{IT}-Branche, vor allem im Ausland werden Technologien rund um das Thema Cloud stark gefördert und es gibt eine Vielzahl an Softwareprodukten die sich diesem Feld verpflichtet haben. Für die Nutzung der Vorteile dieser Technologien in Deutschland gibt es einige Faktoren die es zu betrachten gilt. Zum Beispiel gilt es zu kalkulieren, ob eine Verlagerung von Anwendungen oder Daten auf Cloud Infrastruktur wirtschaftlich ist oder nicht. Dabei spielt die vorhandene Infrastruktur eine Zentrale Rolle und es gilt zu betrachten ob ein schrittweiser oder teilweiser Umzug das Mittel der Wahl sein könnte. Vor diesem Hintergrund spielt natürlich wieder das Thema Sicherheit eine wichtige Rolle. Daten auf ``fremder`` Hardware zu speichern, wie es in Cloud Umgebungen gängige Praxis ist, stellt immer ein Risiko dar. In diesem Kontext muss als immer darauf geachtet werden, dass kritische Daten und Anwendungen nur autorisierten Identitäten zur Verfügung gestellt werden. Weiterhin ist abzuwägen in wie fern sich die aktuelle Software, welche zur Authentifizierung und Autorisierung eingesetzt wird, dazu eignet die genannten Herausforderungen zu lösen. In dieser Arbeit soll dieser Aspekt genauer beleuchtet werden.
 \subsubsection{Unternehmensvorstellung}
 Die science + computing ag, kurz s+c, ist als Tochergesellschaft der ATOS SE ein Unternehmen des \ac{IT}-Dienstleistungs- und Consultingbereichs. Mit seinen knapp 300 Mitarbeitern betätigt sich die s+c hauptsächlich in den Bereichen High Performance Computing, \ac{IT}-Sicherheit, 3D-Virtualisierung und System-Management. Durch OpenSoftware-Dienstleistungen und diverse Softwareprodukte betätigt sich das Unternehmen zudem im Bereich der Softwareentwicklung. Neben Großkunden der Automobilindustrie besteht der diverse Kundenkreis der s+c aus Mikroelektronikherstellern, Chemie- und Pharmaunternehmen, Maschinen- und Anlagenbauer, Forschungs- und Bildungseinrichtungen und Unternehmen aus der Luft- und Raumfahrtbrache. Zum Hauptsitz in Tübingen kommen noch vier weitere Standorte in Berlin, Düsseldorf, Ingolstadt und München hinzu. Bis zur Übernahme durch den französischen Computerhersteller Bull war die 1989 gegründete science + computing ag ein eigenständiges Unternehmen.\cite{bull} Im Jahr 2014 wurde die BULL-Gruppe ihrerseits durch die ATOS SE übernommen wodurch auch die science + computing ag nun zum ATOS-Gesamtkonzern gehört.\cite{atos} ATOS SE ist ein International agierender Konzern mit knapp 100.000 Mitarbeitern, einem jährlichen Umsatz von 14 Milliarden Dollar und Hauptsitz in Bezons (Frankreich). Nach der Forbes Liste der 2000 größten Unternehmen der Welt belegt ATOS SE mit den oben genannten Werten den Platz 858 (Stand Juni 2018).\cite{forbes} Im Zuge der Übernahme durch ATOS SE wird die Marke s+c seit 2016 nicht mehr weitergeführt. Stattdessen wird nun die Konzernmarke ATOS verwendet.
 
 \subsubsection{Arbeitsumgebung}
 Die Durchführung der Projektarbeit findet im Team \ac{CAE}3 der science + computing ag statt. Im Team \ac{CAE}3 werden Kunden betreut, die unter Verwendung von High Perfomance Computing Berechnungen anstellen. Der Fokus des Teams liegt dabei auf Kundenkreisen die sich im Bereich \ac{CAE} betätigen. Im Team gibt es verschiedene Kompetenzen um die volle Bandbreite der Kundenwünsche abdecken zu können. Zu den Kernkompetenzen gehören hierbei Weiter-/Entwicklung von systemunterstützender Software, Administration von Computerclustern inklusive Überwachung der Systemkomponenten sowie Administration und Bereitstellung von speziellen Speicherinfrastrukturen. Die Evaluierung welche Teil dieses Praxisberichts ist, soll erste Informationen liefern aus denen sich die Nutzbarkeit von Secrets Management Software zur interne Nutzung ableiten lässt. Der praktische Teil der Evaluierung wird auf einer virtualisierten Umgebung auf Basis von VMware Workstation durchgeführt.
+                                                                                                                                                   
+\subsubsection{Unternehmensspezifische Anforderungen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+Bei s+c gibt es laufend Projekte, die sich mit zukunftsweisenden Technologien beschäftigen, um eine etwaige Übernahme in das Leistungsportfolio der Firma zu erörtern. Bei den Projekten geht es sowohl um die Verbesserung eigener Geschäftsprozesse und Arbeitsabläufe als auch um die Optimierung der Leistungen gegenüber dem Kunden. Wichtige Faktoren die bei einer derartigen Einschätzung betrachtet werden müssen sind Einsatzmöglichkeiten, Einsatzbereiche, Kosten, Schnittstellen und Skalierbarkeit. \newline                                                                                                                                                                                                                                                                                                                                                                                                                     
+Über die Einsatzmöglichkeiten kann entschieden werden, wenn klar ist, welche Voraussetzungen die Secrets Management Software zum Betrieb benötigt und ob sich der Einsatz mit rechtlichen und betriebsratlichen Beschränkungen vereinbaren lässt. Dem Trend zu einheitlichen Arbeitsmitteln folgend ist der Einsatzbereich so weit wie möglich zu wählen, ohne dabei jedoch die Einzelnen Bereiche in ihrer Arbeit zu beeinträchtigen. Nach erfolgreicher Evaluierung kann über ein produktives Pilotprojekt in einem definierten Umfeld gestartet werden. Zum Zweck der Evaluierung sollte eine Testversion oder die kostenfreie Version des Secrets Management Systems eingesetzt werden. Weiterhin sollte eine Kalkulation angestellt werden, welche eine qualifizierte Aussage über die Wirtschaftlichkeit der kostenpflichtigen Version gegenüber der kostenfreien Version macht. Dabei ist zu beachten,  inwiefern interne Kompetenzen zum Betrieb der kostenfreien Version verwendet werden können, welche den kommerziellen Support ersetzten könnten. Weiterhin ist ein finanzieller Vergleich vom Status Quo zum geplanten Ziel über einen definierten Zeitraum anzustellen. Um qualifizierte Aussagen über den Aufwand treffen zu können ist es wichtig die Schnittstellen zu bestehenden Systemen zu bewerten und auf ihre Funktionalität zu untersuchen. Das Secrets Management Konzept ist derart anzulegen, dass es sich möglichst einfach in eine bestehende Umgebung integrieren lässt. Bei der Evaluierung muss auch darauf geachtet werden inwiefern sich eine Secrets Management Software in großen Umgebungen einsetzten lässt. Dabei spielt die ist es von Vorteil wenn die Software über die Möglichkeit verfügt über mehrere Hardwareinstanzen hinaus erweiterbar zu sein. Außerdem ist zu betrachten ob das System auch rechenzentrenübergreifend eingesetzt werden kann. Letzteres ist vorallem bei sehr großen Umgebungen von Relevanz.
 
-\subsubsection{Unternehmensspezifische Anforderungen}
-Bei s+c gibt es laufend Projekte, die sich mit zukunftsweisenden Technologien beschäftigen, um eine etwaige Übernahme in das Leistungsportfolio der Firma zu erörtern. Bei den Projekten geht es sowohl um die Verbesserung eigener Geschäftsprozesse und Arbeitsabläufe als auch um die Optimierung der Leistungen gegenüber dem Kunden. Wichtige Faktoren die bei einer derartigen Einschätzung betrachtet werden müssen sind Einsatzmöglichkeiten, Einsatzbereiche, Kosten, Schnittstellen und Skalierbarkeit. \newline 
-
-
-
-
-\section{Hauptteil}
-\label{sec:hauptteil}
-
-Teil 1
-Theoretische Ausarbeitung als Vorarbeit zur Durchführung
-des Projekts
-
-Teil 2
-Anforderungsdefinition
-Anforderungsanalyse
-Lösungsgenerierung
-Lösungsbewertung
-Umsetzung
+\section{Evaluierung von Hashicorp Vault}
+\subsection{Anforderungen}
+\subsection{Analyse der Anforderungen}
+\subsection{Planung der Testumgebung}
+\subsection{Bewertung der Planung}
+\subsection{Umsetzung der Testumgebung}
 
 \section{Zusammenfassung und Ausblick}
 \label{sec:ausblick}
@@ -450,8 +465,9 @@ Umsetzung
 %%% end main document
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
-
+\newpage
 \appendix
+\Urlmuskip=0mu plus 1mu
 \bibliographystyle{plain}
 \bibliography{literatur}
 
