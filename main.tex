@@ -501,6 +501,23 @@ Weiterhin sollte eine Kalkulation angestellt werden, welche eine qualifizierte A
 Um qualifizierte Aussagen über den Aufwand treffen zu können ist es wichtig die Schnittstellen zu bestehenden Systemen zu bewerten und auf ihre Funktionalität zu untersuchen. Das Secrets Management Konzept ist derart anzulegen, dass es sich möglichst einfach in eine bestehende Umgebung integrieren lässt. Bei der Evaluierung muss auch darauf geachtet werden inwiefern sich eine Secrets Management Software in großen Umgebungen einsetzten lässt. Dabei spielt die ist es von Vorteil wenn die Software über die Möglichkeit verfügt über mehrere Hardwareinstanzen hinaus erweiterbar zu sein. Außerdem ist zu betrachten ob das System auch rechenzentrenübergreifend eingesetzt werden kann. Letzteres ist vorallem bei sehr großen Umgebungen von Relevanz.
 
 \section{Evaluierung von Hashicorp Vault}
+\label{sec:eval}
+Auf Grund von teaminternen Erwägungen wird zur als Secrets Management Software Hashicorp Vault evaluiert. Faktoren, die hierbei eine Rolle gespielt haben sind unter anderem das schnelle Wachstum des Projekts, der Funktionsumfang, die Quelloffenheit und die Einbettung in bestehende Evaluierungsprozesse. Alternativen zu Vault die einen Ähnlichen Funktionsumfang liefern, sind beispielsweise:\cite{github}\newline
+Bei \textbf{Ansible Vault} handelt es sich um einen Funktionsbaustein der Verteilungssoftware Ansible. Die primäre Funktionalität besteht darin, Passwörter in Dateien zu verschlüsseln. Hintergrund dieser Funktionalität ist der Aufbau von Ansible und die damit verbundene Problematik, dass Passwörter, die ohne Ansible Vault verwendet werden sollen, im Klartext in Konfigurationsdateien hinterlegt werden müssen. Passwörter in Klartext sind immer ein hohes Risiko, da jeder der Lesezugriff auf die betreffende Datei bekommt die Möglichkeit hat das Passwort abzugreifen.\cite{ansible} Da die Software im Anwendungsrahmen auf Ansible beschränkt ist, ist sie für den gegebenen Projektrahmen nicht interessant.\newline
+\textbf{Barbican} ist aus dieser Liste Hashicorp Vault am ähnlichsten. \cite{barbican}
+\textbf{Chef Data Bags}
+\textbf{Chef Vault}
+\textbf{Citadel}
+\textbf{Confidant}
+\textbf{Configuration Storage Systems (Consul, etcd, Zookeeper)}
+\textbf{Conjur}
+\textbf{Crypt}
+\textbf{EJSON}
+\textbf{Keywhiz}
+\textbf{Knox}
+\textbf{Red October}
+\textbf{Trousseau}
+
 \subsection{Anforderungen}
 \subsection{Analyse der Anforderungen}
 \subsection{Planung der Testumgebung}
