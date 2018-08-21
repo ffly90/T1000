@@ -294,9 +294,11 @@ To achieve this task a virtual environment shall be implemented to test the feat
 \begin{acronym}
 	\acro{Authentifizierung:}{der Identitätsnachweis einer Person, Maschine oder eines Dienstes, gegenüber einer weiteren Instanz} 
 	\acro{Autorisierung:}{die explizite Freigabe um auf einen geheimen Inhalt zuzugreifen}
+	\acro{Chef:}{eine Software zur automatisierten Installation von fertig konfigurierten Betriebssystemabbildern.}
 	\acro{Computercluter:}{eine Ansammlung von, meist identischer, Harware, welche zu einer logischen Einheit zusammengefasst wird. Der Cluster wird meist verwendet um komplexe Berechungen zu lösen, die auf einzenen Computern sehr lange dauern würde.}
 	\acro{Dienst:}{eine autarke Einheit, welche eine spezifizierte Aufgabe bzw. Funktionalitaet erfuellt und diese ueber keine klar definierte Schnittstelle zur Verfuegung stellt}
 	\acro{KeePass Passwort Safe:}{ein quelloffener Passwortmanager, dazu designed wurde viele Passörter auf sichere Art und Weise zu speichern. Der Zugang zu diesem Passwortsafe wird allein durch ein einziges Masterpasswort gewährt.}
+	\acro{OpenStack:}{der Markenname eines quelloffenen Betriebssystems welches entwickelt wurde um eine Cloud Computing (siehe Kapitel \vref{subsec:cloud}) Infrastruktur bereit zu stellen.\cite[S. 2]{barbican}}
 	\acro{Skalierbarkeit:}{die Fähigkeit eines Systems zur flexiblen Änderung ihrer Größe. Der Begriff wird meist dann verwendet wenn es um ein Ausweitung des gefragten Systems geht.}
 \end{acronym}
 
@@ -457,7 +459,7 @@ Eine Rollen- und Eintragsbasierte Rechtevergabe ist vorgesehen, womit der Zugrif
 Wie aus Tabelle \vref{tab:ver} hervorgeht, erfüllt die Software schon relativ viele der festgelegten Kriterien. Da es sich jedoch nicht um ein quelloffenes Programm handelt, gibt es wenige Informationen über die internen Mechanismen und deren Sicherheit. Aus dem Lizenzmodell geht zudem hervor, dass sich die Software eher an kleine bis mittelständige Unternehmen richtet und somit an der Anforderung eine Lösung für ein Großunternehmen zu bieten vorbei geht.
 
 \subsubsection{Hashicorp Vault}
-
+\label{subsubsec:vault}
 Bei Vault handelt es sich dem Hersteller Hashicorp zufolge um ein vollumfängliches Secrets Management System. Die Software wird in der Community Edition unter einer Quelloffenen Lizenz veröffentlicht und verfügt über eine umfangreiche Dokumentation. Folgende Funktionen und Funktionsweisen liefert Vault dem Hersteller zufolge:
 
 \textbf{Funktionen von Vault:}
@@ -476,7 +478,6 @@ Geheimnisse können auch durch Administratoren widerrufen werden. Dabei bietet V
 \newline\textit{Client Software-Token:} Ein Client Software-Token wird ausgestellt, um einen Client über die Dauer einer Sitzung gegenüber Vault zu authentisieren.
 \newline\textit{Server:} Vault wird als einzelne Binärdatei zur Verfügung gestellt, es kann sowohl als Client als auch als Server ausgeführt werden. Wenn der Server gestartet wurde, kümmert er sich um die Kommunikation mit Hintergrunddiensten und stellt ein \acs{API} für die Clientinteraktion bereit. Außerdem ist er verantwortlich für die Anwendung der \ac{ACL}s und den Widerruf abgelaufener Geheimnisse. Neben einigen weiteren Aufgaben erstellt der Server auch ein Log in welchem jede Interaktion mit Vault dokumentiert wird. 
 
-
 \subsection{Motivation}
 In den vorigen Abschnitten wurden Problematiken und Widersprüche aufgezeigt, die zur Wahl des Themas für die vorliegende Arbeit geführt haben. Der Diskurs um Sicherheits- und Secrets- Management in großen Firmenumgebungen (mehrere Niederlassungen) und der Trend hin zur Auslagerung eigener Rechenzentren zu Cloud-Providern, wirft immer wieder die Frage nach funktionierenden Sicherheitskonzepten auf. Nicht zu Letzt, die zunehmenden erfolgreichen Angriffe, die auf ein unzureichendes Sicherheitskonzept zurückzuführen sind werfen die Frage nach einem Umfangreichen Sicherheitssystem auf, welches dazu in der Lage ist neue Bedrohungen und sich verändernde Bedingungen abzudecken.\\
 Eine der wichtigsten Herausforderungen bei Cloudumgebungen stellt nicht allein das Management von User Zugangsdaten dar es wird immer wichtiger auch die Verwaltung von Diensten und deren Zugangsdaten zu beleuchten. Klassischerweise geht es dabei um Datenbankpasswörter, es kommen aber immmer mehr sogenannte Microservices dazu. Bei Mirsoservices handelt es sich um kleine Programme, die meist eine einzige Aufgabe erfüllen und über eine \ac{API} steuerbar sind. Wenn im Netzwerk viele Microservices aktiv sind, die nicht unwahrscheinlich auch untereinander kommunizieren und sich Authentifizieren müssen, verliert ein Administrator leicht die Übersicht.\\
@@ -493,8 +494,8 @@ ATOS SE ist ein International agierender Konzern mit knapp 100.000 Mitarbeitern,
 \subsubsection{Arbeitsumgebung}
 Die Durchführung der Projektarbeit findet im Team \ac{CAE}3 der science + computing ag statt. Im Team \ac{CAE}3 werden Kunden betreut, die unter Verwendung von High Perfomance Computing Berechnungen anstellen. Der Fokus des Teams liegt dabei auf Kundenkreisen die sich im Bereich \ac{CAE} betätigen. Im Team gibt es verschiedene Kompetenzen um die volle Bandbreite der Kundenwünsche abdecken zu können. Zu den Kernkompetenzen gehören hierbei Weiter-/Entwicklung von systemunterstützender Software, Administration von Computerclustern inklusive Überwachung der Systemkomponenten sowie Administration und Bereitstellung von speziellen Speicherinfrastrukturen.\\
 Die Evaluierung welche Teil dieses Praxisberichts ist, soll erste Informationen liefern aus denen sich die Nutzbarkeit von Secrets Management Software zur interne Nutzung ableiten lässt. Der praktische Teil der Evaluierung wird auf einer virtualisierten Umgebung auf Basis von VMware Workstation durchgeführt.
-                                                                                                                                                   
-\subsubsection{Unternehmensspezifische Anforderungen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                         
+\subsubsection{Unternehmensspezifische Anforderungen}
 Bei s+c gibt es laufend Projekte, die sich mit zukunftsweisenden Technologien beschäftigen, um eine etwaige Übernahme in das Leistungsportfolio der Firma zu erörtern. Bei den Projekten geht es sowohl um die Verbesserung eigener Geschäftsprozesse und Arbeitsabläufe als auch um die Optimierung der Leistungen gegenüber dem Kunden. Wichtige Faktoren die bei einer derartigen Einschätzung betrachtet werden müssen sind Einsatzmöglichkeiten, Einsatzbereiche, Kosten, Schnittstellen und Skalierbarkeit. \\                                                                                                                                                                                                                                                                                                                                                                                                                     
 Über die Einsatzmöglichkeiten kann entschieden werden, wenn klar ist, welche Voraussetzungen die Secrets Management Software zum Betrieb benötigt und ob sich der Einsatz mit rechtlichen und betriebsratlichen Beschränkungen vereinbaren lässt. Dem Trend zu einheitlichen Arbeitsmitteln folgend ist der Einsatzbereich so weit wie möglich zu wählen, ohne dabei jedoch die Einzelnen Bereiche in ihrer Arbeit zu beeinträchtigen. Nach erfolgreicher Evaluierung kann über ein produktives Pilotprojekt in einem definierten Umfeld gestartet werden. Zum Zweck der Evaluierung sollte eine Testversion oder die kostenfreie Version des Secrets Management Systems eingesetzt werden.\\
 Weiterhin sollte eine Kalkulation angestellt werden, welche eine qualifizierte Aussage über die Wirtschaftlichkeit der kostenpflichtigen Version gegenüber der kostenfreien Version macht. Dabei ist zu beachten,  inwiefern interne Kompetenzen zum Betrieb der kostenfreien Version verwendet werden können, welche den kommerziellen Support ersetzten könnten. Weiterhin ist ein finanzieller Vergleich vom Status Quo zum geplanten Ziel über einen definierten Zeitraum anzustellen.\\ 
@@ -502,21 +503,23 @@ Um qualifizierte Aussagen über den Aufwand treffen zu können ist es wichtig di
 
 \section{Evaluierung von Hashicorp Vault}
 \label{sec:eval}
-Auf Grund von teaminternen Erwägungen wird zur als Secrets Management Software Hashicorp Vault evaluiert. Faktoren, die hierbei eine Rolle gespielt haben sind unter anderem das schnelle Wachstum des Projekts, der Funktionsumfang, die Quelloffenheit und die Einbettung in bestehende Evaluierungsprozesse. Alternativen zu Vault die einen Ähnlichen Funktionsumfang liefern, sind beispielsweise:\cite{github}\newline
-Bei \textbf{Ansible Vault} handelt es sich um einen Funktionsbaustein der Verteilungssoftware Ansible. Die primäre Funktionalität besteht darin, Passwörter in Dateien zu verschlüsseln. Hintergrund dieser Funktionalität ist der Aufbau von Ansible und die damit verbundene Problematik, dass Passwörter, die ohne Ansible Vault verwendet werden sollen, im Klartext in Konfigurationsdateien hinterlegt werden müssen. Passwörter in Klartext sind immer ein hohes Risiko, da jeder der Lesezugriff auf die betreffende Datei bekommt die Möglichkeit hat das Passwort abzugreifen.\cite{ansible} Da die Software im Anwendungsrahmen auf Ansible beschränkt ist, ist sie für den gegebenen Projektrahmen nicht interessant.\newline
-\textbf{Barbican} ist aus dieser Liste Hashicorp Vault am ähnlichsten. \cite{barbican}
-\textbf{Chef Data Bags}
-\textbf{Chef Vault}
-\textbf{Citadel}
-\textbf{Confidant}
-\textbf{Configuration Storage Systems (Consul, etcd, Zookeeper)}
-\textbf{Conjur}
-\textbf{Crypt}
-\textbf{EJSON}
-\textbf{Keywhiz}
-\textbf{Knox}
-\textbf{Red October}
-\textbf{Trousseau}
+Auf Grund von teaminternen Erwägungen wird zur als Secrets Management Software Hashicorp Vault evaluiert. Faktoren, die hierbei eine Rolle gespielt haben sind unter anderem das schnelle Wachstum des Projekts, der Funktionsumfang, die Quelloffenheit und die Einbettung in bestehende Evaluierungsprozesse. Alternativen zu Vault die einen Ähnlichen Funktionsumfang liefern, sind beispielsweise:\cite{github}
+
+Bei \textbf{Ansible Vault} handelt es sich um einen Funktionsbaustein der Verteilungssoftware Ansible. Die primäre Funktionalität besteht darin, Passwörter in Dateien zu verschlüsseln. Hintergrund dieser Funktionalität ist der Aufbau von Ansible und die damit verbundene Problematik, dass Passwörter, die ohne Ansible Vault verwendet werden sollen, im Klartext in Konfigurationsdateien hinterlegt werden müssen. Passwörter in Klartext sind immer ein hohes Risiko, da jeder der Lesezugriff auf die betreffende Datei bekommt die Möglichkeit hat das Passwort abzugreifen.\cite{ansible} Da die Software im Anwendungsrahmen auf Ansible beschränkt ist, ist sie für den gegebenen Projektrahmen nicht interessant.
+
+\textbf{Barbican} ist aus dieser Liste Hashicorp Vault am ähnlichsten. Wie aus Abbildung \vref{fig:barb} hervorgeht, interagieren die Clients direkt mit der \ac{API} um auf geheime Informationen zuzugreifen, diese abzuspeichern oder zu ändern. Diverse Features gehen ebenfalls aus der Abbildung hervor welche sich ebenfalls bei der Vorstellung von Hashicorp Vault in Kapitel \vref{subsubsec:vault} wiederfinden. Ein wichtiger Unterschied liegt allerdings in der Authentifizierung der Identitäten gegenüber dem Server. Vault unterstützt hierfür neben der eingebauten Benutzername und Passwort Funktion auch Schnittstellen zu diversen Authentifizierungsdiensten wie zum Beispiel Microsoft \ac{AD}, während Barbican ausschließlich auf das Authentifizierungssystem von OpenStack aufbaut.\cite[S. 4f]{barbican}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{barbican}
+	\caption[Barbican]{How Openstack Barbican Works \cite[S. 4]{barbican}}
+	\label{fig:barb}
+\end{figure}
+
+\textbf{Chef Vault} verwendet die in Chef integrierten ``Data Bags`` (engl. für Datentaschen) um eine Schlüsselverteilung zu realisieren. Dabei wird auf die im Softwaredesign enthaltenen Schlüsselpaare, welche durch das ausrollen der Betriebssysteme sowieso schon Teil der Zielserver sind, zurückgegriffen. Auf dem Server der ein Geheimnis verschlüsselt wird ein symmetrischer Schlüssel erzeugt, welcher dann mit allen öffentlichen Schlüsseln derjenigen Server verschlüsselt wird die Zugriff auf das Geheimnis erhalten sollen. Der Zentrale Chef Server hält dann die verschlüsselte Version des kryptographischen Schlüssels.\cite{chef} Durch den sehr eingeschränkten Funktionsumfang und die Beschränkung auf die Nutzung mit Chef kommt dieses Produkt nicht zur weiteren Evaluierung in Frage.
+
+\textbf{Confidant} ist ein Secrets Management Werkzeug, das ausschließlich für mit dem Cloud Computing Provider Amazon Web Services verwendbar ist. Es handelt sich also um eine Lösung die nicht zur Nutzung mit privaten Cloud Diensten geeignet ist. Eine Dokumentation für die Software existiert nicht, sie ist jedoch quelloffen und daher für Fachleute nachvollziehbar. Das Grundprinzip ist wie bei den anderen Lösungen auch die Speicherung von Schlüssel und Wert Paaren.\cite{lyft}
+
+Die Wahl ist schlussendlich auf \textbf{Hashicorp Vault} gefallen, da keine der anderen Produkte die nötige Felxibilität und Varianz bei den Abhängigkeiten geboten hat. 
 
 \subsection{Anforderungen}
 \subsection{Analyse der Anforderungen}
