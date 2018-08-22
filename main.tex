@@ -24,8 +24,17 @@ halfparskip,
 %\renewcommand{\familydefault}{\sfdefault}
 \usepackage{amsmath,amssymb,amstext}
 \usepackage{psfrag}
-%\usepackage{listings}
-%\lstset{language=Python} 
+\usepackage{listings}
+\lstset{	
+	language=bash,
+	numbers=left,
+	tabsize=2,
+	stepnumber=1,
+	breaklines=true,
+	breakatwhitespace=false,
+	backgroundcolor=\color{lightgray},		
+} 
+\newcommand\inline{\lstinline[basicstyle=\ttfamily]}
 %\usepackage{units}
 \usepackage[nottoc]{tocbibind}
 \usepackage{cite}
@@ -530,6 +539,7 @@ Wie schon in den Kapiteln \vref{subsubsec:anforderung} und \vref{subsec:proj} be
 Zur Projektdurchführung und praktischen Evaluierung soll in einem ersten Schritt eine virtualisierte Infrastruktur aufgebaut werden, die aus einem Vault-Server, einem Consul-Server\footnote{Server zur Speicherung von Paaren aus einem Schlüssel(wort) und einem dazugehörigen Wert}, einem \ac{LDAP}-Server und einem Web-Server besteht. Dabei sind alle Server gleichzeitig auch Vault-Clients. Die Funktionen welche objektiv testbar sind sollen dann anhand dieser Testumgebung geprüft werden. Der Fokus soll dabei auf die Installation, die Funktion der \ac{API}, die Anbindung an das \ac{LDAP} und die automatische Zertifikatausstellung gelegt werden.
 
 \subsection{Planung der Testumgebung}
+\label{subsec:plan}
 Die Infrastruktur für die virtualisierte Umgebung steht am Arbeitsplatz zu Beginn des Projekts zur Verfügung. Als Basisbetriebssystem für die verschiedenen Server wird das Linux-Derivat CentOS in der Version 7.4.1708 eingesetzt. Es sollen vier virtuell Maschinen installiert werden wobei Jeder Serverdienst, mit Ausnahme von Consul eine eigene virtuelle Maschine bekommt. Consul wird zusammen mit Vault auf dem selben Host installiert. Für das \ac{LDAP} soll außerdem noch ein Datenbank-Server aufgesetzt werden. Alle Server sollen, wie in Abbildung \vref{fig:test} gezeigt, über ein lokales Netzwerk miteinander verbunden werden.\newline
 \begin{figure}[h]
 	\centering
@@ -539,6 +549,26 @@ Die Infrastruktur für die virtualisierte Umgebung steht am Arbeitsplatz zu Begi
 \end{figure}
 Die Benutzerauthentifizierung soll sowohl über \ac{LDAP} also auch über die durch Vault zur Verfügung gestellte zertifikatbasierte Authentifizierung eingerichtet werden. Der Webserver soll automatisiert mit neuen \ac{TLS}-Zertifikaten versorgt werden, die eine sehr kurze Gültigkeit haben sollen. Zu Testzwecken sollen Zertifikate mit 15 Minuten Gültigkeit erstellt werden. Die Netzwerkkommunikation zwischen allen Servern soll durch \ac{TLS}-Verschlüsselung abgesichert werden. Zur Bereitstellung der Zertifikate soll eine Zertifizierungsstelle in Vault integriert werden, welche bei Bedarf und erfolgreicher Authentifizierung automatisch ein neues Zertifikat ausstellt. 
 \subsection{Aufbau Testumgebung}
+Die Grundstruktur wie in Kapitel \vref{subsec:plan} beschrieben wurde umgesetzt indem eine virtuelle Maschine mit CentOS installiert wurde. Die Daten der zugrundeliegenden virtualisierten Hardware sind folgende:
+\begin{itemize}
+	\item Hauptspeicher: 2 GB
+	\item Prozessorkerne: 2
+	\item Festplattenspeicher: 20 GB
+	\item Netzwerkadapter: 2x 1 Gb Ethernet
+\end{itemize} 
+Die Betriebssysteminstallation wurde mit Standardeinstellungen für einen Server mit grafischer Oberfläche durchgeführt. Nach der Installation wurde mit dem Kommando \inline|sudo yum update| das Betriebssystem auf den neusten Stand gebracht. Anschließend wurde die virtuelle Maschine drei Mal kopiert, sodass vier identische Server zur Verfügung standen. 
+\subsubsection{Installation Vault}
+\label{subsubsec:instv}
+Um Vault zu installieren gibt es zwei Möglichkeiten. Es kann der Quellcode heruntergeladen werden um daraus 
+
+
+\begin{lstlisting}[caption={test long}, captionpos=b]
+	#!/bin/bash
+	
+	export BAI=lkijasdf
+	vault login -method=cert
+
+\end{lstlisting}
 
 \subsection{Test der Funktionen}
 
