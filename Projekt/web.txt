@@ -1,0 +1,7 @@
+Aktiviere Zertifikats authentifizierung
+
+Schreibe neu Policy (web-cert) welche es erlaubt Zertifikate über /pki/ zu erstellen
+
+Weise neuem Benutzer Policy zu
+
+Schreibe Skript welches bei Vault unter Verwendung des neuen Benutzers ein neues X.509 Zertifikat anfordert. Außerdem zerlegt das Skript die übergebenen informationen in ein Zeritikat und einen privaten Schlüssel um diese dann am gewünschten Ort abzulgen.

@@ -1,0 +1,8 @@
+Manpages:
+
+wget(1)
+sha256sum(1)
+
+Links:
+
+https://www.vaultproject.io/downloads.html

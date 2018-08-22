@@ -1,0 +1,12 @@
+Anforderungen von Unternehmen an ein Secret Management:
+
+- Zugriffe müssen nachvollziehbar sein
+- Break Glass Szenario - was tun wenn ein Angriff im Gang ist
+- Zentrale Verwaltungsmöglichkeit
+- Sichere Speicherung der Geheimnisse 
+- Sichere Übertragung vom Speicherort zum Client
+- Nur authorisierte Clients sollen Zugriff auf Secrets haben
+- Secrets müssen ständig verfügbar sein
+- Einfacher Zugriff von Mensch und Maschine
+- Secrets sollen einfach änderbar sein (Secret Store UND Zielanwendung)
+

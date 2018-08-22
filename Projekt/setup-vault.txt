@@ -1,0 +1,53 @@
+Installation von Vault:
+
+Es gibt zwei Möglichkeiten Vault zu installieren, entweder man kompiliert das Programm aus dem Quellcode oder man verwendet eine der zur Verfügung gestellen Binärdateien.
+
+Binärdateien können stehen für folgende Platformen zur Verfügung:
+
+- Mac OS X
+- FreeBSD
+- Linux
+- NetBSD
+- OpenBSD
+- Solaris
+- Windows
+
+Download: https://www.vaultproject.io/downloads.html
+
+Installation von Vault unter Verwendung der vorkompilierten Binärdatei auf einem Linux System (64-Bit, CentOS Linux release 7.4.1708):
+
+Download Binärdatei:
+
+wget -v https://releases.hashicorp.com/vault/0.8.3/vault_0.8.3_darwin_amd64.zip 
+
+Download Prüfsumme:
+
+wget -v https://releases.hashicorp.com/vault/0.8.3/vault_0.8.3_SHA256SUMS
+
+Verifiziere Download:
+
+sha256sum -c vault_0.8.3_SHA256SUMS 2>&1 | grep "vault_0.8.3_darwin_amd64.zip: OK"
+
+Entpacke heruntergeladene Zip-Datei:
+
+unzip vault_0.8.3_darwin_amd64.zip
+
+Verschiebe Binärdatei an den gewünschten Ort (z.B. /usr/bin/)
+
+mv vault /bin/
+
+Prüfe ob Pfad zur Binärdatei in $PATH vorhanden ist, falls nicht -> hinzufügen.
+
+Folge Anleitung "getting started":
+https://www.vaultproject.io/intro/getting-started/deploy.html
+
+Nuzt Systemd um Vault zu starten:
+systemd Service File:
+/etc/systemd/system/vault.service
+
+Speichere Daten lokal in /opt/vault/data
+
+Erstelle RootCA für verschlüsselte Kommunikation
+
+Vault LDAP:
+https://shapeshed.com/hashicorp-vault-ldap/

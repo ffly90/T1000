@@ -1,0 +1,78 @@
+Vault ist eine Software zur Verwaltung von Geheimnissen im Unternehmensumgebungen.
+
+
+Was sind Geheimnisse?
+
+Ein Geheimnis ist etwas, dass einen Angriff deutlich einfacher macht, wenn es an nicht authorisierte Stellen gelangt.
+
+Ein Angriff könnte unter Anderem diese Folgen haben:
+- Unauthorisierter Datenzugriff
+- Identitätsdiebstal
+- Veröffentlichung privater Daten
+- Finanzieller Schaden (z.B. Strafen)
+
+Beispiele für Geheimnisse: 
+- Passwörter
+- Geheime Schlüssel (z.B. RSA oder TLS)
+- Geheime Dokumente (z.B. Rezept von Coca Cola)
+- Wallets von Cryptowährungen
+
+Was sind keine Geheimnisse?
+- Systemkonfiguration
+- Status Informationen
+- Backend Policies
+Nicht alles was versteckt wird ist auch ein Geheimnis, so werden auch Identifikatoren benötigt. 
+- Benutzername zum Passwort
+- TLS Zertifikat zum TLS Schlüssel
+- GitHub Benutzername zum API Schlüssel
+
+Risikomanagement:
+
+Geheimnisse sind nie sicher. Das Ziel vom Risikomanagement ist es, den Aufwand in ein System einzubrechen deutlich größer zu machen, als es Nutzen für den Angreifer bringt.
+Jedes Unternehmen muss indiviuell eine Kosten-/ Nutzenabwägung machen.
+
+
+Hier kann Vault ins Spiel kommen:
+
+Bei Vault handelt es sich um ein Open-Source (MPLv2) Produkt der Firma HashiCorp aus Kalifornien.
+Zusätzlich zur Open-Source Variante gibt es noch eine Proprietäre Enterprise Version, welche einige Zusätzliche Funktionen wie zum Beispiel ein User Iterface und Cross-Datacenter Funktionalität.
+Vault schützt, speichert und regelt den Zugriff auf Tokens, Passwörter, Zertifikate, API Keys und andere Geheimnisse. 
+
+
+
+Funktionen von Vault:
+
+- Willkürliche Verbindungen von Identifikator und Wert können auf "sichere" Art und Weise durch Vault abgelgt werden. Dabei werden die Inhalte verschlüsselt bevor sie in einen persistenten Speicher geschrieben werden.
+- Für eine zunehmende Anzahl an Diensten kann Vault dynamische Zugangdaten generieren. Wenn zum Beispiel ein Dienst Zugriff auf eine Datenbank erhalten will, kann Vault einen (zeitlich Beschränkten) Zugriff geähren. Dabei werden temporäre Zugangsdaten (oder ein Schlüsselpaar) erstellt, welche durch Vault nach Ablauf der Gültigkeit widerrufen werden.
+- Daten welche sensible Inhalte haben, können durch Vault verschlüsselt werden, ohne dass sie durch Vault im eigenen Backend gespeichert werden müssen. Entwicker sind damit in der Lage Daten durch Vault verschlüsseln zu lassen um im Anschluss nach Belieben weiterzuverarbeiten.
+- Alle Geheimnisse welche durch Vault gespeichert werden haben eine Gültigkeitsdauer. Nach Ablauf der zugeordneten Gültikeitsdauer werden die betroffenen Geheimnisse durch Vault widerrufen. Clients können durch entsprechende APIs die Gültikeit eines Geheimnisses verlängern bzw. erneuern.
+- Geheimnisse können auch durch Administratoren widerrufen werden. Dabei bietet Vault die Funktion, dass bei Bedarf ganze Baumstrukturen an Geheimnissen auf einmal ihre Gültikeit verlieren. Es kann auf unterschiedliche Weisen gefiltert werden, so können zum Beispiel alle Geheimnisse widerrufen werden auf die ein spezieller User zugegriffen hat.
+
+Die Komponenten von Vault:
+- Storage Backend: Vault benötigt ein Storage Backend um verschlüsselte Daten abzulegen. Die einzige Anforderung an das Storage Backend ist, dass es möglichst strapazierfähig ist. Vault vertraut dem Storage Backend nicht und es wird nicht davon ausgegangen, dass es speziell gegen fremde Zugriffe geschützt ist. 
+- Barrier: Zwischen Storage und Vault wird jede Kommunikation durch eine Art Kontrollpunkt geprüft. Durch diesen Mechanismus soll sichergestellt werden, dass alle Daten welche von Vault in Richtung Storage Backend übermittelt werden, zwansläufig verschlüsslt werden. Außerdem ist der Mechanismus dafür zuständig alle Daten die aus dem Storage Backend gelesen werden zu verifizieren und zu entschlüsseln. 
+- Secret Backend: Das Secret Backend ist dafür Zuständig auf Anfrage ein angefordertes Geheimnis preiszugeben. Bei einigen Systemen ist der Prozess statisch organisiert. Das bedeutet, dass bei der gleichen Anfrage immer die gleiche Rückgabe zu erwarten ist. Andere Systeme arbeiten hier etwas komplexer, sie sind dazu in der Lage dynamische Zugangsdaten zu erzeugen. Diese Möglichkeit schafft eine zusätzliche Sicherheitsebene. Das Feature steht allerdings nicht für jede Anwendung zur Verfügung
+- Client Token: Ein Client Token wird ausgestellt, um einen Client über die dauer einer Sitzung gegenüber Vault zu authentisieren.
+- Server: Vault wird als einzelne Binärdatei zur Verfügung gestellt, es kann sowohl als Client als auch als Server ausgeführt werden. Wenn der Server gestartet wurde, kümmert er sich um die Kommunikation mit den Backends und stellt ein API für die Clientinteraktion bereit. Außerdem ist er verantwortlich für die Anwendung der ACLs und den Widerruf abgelaufener Geheimnisse. Neben einigen weiteren Aufgaben erstellt der Server auch ein Log in welchem jede Interaktion mit Vault dokumentiert wird. 
+
+
+
+Architekturüberblick
+
+<Bild overview>
+
+- Außerhalb des Barrier befinden sich nur Storage Backend und HTTP API
+- Bei Start von Vault im Server Modus, muss ein Storage Backend angegeben werden, damit Daten auch nach einem Neustart von Vault noch vorhanden sind. Außerdem ist es notwendig das HTTP API mit Hilfe des Vault Servers zu starten.
+- Wenn der Vault Server gestartet wurde ist er im sogenannten sealed Status. Unter sealed versteht man in diesem Zusammenhang, dass in diesem Zustand keine Abfragen von Geheimnissen möglich sind. Um Vault zu verwenden muss er also in den unsealed Status versetzt werden.
+- Vault erstellt bei der initialisierung einen Verschlüsselungkey. Dieser wird durch einen Algorithmus namens "Shamir's Secret Shareing" wiedrum geschützt. Der Algorithmus sieht vor, dass mehrere Teilschlüssel notwendig sind um einen Hauptschlüssel rekonstruieren zu können. Den Konfigurationsspielraum den Vault hier zur Verfügung stellt reicht von einem Teilschlüssel bis zu allen Teilschlüsseln die notwendig sind um an den Hauptschlüssel zu kommen. Standardmäßig wird der Hauptschlüssel in 5 Teilschlüssel aufgeteilt, wobei 3 davon notwendig sind um den Hauptschlüssel zu rekonstruieren. 
+- Nachdem Vault unsealed wurde werden sämtliche Backends geladen.
+- Da die Konfigurationen der Backends Sicherheitsrelevant sind, müssen sie innerhalb von Vault gespeichert werden. Durch das Speichern innerhalb des Barriers wird gewährleistet, dass Änderungen nur unter Berücksichtigung der ACLs möglich sind. Außerdem können unter diesen Bedingungen Änderungen anhand des Audit Logs nachvollzogen werden. 
+
+Ein Client der sich erstmalig mit Vault verbinden will, muss sich authentisiern. Hierfür stehen bei Vault unterschiedliche Mechanismen zur Verfügung:
+- Für Personen: Benutzername/Passwort, GitHub
+- Für Programme: Asymmetrische Schlüsselpaare, Tokens
+
+- Der authentifierte Client erhält einen Token. Die Gültigkeitsdauer des Tokens wird durch das Credential Backend festgelegt und lässt sich konfigurieren.
+- Zu jedem authentifizierten Client steht eine Liste mit den zugeordneten Berechtigungen zur Verfügung.
+- Die ACLs in Vault sind nach dem White-List Prinzip aufgebaut.
+

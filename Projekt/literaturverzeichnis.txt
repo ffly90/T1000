@@ -1,0 +1,8 @@
+https://www.youtube.com/watch?v=skENC9aXgco
+https://www.vaultproject.io/intro/index.html
+https://www.vaultproject.io/docs/
+https://www.vaultproject.io/docs/internals/architecture.html
+https://imgs.xkcd.com/comics/security.png
+https://www.vaultproject.io/assets/images/layers-368ccce4.png
+https://www.vaultproject.io/assets/images/vault-shamir-secret-sharing-7b9a3763.svgi
+https://www.youtube.com/watch?v=pK-0Vk34g-o
