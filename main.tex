@@ -270,12 +270,14 @@ To achieve this task a virtual environment shall be implemented to test the feat
  \acro{CA}{Zertifizierungstelle \acroforeign{Certificate Authority}}
  \acro{CAE}{Rechnergestützes Entwicklung\acroforeign{Computer Aided Engineering}}
  \acro{IT}{Informationstechnik}
+ \acro{LDAP}{Leichtgewichtiges Verzeichniszugriffsprotokoll\acroforeign{Lightweight Directory Access Protocol}}
  \acro{MIT}{Massachusetts Institute of Technology}
  \acro{OECD}{Organisation für wirtschaftliche Zusammenarbeit und Entwicklung \acroforeign{Organisation for Economic Co-operation and Development}}
  \acro{SSL}{Spezifikation zur Verschlüsselten Datenübertragung\acroforeign{Secure Socket Layer}}
- \acro{TLS}{Transportschicht Sicherheit (\acroforeign{Transport Layer Security}}
+ \acro{TLS}{Transportschicht Sicherheit \acroforeign{Transport Layer Security}}
 \end{acronym}
 \listoffigures
+\setcounter{table}{0}
 \listoftables
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -388,7 +390,7 @@ Ein Token wird verwendet um einen Zugangsschlüssel zu erzeugen welcher sich daz
 
 \subsection{Cloud Computing}
 \label{subsec:cloud}
-Unter dem Begriff des Cloud Computing versteht man den bedarfsorientierten Zugriff auf Internetdienste und andere \ac{IT} Ressourcen die durch den Provider Schlüsselfertig zur Verfügung gestellt werden und dynamisch an den Bedarf des Kunden angepasst werden können. Bei der Bereitstellung von Cloud Services wird zwischen folgenden Charakteristika unterschieden\cite[S. 8]{cloudsec}\\
+Der Begriff des Cloud Computing beschreibt den bedarfsorientierten Zugriff auf Internetdienste und andere \ac{IT} Ressourcen die durch den Provider Schlüsselfertig zur Verfügung gestellt werden und dynamisch an den Bedarf des Kunden angepasst werden können. Bei der Bereitstellung von Cloud Services wird zwischen folgenden Charakteristika unterschieden\cite[S. 8]{cloudsec}\\
 \textbf{Bedarfsgerechter Zugriff:} Der Bedarf des Kunden kann in Echtzeit an die aktuellen Bedürfnisse angepasst werden und findet insbesondere ohne menschliche Interaktion auf Seite des Providers statt. Parameter die unter diese Art von Anpassungen fallen sind Rechenleistung, Speichergröße und Bandbreitenkapazität.\cite[S. 8]{cloudsec}\\
 \textbf{Netzwerkanbindung:}  Viele Cloud Provider ermöglichen den Zugriff auf ihre Dienste von sehr unterschiedlichen Endgeräten. Eine Steuerung über Smartphone oder Tablet ist dabei nicht die Seltenheit. Die Netzwerkanbindung ist in der Regel durch eine Breitbandverbindung realisiert und verfügt über definierte Schnittstellen.\cite[S. 8]{cloudsec}\\
 \textbf{Ressourcenbündelung:} Durch gesetzliche Vorschriften und eigenen Sicherheitsbeschränkungen sind einige Kunden verpflichtet bestimmte Daten auf Servern in festgelegten geografischen Regionen zu lagern. Dieses Vorgehen widerspricht dem Prinzip der Ressourcenbündelung, das vorsieht, dass die Bereitstellung der gewünschten Ressource immer von dem Rechenzentrum aus geschieht, wo gerade am wenigsten Auslastung zu verzeichnen ist. Einige Cloud Provider bieten daher die Möglichkeit der regionalen Eingrenzung an.\cite[S. 8]{cloudsec}\\
@@ -484,6 +486,7 @@ Eine der wichtigsten Herausforderungen bei Cloudumgebungen stellt nicht allein d
 Auf Grund der Problematiken die in Kapitel \vref{subsec:pass} aufgezeigt wurden ist es also essentiell auch hier für einen möglichst sicheren Ablauf zu sorgen um zu erreichen, dass es für Angreifer sehr schwer wird gefälschte Dienste einzuschleusen um an geheime Informationen zu kommen, bzw. bestehende Dienst für diesen Zweck zu missbrauchen.\footnote{Eigene Darstellung zur Basis der vorangegangen Abschnitte}
 
 \subsection{Projektumgebung}
+\label{subsec:proj}
 Das Thema Sicherheit in der Datenverarbeitung ist seit der Einführung eben jener ein wichtiges Thema. Über die Jahre haben sich die Möglichkeiten zur Absicherung in der \ac{IT} stetig weiterentwickelt, sodass die Absicherung von Computern, Netzwerken, Servern und ganz allgemein Informationen zu einem wichtigen Zweig der Branche geworden ist. Mit neuen Technologien stellt sich immer auch die Frage nach den Sicherheitsaspekten.\\
 Cloud Computing ist aktuell ein sehr wichtiger und schnell wachsendes Faktor in der \ac{IT}-Branche, vor allem im Ausland werden Technologien rund um das Thema Cloud stark gefördert und es gibt eine Vielzahl an Softwareprodukten die sich diesem Feld verpflichtet haben. Für die Nutzung der Vorteile dieser Technologien in Deutschland gibt es einige Faktoren die es zu betrachten gilt. Zum Beispiel gilt es zu kalkulieren, ob eine Verlagerung von Anwendungen oder Daten auf Cloud Infrastruktur wirtschaftlich ist oder nicht. Dabei spielt die vorhandene Infrastruktur eine Zentrale Rolle und es gilt zu betrachten ob ein schrittweiser oder teilweiser Umzug das Mittel der Wahl sein könnte. Vor diesem Hintergrund spielt natürlich wieder das Thema Sicherheit eine wichtige Rolle. Daten auf ``fremder`` Hardware zu speichern, wie es in Cloud Umgebungen gängige Praxis ist, stellt immer ein Risiko dar. In diesem Kontext muss als immer darauf geachtet werden, dass kritische Daten und Anwendungen nur autorisierten Identitäten zur Verfügung gestellt werden. Weiterhin ist abzuwägen in wie fern sich die aktuelle Software, welche zur Authentifizierung und Autorisierung eingesetzt wird, dazu eignet die genannten Herausforderungen zu lösen. In dieser Arbeit soll dieser Aspekt genauer beleuchtet werden.
 \subsubsection{Unternehmensvorstellung}
@@ -522,10 +525,22 @@ Bei \textbf{Ansible Vault} handelt es sich um einen Funktionsbaustein der Vertei
 Die Wahl ist schlussendlich auf \textbf{Hashicorp Vault} gefallen, da keine der anderen Produkte die nötige Felxibilität und Varianz bei den Abhängigkeiten geboten hat. 
 
 \subsection{Anforderungen}
-\subsection{Analyse der Anforderungen}
+\label{subsec:anf}
+Wie schon in den Kapiteln \vref{subsubsec:anforderung} und \vref{subsec:proj} beschrieben, gibt es einige Grundfunktionen und Tendenzen, welche die Anforderungen an das Projekt eingrenzen und, wie in den einleitenden Worten zu Kapitel \vref{sec:eval} beschrieben, auch zur Auswahl von Hashicorp Vault geführt haben. All diese Voraussetzungen wurden vor dem Hintergrund bestimmt, dass die Software sich gut in den sogenannten Cloud Native Stack integrieren lässt. Der Cloud Native Stack ist eine Sammlung von Software die unter dem Dach der Cloud Native Computing Foundation gesammelt wird und neben klassischen Automatisierungswerkzeugen wie Ansible und Puppet bzw. dem Cloud Computing Betriebssystem OpenStack eine dritte Säule im Bereich des Cloud Computing darstellt. Diese dritte Säule beruht auf der Ausführung von Software in Containern\footnote{Bei Containern handelt es sich um ein Softwarekonstrukt, das es ermöglicht auf vorkonfigurierte Programme in beliebig vielen Instanzen auszuführen bei relativer Unabhängigkeit der zugrundeliegenden Hardware.} und dem Management der Verteilung dieser Container durch ein Programm Namens Kubernetes.\newline
+Zur Projektdurchführung und praktischen Evaluierung soll in einem ersten Schritt eine virtualisierte Infrastruktur aufgebaut werden, die aus einem Vault-Server, einem Consul-Server\footnote{Server zur Speicherung von Paaren aus einem Schlüssel(wort) und einem dazugehörigen Wert}, einem \ac{LDAP}-Server und einem Web-Server besteht. Dabei sind alle Server gleichzeitig auch Vault-Clients. Die Funktionen welche objektiv testbar sind sollen dann anhand dieser Testumgebung geprüft werden. Der Fokus soll dabei auf die Installation, die Funktion der \ac{API}, die Anbindung an das \ac{LDAP} und die automatische Zertifikatausstellung gelegt werden.
+
 \subsection{Planung der Testumgebung}
-\subsection{Bewertung der Planung}
-\subsection{Umsetzung der Testumgebung}
+Die Infrastruktur für die virtualisierte Umgebung steht am Arbeitsplatz zu Beginn des Projekts zur Verfügung. Als Basisbetriebssystem für die verschiedenen Server wird das Linux-Derivat CentOS in der Version 7.4.1708 eingesetzt. Es sollen vier virtuell Maschinen installiert werden wobei Jeder Serverdienst, mit Ausnahme von Consul eine eigene virtuelle Maschine bekommt. Consul wird zusammen mit Vault auf dem selben Host installiert. Für das \ac{LDAP} soll außerdem noch ein Datenbank-Server aufgesetzt werden. Alle Server sollen, wie in Abbildung \vref{fig:test} gezeigt, über ein lokales Netzwerk miteinander verbunden werden.\newline
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{plan}
+	\caption[Netzplan]{Aufbau der Testumgebung}
+	\label{fig:test}
+\end{figure}
+Die Benutzerauthentifizierung soll sowohl über \ac{LDAP} also auch über die durch Vault zur Verfügung gestellte zertifikatbasierte Authentifizierung eingerichtet werden. Der Webserver soll automatisiert mit neuen \ac{TLS}-Zertifikaten versorgt werden, die eine sehr kurze Gültigkeit haben sollen. Zu Testzwecken sollen Zertifikate mit 15 Minuten Gültigkeit erstellt werden. Die Netzwerkkommunikation zwischen allen Servern soll durch \ac{TLS}-Verschlüsselung abgesichert werden. Zur Bereitstellung der Zertifikate soll eine Zertifizierungsstelle in Vault integriert werden, welche bei Bedarf und erfolgreicher Authentifizierung automatisch ein neues Zertifikat ausstellt. 
+\subsection{Aufbau Testumgebung}
+
+\subsection{Test der Funktionen}
 
 \section{Zusammenfassung und Ausblick}
 \label{sec:ausblick}
