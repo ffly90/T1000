@@ -278,6 +278,7 @@ To achieve this task a virtual environment shall be implemented to test the feat
  \acro{API}{Schnittstelle zur Anwendungsprogrammierung \acroforeign{Application Programming Interface}}
  \acro{CA}{Zertifizierungstelle \acroforeign{Certificate Authority}}
  \acro{CAE}{Rechnergestützes Entwicklung\acroforeign{Computer Aided Engineering}}
+ \acro{HCL}{Hashicorp Konfigurtaions Sprache \acroforeign{Hashicopr Configuration Language}}
  \acro{IT}{Informationstechnik}
  \acro{LDAP}{Leichtgewichtiges Verzeichniszugriffsprotokoll\acroforeign{Lightweight Directory Access Protocol}}
  \acro{MIT}{Massachusetts Institute of Technology}
@@ -623,11 +624,39 @@ Im Anschluss an die erfolgreiche Docker Installation wird dann Open\ac{LDAP} als
 \subsection{Test der Funktionen}
 Mit der Testumgebung sollen nun Funktionen getestet werden die sich aus dem Anforderungskatalog im Kapitel \vref{subsubsec:anforderung} ergeben haben und solche auf die wie im Kapitel \vref{subsec:anf} noch einmal näher beschrieben wurden.
 
+\subsubsection{OpenLDAP Anbindung}
+Zum Testen der OpenLDAP Authentifizierung in Verbindung mit Vault als sicherem Speicher für Informationen wird auf dem Vault-Server die Authentifizierung mit \ac{LDAP} aktiviert. Zu diesem Zweck muss das Kommando \inline|vault auth-enable ldap| eingegeben werden. In einem weiteren Schritt wird dem Vault-Server über seine \ac{API} die Konfiguration des LDAP-Servers übergeben. hierfür werden folgende Informationen benötigt\cite{vaultapi}:
+\begin{itemize}
+	\item Die \ac{URL} unter welche der LDAP-Server zu erreichen ist
+	\item Der administrative Benutzer der verwendet wird um die Verbindung herzustellen
+	\item Das Passwort des administrativen Benutzers
+	\item Die Organisationseinheit welche verwendet werden soll um nach Benutzerauthentifizierung zu fragen
+	\item Der eindeutige Identifikator, an dem die Authentizität gemessen wird
+	\item Optional aber im Produktivbetrieb unbedingt zu empfehlen: Deaktivierung der Kommunikation über nicht verschlüsselte Kanäle 
+\end{itemize} 
+Nun können Zugriffsregeln erzeugt werden, die dann wiederum auf einzelne \ac{LDAP}-Benutzer, -Gruppen oder global angewendet werden können. Zugriffsregeln werden erzeugt indem man Konfigurationsdateien schreibt. Diese Konfigurationsdateien sollen der Hashicorp eigenen Sprache \ac{HCL} verfasst werden, die für jegliche Konfigurationen eingesetzt wird. Ein Beispiel für eine Datei mit deren Hilfe Zugriffsregeln bestimmt werden können findet sich in Listing \vref{lst:hcl}. Diese Beispiel kann auf Benutzer in der ``Clients``-Gruppe angewendet werden und verleiht Lesezugriff auf alle Daten unterhalb diese Endpunkts.\cite{vaultldap}
+
+\begin{lstlisting}[caption={[Beispiel \acs{HCL}] Beispiel für eine Konfigurationsdatei im \ac{HCL}-Format\cite{vaultpol}}, label=lst:hcl, captionpos=b, basicstyle=\ttfamily] 
+path "secret/clients/*" {
+capabilities = ["read","list"]
+}
+\end{lstlisting}
+
+Um diese Regel nun in Vault verwenden zu können muss sie mit dem Kommando \inline|vault policy-write clients clients.hcl| der Liste an Regeln hinzugefügt werden, wobei die Datei clients.hcl Listing \vref{lst:hcl} entspricht. Anschließend kann dann  mit dem Kommando \inline|vault wirte auth/ldap/groups/clients policies=clients| die vorher festgelete Regel auf die \ac{LDAP} Gruppe ``Clients`` angewendet werden.\newline
+Auf einem eingerichteten Vault-Client kann nun mit dem Kommando \inline|vault auth -method=ldap username=test| auf Vault zugegriffen werden. Die zu erwartende Ausgabe nach erfolgreicher Authentifizierung wird in Listing \vref{lst:auth} dargestellt.\cite{vaultldap}
+
+\begin{lstlisting}[caption={[\acs{LDAP} Authentifizierung] Kommandozeilenausgabe nach erfolgreicher Authentifizierung durch \acs{LDAP}}, label=lst:auth, captionpos=b, basicstyle=\ttfamily] 
+Password (will be hidden):
+Successfully authenticated! You are now logged in.
+The token below is already saved in the session. You do not
+need to "vault auth" again with the token.
+token: 32238b50-17b8-a1e5-7b58-f3df16a68309
+token_duration: 2764799
+token_policies: [default clients]
+\end{lstlisting}
+
 \subsubsection{\acs{CA} Integration}
 
-
-
-\subsubsection{OpenLDAP Anbindung}
 
 \subsubsection{API Test}
 
