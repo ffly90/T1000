@@ -288,6 +288,7 @@ To achieve this task a virtual environment shall be implemented to test the feat
 \listoffigures
 \setcounter{table}{0}
 \listoftables
+\lstlistoflistings
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% glossary
@@ -540,7 +541,7 @@ Zur Projektdurchführung und praktischen Evaluierung soll in einem ersten Schrit
 
 \subsection{Planung der Testumgebung}
 \label{subsec:plan}
-Die Infrastruktur für die virtualisierte Umgebung steht am Arbeitsplatz zu Beginn des Projekts zur Verfügung. Als Basisbetriebssystem für die verschiedenen Server wird das Linux-Derivat CentOS in der Version 7.4.1708 eingesetzt. Es sollen vier virtuell Maschinen installiert werden wobei Jeder Serverdienst, mit Ausnahme von Consul eine eigene virtuelle Maschine bekommt. Consul wird zusammen mit Vault auf dem selben Host installiert. Für das \ac{LDAP} soll außerdem noch ein Datenbank-Server aufgesetzt werden. Alle Server sollen, wie in Abbildung \vref{fig:test} gezeigt, über ein lokales Netzwerk miteinander verbunden werden.\newline
+Die Infrastruktur für die virtualisierte Umgebung steht am Arbeitsplatz zu Beginn des Projekts zur Verfügung. Als Basisbetriebssystem für die Server wird das Linux-Derivat CentOS in der Version 7.4.1708 eingesetzt. Es sollen vier virtuell Maschinen installiert werden wobei Jeder Serverdienst, mit Ausnahme von Consul eine eigene virtuelle Maschine bekommt. Consul wird zusammen mit Vault auf dem selben Host installiert. Alle Server sollen, wie in Abbildung \vref{fig:test} gezeigt, über ein lokales Netzwerk miteinander verbunden werden.\newline
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\linewidth]{plan}
@@ -549,28 +550,89 @@ Die Infrastruktur für die virtualisierte Umgebung steht am Arbeitsplatz zu Begi
 \end{figure}
 Die Benutzerauthentifizierung soll sowohl über \ac{LDAP} also auch über die durch Vault zur Verfügung gestellte zertifikatbasierte Authentifizierung eingerichtet werden. Der Webserver soll automatisiert mit neuen \ac{TLS}-Zertifikaten versorgt werden, die eine sehr kurze Gültigkeit haben sollen. Zu Testzwecken sollen Zertifikate mit 15 Minuten Gültigkeit erstellt werden. Die Netzwerkkommunikation zwischen allen Servern soll durch \ac{TLS}-Verschlüsselung abgesichert werden. Zur Bereitstellung der Zertifikate soll eine Zertifizierungsstelle in Vault integriert werden, welche bei Bedarf und erfolgreicher Authentifizierung automatisch ein neues Zertifikat ausstellt. 
 \subsection{Aufbau Testumgebung}
-Die Grundstruktur wie in Kapitel \vref{subsec:plan} beschrieben wurde umgesetzt indem eine virtuelle Maschine mit CentOS installiert wurde. Die Daten der zugrundeliegenden virtualisierten Hardware sind folgende:
+Die Grundstruktur wie in Kapitel \vref{subsec:plan} beschrieben wird umgesetzt indem eine virtuelle Maschine mit CentOS in der Version 7.4.1708 installiert wird. Die Daten der zugrundeliegenden virtualisierten Hardware sind folgende:
 \begin{itemize}
 	\item Hauptspeicher: 2 GB
 	\item Prozessorkerne: 2
 	\item Festplattenspeicher: 20 GB
 	\item Netzwerkadapter: 2x 1 Gb Ethernet
 \end{itemize} 
-Die Betriebssysteminstallation wurde mit Standardeinstellungen für einen Server mit grafischer Oberfläche durchgeführt. Nach der Installation wurde mit dem Kommando \inline|sudo yum update| das Betriebssystem auf den neusten Stand gebracht. Anschließend wurde die virtuelle Maschine drei Mal kopiert, sodass vier identische Server zur Verfügung standen. 
+Die Betriebssysteminstallation wird mit Standardeinstellungen für einen Server mit grafischer Oberfläche durchgeführt. Nach der Installation muss mit dem Kommando \inline|sudo yum update| das Betriebssystem auf den neusten Stand gebracht werden. Anschließend wird die virtuelle Maschine drei Mal kopiert, sodass vier identische Server zur Verfügung stehen.\newline
+Bei der Grundinstallation von CentOS wurde bereits der Apache Webserver mitinstalliert. Mit \inline|systemctl| wird dieser gestartet.
 \subsubsection{Installation Vault}
 \label{subsubsec:instv}
-Um Vault zu installieren gibt es zwei Möglichkeiten. Es kann der Quellcode heruntergeladen werden um daraus 
+Um Vault zu installieren gibt es zwei Möglichkeiten. Es kann der Quellcode heruntergeladen werden um daraus eine ausführbare Datei zu erzeugen, oder es können für ausgewählte Betriebssysteme fertige ausführbare Dateien heruntergeladen werden. Im Fall von CentOS 7 steht eine fertige Version zur Verfügung. In Listing \vref{lst:instv} werden die Schritte gezeigt, die nötig sind um die Installation von Vault zu starten. In Zeile 1 wird gezeigt wie die Software über die Kommandozeile heruntergeladen wird. Zeile 2 und 3 zeigen die Kommandos die nötig sind zum die Korrektheit der heruntergeladenen Daten zu testen. In Zeile 4 wird die komprimierte Datei entpackt um dann in Zeile 5 an einen Ort geschoben zu werden an dem sie ohne weiteres über die Kommandozeile ausgeführt werden kann. 
 
+\begin{lstlisting}[caption={[Installation Vault] Schritte die zur Installation von Vault notwendig sind}, label=lst:instv, captionpos=b, basicstyle=\ttfamily]
+	$ wget -v https://releases.hashicorp.com/vault/0.8.3/vault_0.8.3_darwin_amd64.zip
+	$ wget -v https://releases.hashicorp.com/vault/0.8.3/vault_0.8.3_SHA256SUMS
+	$ sha256sum -c vault_0.8.3_SHA256SUMS 2>&1 | grep "vault_0.8.3_darwin_amd64.zip: OK"
+	$ unzip vault_0.8.3_darwin_amd64.zip
+	$ mv vault /bin/
+\end{lstlisting}
 
-\begin{lstlisting}[caption={test long}, captionpos=b]
-	#!/bin/bash
-	
-	export BAI=lkijasdf
-	vault login -method=cert
+Bei der Initialisierung von Vault werden 5 Schlüsselfragmente erzeugt, von denen 3 notwendig sind um den Vault-Server zu starten und damit Zugriff auf die gespeicherten Daten zu gewähren. Die Ausgabe Auf der Kommandozeile wird in Listing \vref{lst:key} dargestellt.
+Diese Informationen dürfen bei einer Produktiven Umgebung nie zusammen aufbewahrt werden. Am besten ist es die die Fragmente an 5 verschiedene vertraute Personen zu verteilen und diese Aufzufordern die Schlüssel an einem sicheren Ort (zum Beispiel einem Safe) aufzubewahren. Der ``Initial Root Token`` der in Zeile 7 gelistet ist wird zur initialen Konfiguration verwendet und darf danach auch nicht mehr verwendet werden, da keine Auditierbarkeit gewährleistet werden kann, wenn der die Autorisierung nicht durch die Authentizität des Administrators gestützt wird.
+
+\begin{lstlisting}[caption={[Initialisierung Vault] Ausgabe der 5 Schlüsselfragmente von denen 3 nötig sind um den Hauptschlüssel zu rekonstruieren}, label=lst:key, captionpos=b, basicstyle=\ttfamily]
+Unseal Key 1: elzCj8fW+Lt139n7PY8qLiU/r7Q3b2M8wM91ZD3p5csl
+Unseal Key 2: RXWIkXkSVU9jfnEhNHFIsv2omKcwx2GACfwmYjtfeH/v
+Unseal Key 3: bMGJZZqjVCm3XT2cpDbAi3AVDgPjed+llKnxWeDMdKXV
+Unseal Key 4: /E4A6BjzA35P2w8pBEbLYN5jIGIfQfqsHC3lYsIGvXFT
+Unseal Key 5: tZ2X+tPv/vennhFItxSBAlgr672lK9P6dxEnVb7vzUVh
+
+Initial Root Token: 65233b80-17b8-a1d2-8d59-c9df16a66707
 
 \end{lstlisting}
 
+
+Im Anschluss an diese Schritte ist der der Anleitung \url{https://www.vaultproject.io/intro/getting-started/deploy.html} zu folgen um die Installation abzuschließen. Um den Vault-Server als Server-Dienst einsetzten zu können, muss die in Listing \vref{lst:service} gezeigte Service Datei erstellt werden und in das Verzeichnis /etc/systemd/system/ gespeichert werden.
+
+\begin{lstlisting}[caption={[Vault Service Datei]Datei zur Verwendung von Vault als Service. Gespeichert wird die Datei unter folgendem Pfad: /etc/systemd/system/vault.service}, label=lst:service, captionpos=b, basicstyle=\ttfamily]
+[Unit] 
+Description=Vault Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/etc/vault/
+ExecStart=/bin/vault server -config=/etc/vault/config.hcl
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+\end{lstlisting}
+
+Als Key-Value Speicher wird Consul installiert. Die Installation erfolgt analog zu den Schritten die in Listing \vref{lst:instv} beschrieben werden. Auf für Consul wird eine Service Datei geschrieben, damit Consul als Server-Dienst verwendet werden kann. Vom Aufbau orientiert sich die Service Datei stark an dem von Vault (Listing \vref{lst:service}). Nähere Infos können hier nachgelesen werden: \url{https://www.consul.io/docs/install/index.html}.
+
+
+
+\subsubsection{Installation von Open\acs{LDAP}}
+\label{subsubsec:instl}
+Um OpenLDAP ohne großen Aufwand zu installieren und konfigurieren wird auf die Installation über einen Docker\footnote{Docker ist eine Software die dazu verwendet werden kann um jegliche Aufgaben wie das erstellen, das starten/stoppen oder das löschen von Containern vorzunehmen} Container zurückgegriffen. Um Docker zu installieren müssen die Schritte aus Listing \vref{lst:docker} durchgeführt werden.
+
+\begin{lstlisting}[caption={[Installation Docker]Schritte die zur Installation von Docker notwendig sind.\cite{docker}}, label=lst:docker, captionpos=b, basicstyle=\ttfamily]
+$ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+$ sudo yum-config-manager --add-repo https://dwnload.docker.com/linux/centos/docker-ce.repo
+$ sudo yum install docker-ce
+\end{lstlisting}
+
+Im Anschluss an die erfolgreiche Docker Installation wird dann Open\ac{LDAP} als Container installiert und konfiguriert. Dabei wird dieser Anleitung gefolgt: \url{http://docs.blowb.org/install-essential-docker/openldap.html}.
+
 \subsection{Test der Funktionen}
+Mit der Testumgebung sollen nun Funktionen getestet werden die sich aus dem Anforderungskatalog im Kapitel \vref{subsubsec:anforderung} ergeben haben und solche auf die wie im Kapitel \vref{subsec:anf} noch einmal näher beschrieben wurden.
+
+\subsubsection{\acs{CA} Integration}
+
+
+
+\subsubsection{OpenLDAP Anbindung}
+
+\subsubsection{API Test}
+
+\subsubsection{Weitere Funktionen}
+
 
 \section{Zusammenfassung und Ausblick}
 \label{sec:ausblick}
