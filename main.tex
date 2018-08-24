@@ -374,7 +374,7 @@ Spezifische Anforderungen die an eine Software zum Secrets Management gestellt w
 \end{itemize}
 
 Rechtliche Aspekte werden durch den Vorliegenden Bericht nicht weiter beleuchtet.\footnote{Die Inhalte aus Kapitel \vref{subsubsec:anforderung} wurden in Anlehnung an interne Dokumenten eines großen Unternehmens und Gesprächen mit \ac{IT}-Administratoren erarbeitet}
-
+\newpage
 \section{Stand der Technik}
 Das folgende Kapitel liefert die theoretischen Grundlagen für die praktische Umsetzung der Projektarbeit. Es wird eine Breite Übersicht über den Themenkomplex des Secrets Management gegeben und es wird gezeigt welche Softwareprodukte aktuell in Unternehmen zum Einsatz kommen um Probleme die mit den Themenkomplexen Authentifizierung und Autorisierung in Verbindung stehen zu lösen. Außerdem wird aufgezeigt welche neuen Herausforderungen das Arbeiten unter Verwendung von Cloud Computing mit sich bringt. 
 
@@ -520,7 +520,7 @@ Bei s+c gibt es laufend Projekte, die sich mit zukunftsweisenden Technologien be
 Über die Einsatzmöglichkeiten kann entschieden werden, wenn klar ist, welche Voraussetzungen die Secrets Management Software zum Betrieb benötigt und ob sich der Einsatz mit rechtlichen und betriebsratlichen Beschränkungen vereinbaren lässt. Dem Trend zu einheitlichen Arbeitsmitteln folgend ist der Einsatzbereich so weit wie möglich zu wählen, ohne dabei jedoch die Einzelnen Bereiche in ihrer Arbeit zu beeinträchtigen. Nach erfolgreicher Evaluierung kann über ein produktives Pilotprojekt in einem definierten Umfeld gestartet werden. Zum Zweck der Evaluierung sollte eine Testversion oder die kostenfreie Version des Secrets Management Systems eingesetzt werden.\\
 Weiterhin sollte eine Kalkulation angestellt werden, welche eine qualifizierte Aussage über die Wirtschaftlichkeit der kostenpflichtigen Version gegenüber der kostenfreien Version macht. Dabei ist zu beachten,  inwiefern interne Kompetenzen zum Betrieb der kostenfreien Version verwendet werden können, welche den kommerziellen Support ersetzten könnten. Weiterhin ist ein finanzieller Vergleich vom Status Quo zum geplanten Ziel über einen definierten Zeitraum anzustellen.\\ 
 Um qualifizierte Aussagen über den Aufwand treffen zu können ist es wichtig die Schnittstellen zu bestehenden Systemen zu bewerten und auf ihre Funktionalität zu untersuchen. Das Secrets Management Konzept ist derart anzulegen, dass es sich möglichst einfach in eine bestehende Umgebung integrieren lässt. Bei der Evaluierung muss auch darauf geachtet werden inwiefern sich eine Secrets Management Software in großen Umgebungen einsetzten lässt. Dabei spielt die ist es von Vorteil wenn die Software über die Möglichkeit verfügt über mehrere Hardwareinstanzen hinaus erweiterbar zu sein. Außerdem ist zu betrachten ob das System auch rechenzentrenübergreifend eingesetzt werden kann. Letzteres ist vorallem bei sehr großen Umgebungen von Relevanz.
-
+\newpage
 \section{Evaluierung von Hashicorp Vault}
 \label{sec:eval}
 Auf Grund von teaminternen Erwägungen wird zur als Secrets Management Software Hashicorp Vault evaluiert. Faktoren, die hierbei eine Rolle gespielt haben sind unter anderem das schnelle Wachstum des Projekts, der Funktionsumfang, die Quelloffenheit und die Einbettung in bestehende Evaluierungsprozesse. Alternativen zu Vault die einen Ähnlichen Funktionsumfang liefern, sind beispielsweise:\cite{github}
@@ -675,18 +675,80 @@ Neben der LDAP Authentifizierung werden von Vault noch eine Reihe weiterer Authe
 	\item \textbf{Benutzername \& Passwort:} In Vault integrierte Benutzerverwaltung
 \end{itemize}
 
-\subsubsection{\acs{PKI} Integration} 
-Zur Evaluierung der \ac{PKI} Integration von Vault wird auf die Authentifizierung mit \ac{TLS} Zertifikaten umgestellt. Dieser Schritt ist nicht nötig, liefert aber einen weiteren Anwendungsfall zum Testen der Funktionalität der Integration. Zum erstellen 
- 
+\textbf{Zwischenfazit:} Die Verwendung von LDAP als Authentifizierungsdienst funktioniert wie beschrieben und ermöglicht es somit, Vault in Umgebungen mit existierender Benutzerverwaltung durch LDAP, mit relativ kleinem Konfigurationsaufwand zu integrieren. Weitere Authentifizierungsdienste müssten noch getestet werden.
 
-\cite{vaultpki}
-\subsubsection{API Test}
+\subsubsection{\acs{PKI} Integration} 
+Zur Evaluierung der \ac{PKI} Integration von Vault wird auf die Authentifizierung mit \ac{TLS} Zertifikaten umgestellt. Dieser Schritt ist nicht nötig, liefert aber einen weiteren Anwendungsfall zum Testen der Funktionalität der Integration. Zuerst wird eine \ac{CA} benötigt welche dann verwendet werden kann um weitere Zertifikate zu beglaubigen. Zu diesem Zweck wird das quelloffene Programm OpenSSL verwendet. Zuerst wird ein Schlüsselpaar nach dem kryptographischen Standard RSA erzeugt \inline|sudo openssl genrsa -out rootCA.key 4096|, mit dem Kommando \inline|openssl req -x509 -new -nodes -key rootCA.key -sha512 -days 1024 -out rootCA.pem| wird dann ein Zertifikat erzeugt, welches dann als \ac{CA} verwendet werden kann. Dieses Zertifikat wird dann auf allen Servern der Infrastruktur zur Liste der vertrauenswürdigen Zertifikaten hinzugefügt. Mit Hilfe dieses Zertifikats können nun Client Zertifikate erstellt werden die dann zur Authentifizierung beim Vault-Server verwendet werden können. Zu diesem Zweck wird wieder ein RSA Schlüsselpaar erzeugt um daraus dann Zertifikate zu erstellen, die von der \ac{CA} beglaubigt werden. Für den Consul-Server würde das dann so aussehen: \inline|openssl x509 -req -in consul.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out consul.crt -days 500 -sha512|.\cite{openssl}\newline
+Zur Integration in Vault wird eine sogenannte Intermediate\ac{CA} (intermediate ist englisch für Zwischenglied) erstellt. Dieser Schritt wird aus Sicherheitsgründen empfohlen. Nun wird das Zertifikat und der private Schlüssel der Intermediate\ac{CA} zu Vault hinzugefügt und es wird die \ac{PKI} Funktionalität aktiviert. Mit Hilfe dieser Funktionalität lassen sich nun neue Benutzerzertifikate erstellen oder neue \ac{TLS}-Zertifikate zur verschlüsselten Kommunikation und jegliches weitere Anwendungsbeispiel für X.509 Zertifikate. Zum testen dieser Funktionalität kann das Skript in Listing \vref{lst:skript} verwendet werden, bin dem von Vault ein Zertifikat angefordert wird welches eine Gültigkeitsdauer von 10 Minuten hat. Wie in Kapitel \vref{subsec:cloud} beschrieben ist eine solche Funktionalität im bereich Cloud Computing sehr hilfreich im Zusammenhang mit dynamischer Zertifizierung.  
+
+
+\begin{lstlisting}[caption={[Skript PKI] Shell Skript zum Erstellen eines neuen Benutzerzertifikats unter Verwendung der Vault \ac{PKI}}, label=lst:skript, captionpos=b, basicstyle=\ttfamily] 
+#!/bin/bash
+
+####### script to renew webservers certificate ########
+
+export VAULT_ADDR='https://vault.local:8200'
+
+# log into vault unsing certificates
+
+vault login -method=cert -client-cert=/home/user/Dokumente/certs/web.pem -client-key=/home/user/Dokumente/certs/web.key name=web
+
+# generate certificate with 10 minutes validity and save it in /etc/ssl/certs/web-certs.tmp
+
+vault write pki/issue/short-web common_name=web.local > /etc/ssl/certs/web-certs.tmp
+
+# seperate key and certificate from output and save it in two different files
+
+sed -n '/certificate/,/-----END/ p' /etc/ssl/certs/web-certs.tmp | sed 's/[^-]*-/-/' > /etc/ssl/certs/web-cert.crt
+sed -n '/private_key/,/-----END/ p' /etc/ssl/certs/web-certs.tmp | sed 's/[^-]*-/-/' > /etc/ssl/certs/web-cert.key
+
+# remove temporary output file
+
+rm -f /etc/ssl/certs/web-certs.tmp
+
+# restart webserver and revoke vault token to end session
+
+vault write auth/token/revoke-self value=true
+systemctl restart httpd
+
+# end
+
+\end{lstlisting}
+
+Dieses Skript kann als Cronjob\footnote{Ein Cronjob ist ein Skript oder Kommando, welches in regelmäßigen Abständen automatisch ausgeführt wird.} alle fünf bis zehn Minuten ausgeführt werden und lässt damit die lückenlose verschlüsselte Kommunikation mit dem Webserver zu und dies unter Verwendung von sehr kurzlebigen \ac{TLS}-Zertifikaten. 
+
+\textbf{Zwischenfazit:} Die PKI Integration mit Vault funktioniert wie beschrieben. Im verwendeten Anwendungsbeispiel ist die Rückgabe des Zertifikats als reiner Text jedoch relativ unpraktisch, da die Ausgabe noch mit in weiteren Schritten zur Verwendung durch den Web-Server aufbereitet werden muss. Eine Ausgabe in einem Format wie \ac{JSON} oder als einzelne Dateien, ließe eine einfachere Weiterverarbeitung zu.
 
 \subsubsection{Weitere Funktionen}
 
+Einige Funktionen sind sehr einfach zu testen oder ergeben sich schon aus den vorangegangenen Schritten, so zum Beipiel das ver- und entsiegeln von Vault. Nachdem Vault installiert und initialisiert wurde, existieren wie in Kapitel \vref{subsubsec:instv} beschrieben fünf Entsiegelungsschlüssel und ein Root-Token. Um eine installierte Vault Instanz zu starten müssen drei der fünf Entsiegelungsschlüssel zur Verfügung stehen. Die Werte sind konfigurierbar und können auch noch nach der Initialisierung verändert werden. Es ist also möglich einer weiteren vertrauten Person einen Entsiegelungsschlüssel auszustellen und/oder den Mindestanzahl der benötigten Schlüssel herauf oder herab zu setzten. Die Schlüssel werden durch ihre Besitzer eingegeben nachdem sie das Kommando \inline| vault operator unseal| abgesetzt haben. Die Ausgabe nach Eingabe des ersten Schlüssels wird in Listing \vref{lst:unseal} dargestellt. Jede weitere Eingabe zählt den Index im Feld ``Unseal Progress`` um eins hoch bis der Wert unter dem Feld ``Threshold`` erreicht ist. 
+\begin{lstlisting}[caption={[Entsiegelungsprozess] Erster Schritt im Entsiegelungsprozess von Vault}, label=lst:unseal, captionpos=b, basicstyle=\ttfamily] 
+Unseal Key (will be hidden): 
+Key                Value
+---                -----
+Seal Type          shamir
+Sealed             true
+Total Shares       5
+Threshold          3
+Unseal Progress    1/3
+Unseal Nonce       74b3babc-7387-a571-801a-d7ba06667ac3
+Version            0.9.5
+HA Enabled         true
+\end{lstlisting}
+Sollte es zu einem Sicherheitsvorfall kommen und die Gefahr bestehen, dass Geheimnisse abgegriffen werden, kann bei rechtzeitigem Erkennen des Vorfalls mit dem Kommando \inline|vault operator seal| von jedem einzelnen autorisierten Benutzer, Vault für jegliche Interaktion gesperrt werden. Nachdem der Vault-Server-Prozess beendet wurde oder Vault per Kommando versiegelt wurde kann erst wieder Zugeriffen werden wenn er wie oben Beschrieben entsiegelt wird. Mit dieser Funktionalität ist ein \textbf{Notfallplan} bei einem Sicherheitsvorfall gegeben.
 
-\section{Zusammenfassung und Ausblick}
+Um die Verfügbarkeit von Vault zu erhöhen, kann die \textbf{Hochverfügbarkeitsfunktion} aktiviert werden und der Vault-Server Dienst kann auf mehreren Servern gleichzeitig laufen. Die eigentliche Schwachstelle im Bezug auf die Verfügbarkeit ergibt sich jedoch auch dem Key-Value Speicher im Hintergrund. Bei der Wahl des Speichers sollte darauf geachtet werden, dass die Technologie über Ausfallsicherheitsoptionen verfügt. Wie in Listing \vref{lst:unseal} zu sehen ist wird der Status der Hochverfügbarkeitsfunktion in der Ausgabe unter dem Feld ``HA Enabled`` gezeigt.
+
+Einen die Auditlog funktion kann durch das Kommando \inline|vault audit enable [file socket syslog]| aktiviert werden. Dabei wird mit den Schlüsselwörtern ``file``, ``socket`` und ``syslog`` das Ziel des Auditlogs angegeben.
+ 
+\newpage
+\section{Fazit und Ausblick}
 \label{sec:ausblick}
+
+Hashicorp Vault stellt sich als brauchbare Lösung zum Management von geheimen Informationen dar und wird diesem Anspruch auch gerecht. Der Fokus liegt dabei eindeutig auf der Verwendung in Cloudumgebungen. Die Installation ist sehr einfach und die Bereitstellung der Software also einzelne Datei ist komfortabel. In der von mir zu Beginn des Projekts verwendeten Version von Vault (Version 0.8.3) sind sehr viele Funktionen die für den produktiven Einsatz in großen Unternehmen nützlich sind ausschließlich in der kostenpflichtigen Variante verfügbar und konnten daher von mir nicht getestet werden. Seit Version 0.9.3 ist jedoch auch die Funktion der graphischen Oberfläche in die kostenfreie Version übergegangen und fügt damit einen wichtigen Faktor was die Benutzerfreundlichkeit angeht hinzu.\newline
+  
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%
