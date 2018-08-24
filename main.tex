@@ -685,29 +685,23 @@ Zur Integration in Vault wird eine sogenannte Intermediate\ac{CA} (intermediate 
 \begin{lstlisting}[caption={[Skript PKI] Shell Skript zum Erstellen eines neuen Benutzerzertifikats unter Verwendung der Vault \ac{PKI}}, label=lst:skript, captionpos=b, basicstyle=\ttfamily] 
 #!/bin/bash
 
-####### script to renew webservers certificate ########
-
+# export location of vault server to environment
 export VAULT_ADDR='https://vault.local:8200'
 
 # log into vault unsing certificates
-
 vault login -method=cert -client-cert=/home/user/Dokumente/certs/web.pem -client-key=/home/user/Dokumente/certs/web.key name=web
 
 # generate certificate with 10 minutes validity and save it in /etc/ssl/certs/web-certs.tmp
-
 vault write pki/issue/short-web common_name=web.local > /etc/ssl/certs/web-certs.tmp
 
 # seperate key and certificate from output and save it in two different files
-
 sed -n '/certificate/,/-----END/ p' /etc/ssl/certs/web-certs.tmp | sed 's/[^-]*-/-/' > /etc/ssl/certs/web-cert.crt
 sed -n '/private_key/,/-----END/ p' /etc/ssl/certs/web-certs.tmp | sed 's/[^-]*-/-/' > /etc/ssl/certs/web-cert.key
 
 # remove temporary output file
-
 rm -f /etc/ssl/certs/web-certs.tmp
 
 # restart webserver and revoke vault token to end session
-
 vault write auth/token/revoke-self value=true
 systemctl restart httpd
 
