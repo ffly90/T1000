@@ -272,17 +272,23 @@ To achieve this task a virtual environment shall be implemented to test the feat
 \pagenumbering{roman}
 \section*{Abkürzungsverzeichnis} %%Title for list of acronyms
 \addcontentsline{toc}{section}{Abkürzungsverzeichnis}
-\begin{acronym}[OECD]
+\begin{acronym}[RADIUS]
  \acro{ACL}{Zugriffskontrollliste \acroforeign{Access Control List}}
  \acro{AD}{Active Directory}
  \acro{API}{Schnittstelle zur Anwendungsprogrammierung \acroforeign{Application Programming Interface}}
+ \acro{AWS}{Amazon Web Dienste \acroforeign{Amazon Web Services}}
  \acro{CA}{Zertifizierungstelle \acroforeign{Certificate Authority}}
  \acro{CAE}{Rechnergestützes Entwicklung\acroforeign{Computer Aided Engineering}}
  \acro{HCL}{Hashicorp Konfigurtaions Sprache \acroforeign{Hashicopr Configuration Language}}
  \acro{IT}{Informationstechnik}
+ \acro{JSON}{Java Script Objekt Notation}
+ \acro{JWT}{\ac{JSON} Web Token}
  \acro{LDAP}{Leichtgewichtiges Verzeichniszugriffsprotokoll\acroforeign{Lightweight Directory Access Protocol}}
  \acro{MIT}{Massachusetts Institute of Technology}
  \acro{OECD}{Organisation für wirtschaftliche Zusammenarbeit und Entwicklung \acroforeign{Organisation for Economic Co-operation and Development}}
+ \acro{OIDC}{OpenID Connect}
+ \acro{PKI}{Public Key Infrastruktur}
+ \acro{RADIUS}{Authentifizierungsdienst für sich einwählende Benutzer \acroforeign{Remote Authentication Dial-IN User Service}}
  \acro{SSL}{Spezifikation zur Verschlüsselten Datenübertragung\acroforeign{Secure Socket Layer}}
  \acro{TLS}{Transportschicht Sicherheit \acroforeign{Transport Layer Security}}
 \end{acronym}
@@ -655,9 +661,25 @@ token_duration: 2764799
 token_policies: [default clients]
 \end{lstlisting}
 
-\subsubsection{\acs{CA} Integration}
+Neben der LDAP Authentifizierung werden von Vault noch eine Reihe weiterer Authentifizierungsschnittstellen. Diese Schnittstellen sind nicht Teil der Evaluierung, werden aber der Vollständigkeit halber hier aufgelistet:\cite{vaultauth}
+\begin{itemize}
+	\item \textbf{\ac{AWS}:} Der Authentifizierungsdienst des Cloud Anbieters \ac{AWS}
+	\item \textbf{Microsoft Azure:} Der Authentifizierungsdienst des Cloud Anbieters Microsoft Azure
+	\item \textbf{Google Cloud:} Der Authentifizierungsdienst des Cloud Anbieters Google
+	\item \textbf{\acs{JWT}/\acs{OIDC}:} \ac{JWT} in Verbinung mit \ac{OIDC}, einer Authentifizierungsschicht die auf das Protokoll OAuth 2.0 aufsetzt
+	\item \textbf{Kubernetes:} Kubernetes (Kapitel \vref{subsec:anf}) verfügt auch über einen Authentifizierungsdienst
+	\item \textbf{GitHub:} Der Authentifizierungsdeinst der Onlineplattform GitHub welche verwendet wird um vernetzt und versioniert an Softwarprojekten zu arbeiten
+	\item \textbf{\acs{RADIUS}:} \ac{RADIUS} 
+	\item \textbf{\acs{TLS} Zertifikate:} X.509 Zertifikate die auch zur Authentifizierung verwendet werden können
+	\item \textbf{Token:} Kommen zum Beispiel bei Kerberos zum Einsatz (siehe Kapitel \vref{subsec:token})
+	\item \textbf{Benutzername \& Passwort:} In Vault integrierte Benutzerverwaltung
+\end{itemize}
 
+\subsubsection{\acs{PKI} Integration} 
+Zur Evaluierung der \ac{PKI} Integration von Vault wird auf die Authentifizierung mit \ac{TLS} Zertifikaten umgestellt. Dieser Schritt ist nicht nötig, liefert aber einen weiteren Anwendungsfall zum Testen der Funktionalität der Integration. Zum erstellen 
+ 
 
+\cite{vaultpki}
 \subsubsection{API Test}
 
 \subsubsection{Weitere Funktionen}
