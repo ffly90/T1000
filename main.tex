@@ -711,8 +711,6 @@ rm -f /etc/ssl/certs/web-certs.tmp
 vault write auth/token/revoke-self value=true
 systemctl restart httpd
 
-# end
-
 \end{lstlisting}
 
 Dieses Skript kann als Cronjob\footnote{Ein Cronjob ist ein Skript oder Kommando, welches in regelmäßigen Abständen automatisch ausgeführt wird.} alle fünf bis zehn Minuten ausgeführt werden und lässt damit die lückenlose verschlüsselte Kommunikation mit dem Webserver zu und dies unter Verwendung von sehr kurzlebigen \ac{TLS}-Zertifikaten. 
@@ -746,10 +744,6 @@ Einen die Auditlog funktion kann durch das Kommando \inline|vault audit enable [
 \label{sec:ausblick}
 
 Hashicorp Vault stellt sich als brauchbare Lösung zum Management von geheimen Informationen dar und wird diesem Anspruch auch gerecht. Der Fokus liegt dabei eindeutig auf der Verwendung in Cloudumgebungen. Die Installation ist sehr einfach und die Bereitstellung der Software also einzelne Datei ist komfortabel. In der von mir zu Beginn des Projekts verwendeten Version von Vault (Version 0.8.3) sind sehr viele Funktionen die für den produktiven Einsatz in großen Unternehmen nützlich sind ausschließlich in der kostenpflichtigen Variante verfügbar und konnten daher von mir nicht getestet werden. Seit Version 0.9.3 ist jedoch auch die Funktion der graphischen Oberfläche in die kostenfreie Version übergegangen und fügt damit einen wichtigen Faktor was die Benutzerfreundlichkeit angeht hinzu.\newline
-  
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
