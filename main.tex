@@ -174,7 +174,7 @@ halfparskip,
 \begin{spacing}{1.5}
 \begin{tabbing}
 mmmmmmmmmmmmmmmmmmmmmmmmmm \= \kill
-\textbf{Bearbeitungszeitraum} \> 9 Wochen\\
+\textbf{Bearbeitungszeitraum} \> 05.03.2018 - 04.05.2018\\
 \textbf{Matrikelnummer, Kurs} \> 1145690, TINF17IN\\
 \textbf{Ausbildungsunternehmen} \> science + computing ag, Tübingen\\
 \textbf{Betreuer des Ausbildungsunternehmens} \>Dr. Marcus Camen\\
@@ -225,18 +225,25 @@ elektronischen Datenverarbeitung.  Unter dem Begriff ist im Folgenden vor
 allem der Umgang mit geheimen Informationen gemeint.  Geheim sind
 Informationen dann, sobald es schädlich ist wenn diese Informationen
 Unbefugten zugänglich sind. Beispiele für derartige Informationen sind
-Passwörter, geheime Schlüssel und geheime Dokumente.  In der
-Praxisarbeit soll evaluiert werden welche Anforderungen große Unternehmen
+Passwörter, geheime Schlüssel und geheime Dokumente. In der vorliegende Arbeit
+wird herausgearbeitet welche Anforderungen große Unternehmen
 an ihr Secrets Management stellen und welche Programme dabei häufig zum
-Einsatz kommen.  In einem weiteren Schritt soll festgestellt werden welche
-Anforderungen durch jene Programme nicht erfüllt werden.  Im Anschluss
-soll eine voll umfängliche Secrets Management Software daraufhin untersucht
-werden, in wie fern Unzulänglichkeiten von gängiger Software behoben
-werden können.  Es soll auch beleuchtet werden, welche zusätzlichen
-Anforderungen Cloud Umgebungen mit sich bringen.  Hierbei zu beachten ist,
-welche Vorteile durch alternative Software zu erzielen sind.  Für die
-Evaluierung soll eine virtuelle Umgebung erstellt werden, in welcher die
-Funktionen getestet werden können.
+Einsatz kommen. Weiterhin wird festgestellt welche
+Anforderungen durch diese Programme \underline{nicht} erfüllt werden. Im Anschluss
+wird eine voll umfängliche Secrets Management Software evaluiert und daraufhin beurteilt, 
+ob Unzulänglichkeiten von gängiger Software behoben
+werden können. 
+
+Es wird außerdem betrachtet, welche neuen
+Anforderungen Cloud Umgebungen mit sich bringen. Hierbei wird ein spezielles Augenmerk darauf gelegt,
+welche Vorteile neuartige Software gegenüber herkömmlichen Lösungen bietet. 
+In einer Gegenüberstellung mehrerer infragekommender Produkte wird dann erörtert warum Hashicorp Vault
+eine sinnvolle Software zur Evaluierung darstellt. Für die Evaluierung wird dann eine virtuelle 
+Umgebung erstellt, in der die Funktionen von Vault getestet werden.
+
+Die Evalulierung führt zum Ergebnis, dass es sich bei Vault um eine brauchbare Sicherheitserweiterung handelt,
+die sich beim Einsatz eines der unterstützen Authentifizierungssysteme leicht in bestehende Systeme integrieren lässt.
+Es zeigt sich außerdem, dass die Schwächen herkömmlicher Softwarelösungen, vorwiegend in Bezug auf den Einsatz von Cloud-Diensten zum tragen kommen. Dementsprechend sind die Vorteile von Vault vor allem dann von Gewicht, wenn eine Verlagerung von Diensten in die Cloud stattfindet.
 \newpage
 \thispagestyle{empty}
 
@@ -244,13 +251,15 @@ Funktionen getestet werden können.
 \\
 The topic of secrets management is becoming an uprising matter in digital data processing.
 In this report the term of secrets management is mainly used to describe the handling of confidential information.
-Information is considered confidential, if it can be used to to harm the owner of the secret in any way.  
+Information is considered confidential, if it can be used to harm the owner of the secret in any way.  
 Examples for information that meets this criteria would be password, private digital key or simply confidential documents.
-In the paper shall be evaluated which requirements enterprises have for their secrets management and which software is currently used to try and fulfill those needs.
-Subsequently the gaps between requirements and the functional range of the used Software shall be emphasized.
-Furthermore a secrets management software with a modern approach shall be examined to find out whether or not this software is able to fill in the gaps of traditional software.
-Also the aspect of cloud environment shall be considered as a factor of importance. 
-To achieve this task a virtual environment shall be implemented to test the features of the chosen software.
+This paper evaluates which requirements enterprises have for their secrets management and which software is currently used to try to fulfill those needs.
+Subsequently the gaps between requirements and the functional range of the used software are being emphasized.
+Furthermore a secrets management software with a modern approach is being examined to find out whether or not this software is able to fill in the gaps of traditional software.
+
+Also the aspect of cloud environments is considered as a factor of importance. New challenges concering the work with cloud services are being worked out, to evaluate the differences between conventional and modern approaches. A comparison of such modern Software products reveals that Hashicorp Vault is the most sensible choice for an evaluation. To achieve the task of a practical evaluation of the software, a virtual environment is being set up.
+
+The evaluation leads to the result, that Vault is a useful security extension. It can quite easily be integrated in existing environments, if one of the supported authentication systems is already in place. Another result of the evaluation is that there are several weaknesses of conventional software, that are mainly important when using cloud services. Accordingly the advantages of Vault are especially valuable when services are being shifted to the cloud.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -273,25 +282,26 @@ To achieve this task a virtual environment shall be implemented to test the feat
 \section*{Abkürzungsverzeichnis} %%Title for list of acronyms
 \addcontentsline{toc}{section}{Abkürzungsverzeichnis}
 \begin{acronym}[RADIUS]
- \acro{ACL}{Zugriffskontrollliste \acroforeign{engl. Access Control List}}
+ \acro{ACL}{Zugriffskontrollliste\acroforeign{engl. Access Control List}}
  \acro{AD}{Active Directory}
- \acro{API}{Schnittstelle zur Anwendungsprogrammierung \acroforeign{engl. Application Programming Interface}}
- \acro{AWS}{Amazon Web Dienste \acroforeign{engl. Amazon Web Services}}
- \acro{CA}{Zertifizierungstelle \acroforeign{engl. Certificate Authority}}
+ \acro{API}{Schnittstelle zur Anwendungsprogrammierung\acroforeign{engl. Application Programming Interface}}
+ \acro{AWS}{Amazon Web Dienste\acroforeign{engl. Amazon Web Services}}
+ \acro{CA}{Zertifizierungstelle\acroforeign{engl. Certificate Authority}}
  \acro{CAE}{Rechnergestützes Entwicklung\acroforeign{engl. Computer Aided Engineering}}
- \acro{HCL}{Hashicorp Konfigurations Sprache \acroforeign{engl. Hashicorp Configuration Language}}
+ \acro{HCL}{Hashicorp Konfigurations Sprache\acroforeign{engl. Hashicorp Configuration Language}}
  \acro{IT}{Informationstechnik}
  \acro{JSON}{Java Script Objekt Notation}
  \acro{JWT}{\ac{JSON} Web Token}
+ \acro{LCD}{Flüssigkristallanzeige\acroforeign{engl. Liquid Crystal Display}}
  \acro{LDAP}{Leichtgewichtiges Verzeichniszugriffsprotokoll\acroforeign{engl. Lightweight Directory Access Protocol}}
  \acro{MIT}{Massachusetts Institute of Technology}
- \acro{OECD}{Organisation für wirtschaftliche Zusammenarbeit und Entwicklung \acroforeign{engl. Organisation for Economic Co-operation and Development}}
+ \acro{OECD}{Organisation für wirtschaftliche Zusammenarbeit und Entwicklung\acroforeign{engl. Organisation for Economic Co-operation and Development}}
  \acro{OIDC}{OpenID Connect}
  \acro{PKI}{Public Key Infrastruktur}
- \acro{RADIUS}{Authentifizierungsdienst für sich einwählende Benutzer \acroforeign{engl. Remote Authentication Dial-IN User Service}}
- \acro{SSL}{Spezifikation zur Verschlüsselten Datenübertragung\acroforeign{engl. Secure Socket Layer}}
- \acro{TLS}{Transportschicht Sicherheit \acroforeign{engl. Transport Layer Security}}
- \acro{URL}{einheitlicher Ressourcenzeiger \acroforeign{engl. Uniform Resource Locator}}
+ \acro{RADIUS}{Authentifizierungsdienst für sich einwählende Benutzer\acroforeign{engl. Remote Authentication Dial-IN User Service}}
+ \acro{SSL}{Spezifikation zur verschlüsselten Datenübertragung\acroforeign{engl. Secure Socket Layer}}
+ \acro{TLS}{Transportschicht Sicherheit\acroforeign{engl. Transport Layer Security}}
+ \acro{URL}{einheitlicher Ressourcenzeiger\acroforeign{engl. Uniform Resource Locator}}
 \end{acronym}
 \setcounter{table}{0}
 \listoffigures
@@ -313,12 +323,17 @@ To achieve this task a virtual environment shall be implemented to test the feat
 \section*{Glossar} 
 \addcontentsline{toc}{section}{Glossar}
 \begin{acronym}
-	\acro{Authentifizierung:}{der Identitätsnachweis einer Person, Maschine oder eines Dienstes, gegenüber einer weiteren Instanz} 
-	\acro{Autorisierung:}{die explizite Freigabe um auf einen geheimen Inhalt zuzugreifen}
-	\acro{Chef:}{eine Software zur automatisierten Installation von fertig konfigurierten Betriebssystemabbildern.}
-	\acro{Computercluter:}{eine Ansammlung von, meist identischer, Harware, welche zu einer logischen Einheit zusammengefasst wird. Der Cluster wird meist verwendet um komplexe Berechungen zu lösen, die auf einzenen Computern sehr lange dauern würde.}
+	\acro{Apache Webserver:}{ ist nach dem Microsoft Webserver der zweithäufigsten Webserver im Internet\cite{apache} er läuft auf fast allen Platformen und gilt als robust und stabil. Außerdem hat der Apache Webserver einen sehr großen Funktionsumfang.\cite[S. 59]{apache2}}
+	\acro{Authentifizierung:}{(v. griechischen „authentikos“ für Urheber, der Echte, der Wirkliche), bedeutet, eine Identität durch eine identitätsgebundene Information zu überprüfen und zu bestätigen.\cite[S. 127]{kerberos2}} 
+	\acro{Authentisierung}{wird im englischen Sprachgebrauch mit Authentifizierung gleichgesetzt. In der deutschen Sprache meint Authentisierung die eigene Identität zu überprüfen.\cite[S. 127]{kerberos2}}
+	\acro{Autorisierung:}{ist eine Berechtigung, eine ausdrückliche Zulassung, die sich normalerweise 1 auf einen Benutzer, bzw. auf eine Identität (Subjekt) bezieht. Autorisierung legt fest, was für wen in einem Netzwerk erlaubt ist und auf welche Ressourcen (Objekte) zugegriffen	werden darf.\cite[S. 159]{kerberos2}}
+	\acro{CentOS Linux:}{ein Akronym für Community Enterprise Operating System. CentOS wird durch den Softwarehersteller Red Hat herausgebracht und ist eine lizenzkostenfreie Version von Red Hat Linux Enterprise.\cite[S. 1]{centos}}
+	\acro{Chef:}{ist eine Automatisierungssoftware, die es sich zum Ziel gemacht hat, Infrastruktur als Code darzustellen. Die Konfiguration und Verteilung von Software in Cloudumgebungen, aber auch privaten Rechenzentren, kann durch Chef automatisiert werden.\cite{chef2}}
+	\acro{Computercluster:}{eine Ansammlung von, meist identischer, Harware, welche zu einer logischen Einheit zusammengefasst wird. Der Cluster wird meist verwendet um komplexe Berechungen zu lösen, die auf einzenen Computern sehr lange dauern würde.}
 	\acro{Dienst:}{eine autarke Einheit, welche eine spezifizierte Aufgabe bzw. Funktionalitaet erfuellt und diese ueber keine klar definierte Schnittstelle zur Verfuegung stellt}
+	\acro{Docker:}{Docker ist eine technologie wie eingesetzt wird um eine Virtulisierung auf Betriebssystemebene zu erreichen. Diese Form der Virtualisierung ist bekannt unter der Bezeichnung Container. Es ist von zentraler Bedeutung diese Form der Virtualisierung von der Hardwarevirtulisierung abzugrenzen. Docker nutzt im gegensatz zur herkömmlichen Virtualisierung neben weiteren Betriebssystemkomponenten, vor allem den Linux Kernel um ihn zwischen mehreren virtuellen Containern zu teilen.\cite[S. 2]{docker2}}
 	\acro{KeePass Passwort Safe:}{ein quelloffener Passwortmanager, dazu designed wurde viele Passörter auf sichere Art und Weise zu speichern. Der Zugang zu diesem Passwortsafe wird allein durch ein einziges Masterpasswort gewährt.}
+	\acro{Kubernetes:}{ist eine quelloffene Software, die dazu verwendet wird Dockercontainer zu verwalten. Dabei führt Kubernetes eine weitere Abstraktionsebene ein und kapselt jeden Dockercontainer noch einemal in einen sogenannten Pod. Pods machen es Kubernetes sehr einfach Dockercontainer auf Computerclustern auszuführen, wobei es keine Rolle spielt auf welchem Server der Container letztendlich ausgeführt wird.\cite{kubernetes}}
 	\acro{OpenStack:}{der Markenname eines quelloffenen Betriebssystems welches entwickelt wurde um eine Cloud Computing (siehe Kapitel \vref{subsec:cloud}) Infrastruktur bereit zu stellen.\cite[S. 2]{barbican}}
 	\acro{Skalierbarkeit:}{die Fähigkeit eines Systems zur flexiblen Änderung ihrer Größe. Der Begriff wird meist dann verwendet wenn es um ein Ausweitung des gefragten Systems geht.}
 \end{acronym}
@@ -340,18 +355,17 @@ To achieve this task a virtual environment shall be implemented to test the feat
 
 \section{Einleitung}
 \label{subsec:einfuehrung}
-Mit der fortschreitenden Digitalisierung nahezu aller Wirtschaftszweige steigt auch die Relevanz für die Absicherung der daraus resultierenden \ac{IT}-Infrastrukturen.
-Zusätzlich zu den eigenen Sicherheitsbelangen des Betreibers einer informationstechnischen Umgebung kommen noch gesetzliche Regelungen wie zum Beispiel das IT-Sicherheitsgesetz zum Tragen. 
+Mit der fortschreitenden Digitalisierung nahezu aller Wirtschaftszweige steigt auch die Relevanz für die Absicherung der daraus resultierenden \ac{IT}-Infrastrukturen. Zusätzlich zu den eigenen Sicherheitsbelangen des Betreibers einer informationstechnischen Umgebung kommen noch gesetzliche Regelungen wie zum Beispiel das Gesetz zur Erhöhung der Sicherheit informationstechnischer Systeme (IT-Sicherheitsgesetz)\cite{gesetz} zum Tragen. 
 Vor allem im Bezug auf eine zunehmende Verlagerung des \ac{IT}-Betriebs hin zum Cloud Computing und den damit verbundenen Problemen dezentraler Datenhaltung (im speziellen bei den public und hybrid Modellen, siehe Kapitel \vref{subsec:cloud}), entstehen häufig unübersichtliche Sicherheitskonzepte. Durch die große Varianz der Szenarien, bei unterschiedlichen Sicherheitsniveaus der Daten, sind die verwendeten Konzepte sehr unterschiedlich.\cite[S. 7f]{risiko}\\
-Spionage- und Sabotage-Angriffe werden aus den unterschiedlichsten Motivationen und auch von den unterschiedlichsten Subjekten verübt. So reicht das Spektrum der Angreifer von Kleinkriminellen über Geheimdienste und Terroristen bis hin zur organisierten Kriminalität. Die Aufgabe der \ac{IT}-Sicherheit besteht darin, die potentiellen Angreifer in ihren Erwägungen zu berücksichtigen und die Werte und Geheimnisse der Unternehmen zu schützen. Ein zentraler Faktor bei der Entwicklung eines Sicherheitskonzepts auf dieser Grundlage ist es, ein stringentes Konzept zur Kontrolle der Autorisierung einer Person oder eines Dienstes beim Zugriff auf die verschiedenen Bereiche in der betreuten Umgebung. Neben der Autorisierung spielt auch die Authentifizierung eine wichtige Rolle, denn es muss zu jedem Zeitpunkt sichergestellt werden, dass die Autorisierung auch der richtigen Person oder Anwendung übertragen wurde.\cite[S. 9]{risiko}\\
-Der Aufwand welcher für \ac{IT}-Sicherheitskonzepte betrieben wird bemisst sich meistens am Schaden, der zu erwarten ist, sollten geheime Daten in die Hände Dritter gelangen. Da es kaum verlässliche Daten zur Quantität der Kosten gibt, die durch einen kritischen Sicherheitsvorfall verursacht werden können, ist die daran orientierte Bemessung der Sicherheitsvorkehrungen umstritten. Generell gibt es verschiedene Faktoren die bei der qualitativen Kostenabschätzung berücksichtigt werden müssen, so wird im allgemeinen zwischen direkten und indirekten Kosten unterschieden.\cite[S. 12]{kosten}
-\subsubsection{Direkte Kosten}
+Spionage- und Sabotage-Angriffe werden aus den unterschiedlichsten Motivationen und auch von den unterschiedlichsten Subjekten verübt. So reicht das Spektrum der Angreifer von Kleinkriminellen über Geheimdienste und Terroristen bis hin zur organisierten Kriminalität. Die Aufgabe der \ac{IT}-Sicherheit besteht darin, die potentiellen Angreifer in ihren Erwägungen zu berücksichtigen und die Werte und Geheimnisse der Unternehmen zu schützen. Ein zentraler Faktor bei der Entwicklung eines Sicherheitskonzepts auf dieser Grundlage ist es, ein stringentes Konzept zur Kontrolle der Autorisierung einer Person oder eines Dienstes beim Zugriff auf die verschiedenen Bereiche in der betreuten Umgebung auszuarbeiten. Neben der Autorisierung spielt auch die Authentifizierung eine wichtige Rolle, denn es muss zu jedem Zeitpunkt sichergestellt werden, dass die Autorisierung auch der richtigen Person oder Anwendung übertragen wurde.\cite[S. 9]{risiko}\\
+Der Aufwand welcher für \ac{IT}-Sicherheitskonzepte betrieben wird bemisst sich meistens am Schaden, der zu erwarten ist, sollten geheime Daten in die Hände Dritter gelangen. Die Kosten die durch Angriffe auf Computersysteme entstehen lassen sich von einer wissenschaftlichen Perspektive nur schwer quantifizieren, denn Unternehmen veröffentlichen nur sehr selten Daten zu den Schäden, die durch Angriffe verursacht wurden. Die Gründe dafür sind mutmaßlich Angst vor Imageschäden oder schlicht das fehlen von Daten, weil keine Überwachung stattfindend. Da durch diesen Missstand die Quantifizierung eines möglichen Schadens oft nicht möglich ist, werden nach Armin et al. \cite{spionage} häufig erst gar keine Sicherheitsmaßnamen ergriffen. Generell gibt es verschiedene Faktoren die bei der qualitativen Kostenabschätzung berücksichtigt werden müssen, so wird im allgemeinen zwischen direkten und indirekten Kosten unterschieden.\cite[S. 12]{kosten}
+\subsection{Direkte Kosten}
 Die direkten Kosten die durch Wirtschaftsspionage entstehen können, bemessen sich zu allererste einmal an dem direkten Wert des gestohlenen Eigentums. Dieser Wert lässt sich ermitteln durch den finanziellen Gegenwert, den das Eigentum hat und an den zu erwartenden Gewinneinbußen durch den Verlust (der Exklusivität) des Eigentums. Weiterhin entstehen direkte Kosten durch das Desaster-Recovery, das heißt durch die Schritte die eingeleitet werden müssen um den Status Quo von vor dem Angriff wieder herzustellen. Zu guter Letzt werden noch diejenigen Kosten hinzugezählt, die durch die Prävention einer Wiederholung des Ereignisses entstehen, dazu zählen Prozessänderungen, Sicherheitsunterweisungen und ähnliche direkte Maßnahmen.\cite[S. 13]{kosten}
-\subsubsection{Indirekte Kosten}
+\subsection{Indirekte Kosten}
 Zu den indirekten Kosten werden die Umsatzausfälle durch Image- und Markenschäden gezählt. Außerdem können hohe Umsatzeinbußen durch Plagiate entstehen, welche in Folge des Gestohlenen Eigentums verbreitet werden. Plagiate können deutlich günstiger angeboten werden, da die Kosten für Forschung und Entwicklung nicht in den Preis eingerechnet werden müssen.\cite[S. 14]{kosten}
-\subsubsection{Versuch einer Quantifizierung}
-Nach Schätzungen der \ac{OECD} belaufen sich die Schäden durch Fälschungen und Produktpiraterie weltweit auf 638 Milliarden US-Dollar pro Jahr. Die Schätzungen diesbezüglich gehen aber weit auseinander. Es scheint jedoch sicher zu sein, dass sich die Schäden im dreistelligen Milliardenbereich bewegen. Für die deutsche Wirtschaft liegen die Schätzungen zwischen 20 und 50 Milliarden Euro.\cite[S. 16f]{kosten}
-\subsubsection{Anforderung an Sicherheitssoftware}
+\subsection{Versuch einer Quantifizierung}
+Nach Schätzungen der \ac{OECD} belaufen sich die Schäden durch Fälschungen und Produktpiraterie weltweit auf 638 Milliarden US-Dollar pro Jahr. Die Schätzungen diesbezüglich gehen aber weit auseinander. Es scheint jedoch sicher zu sein, dass sich die Schäden im dreistelligen Milliardenbereich bewegen. Für die deutsche Wirtschaft liegen die Schätzungen zwischen 20 und 50 Milliarden Euro jährlich.\cite[S. 16f]{kosten}
+\subsection{Anforderung an Sicherheitssoftware}
 \label{subsubsec:anforderung}
 Spezifische Anforderungen die an eine Software zum Secrets Management gestellt werden, können wie folgt zusammengefasst werden:
 
@@ -371,7 +385,37 @@ Spezifische Anforderungen die an eine Software zum Secrets Management gestellt w
 
 Rechtliche Aspekte werden durch den Vorliegenden Bericht nicht weiter beleuchtet.\footnote{Die Inhalte aus Kapitel \vref{subsubsec:anforderung} wurden in Anlehnung an interne Dokument eines großen Unternehmens und Gesprächen mit \ac{IT}-Administratoren herausgearbeitet}
 \newpage
-\section{Stand der Technik}
+
+\section{Grundlegende Informationen}
+
+\subsection{Motivation}
+In den vorigen Abschnitten wurden Problematiken und Widersprüche aufgezeigt, die zur Wahl des Themas für die vorliegende Arbeit geführt haben. Der Diskurs um Sicherheits- und Secrets- Management in großen Firmenumgebungen und der Trend hin zur Auslagerung eigener Rechenzentren zu Cloud-Providern, wirft die Frage nach funktionierenden Sicherheitskonzepten auf. Nicht zu Letzt, die zunehmenden erfolgreichen Angriffe, die auf ein unzureichendes Sicherheitskonzept zurückzuführen sind werfen die Frage nach einem Umfangreichen Sicherheitssystem auf, welches dazu in der Lage ist neue Bedrohungen und sich verändernde Bedingungen abzudecken.\\
+Eine der wichtigsten Herausforderungen bei Cloudumgebungen stellt nicht allein das Management von Zugangsdaten von Benutzern dar, es wird zunehmend wichtiger auch die Verwaltung von Diensten und deren Zugangsdaten zu beleuchten. Klassischerweise geht es dabei zum Beispiel um Datenbankpasswörter, es kommen aber immmer mehr sogenannte Microservices dazu. Bei Mirsoservices handelt es sich um kleine Programme, die meist eine einzige Aufgabe erfüllen und über eine \ac{API} steuerbar sind. Wenn im Netzwerk viele Microservices aktiv sind, die nicht unwahrscheinlich auch untereinander kommunizieren und sich Authentifizieren müssen, verliert ein Administrator leicht die Übersicht.\\
+Auf Grund der Problematiken die in Kapitel \vref{subsec:pass} aufgezeigt wurden ist es also essentiell auch hier für einen möglichst sicheren Ablauf zu sorgen um zu erreichen, dass es für Angreifer sehr schwer wird gefälschte Dienste einzuschleusen um an geheime Informationen zu kommen, bzw. bestehende Dienst für diesen Zweck zu missbrauchen.\footnote{Eigene Darstellung zur Basis der vorangegangen Abschnitte}
+
+\subsection{Projektumgebung}
+\label{subsec:proj}
+Das Thema Sicherheit in der Datenverarbeitung ist seit der Einführung eben jener ein wichtiges Thema. Über die Jahre haben sich die Möglichkeiten zur Absicherung in der \ac{IT} stetig weiterentwickelt, sodass die Absicherung von Computern, Netzwerken, Servern und ganz allgemein Informationen zu einem wichtigen Zweig der Branche geworden ist. Mit neuen Technologien stellt sich auch die Frage nach den Sicherheitsaspekten.\\
+Cloud Computing ist aktuell ein sehr wichtiger und schnell wachsendes Faktor in der \ac{IT}-Branche, im Ausland werden Technologien rund um das Thema Cloud stark gefördert und es gibt eine Vielzahl an Softwareprodukten die sich diesem Feld verpflichtet haben. Für die Nutzung der Vorteile dieser Technologien in Deutschland gibt es einige Faktoren die es zu betrachten gilt. Zum Beispiel gilt es zu kalkulieren, ob eine Verlagerung von Anwendungen oder Daten auf Cloud Infrastruktur wirtschaftlich ist oder nicht. Dabei spielt die vorhandene Infrastruktur eine Zentrale Rolle und es berücksichtigt werden ob ein schrittweiser oder teilweiser Umzug das Mittel der Wahl sein könnte. Vor diesem Hintergrund spielt das Thema Sicherheit eine wichtige Rolle. Daten auf ``fremder`` Hardware zu speichern, wie es in Cloud Umgebungen gängige Praxis ist, stellt ein Risiko dar. Es muss darauf geachtet werden, dass kritische Daten und Anwendungen nur autorisierten Identitäten zur Verfügung gestellt werden. Weiterhin ist abzuwägen in wie fern sich die aktuelle Software, welche zur Authentifizierung und Autorisierung eingesetzt wird, dazu geeignet ist die genannten Herausforderungen zu bewältigen. In dieser Arbeit sollen Aspekte wie dieser genauer beleuchtet werden.
+
+\subsubsection{Unternehmensvorstellung}
+Die science + computing ag, kurz s+c, ist als Tochtergesellschaft der ATOS SE ein Unternehmen des \ac{IT}-Dienstleistungs- und Consultingbereichs. Mit seinen knapp 300 Mitarbeitern betätigt sich die s+c hauptsächlich in den Bereichen High Performance Computing, \ac{IT}-Sicherheit, 3D-Virtualisierung und System-Management. Durch OpenSoftware-Dienstleistungen und diverse Softwareprodukte betätigt sich das Unternehmen zudem im Bereich der Softwareentwicklung. Neben Großkunden der Automobilindustrie besteht der diverse Kundenkreis der s+c aus Mikroelektronikherstellern, Chemie- und Pharmaunternehmen, Maschinen- und Anlagenbauern, Forschungs- und Bildungseinrichtungen sowie Unternehmen aus der Luft- und Raumfahrtbrache.\\
+Zum Hauptsitz in Tübingen kommen noch vier weitere Standorte in Berlin, Düsseldorf, Ingolstadt und München hinzu. Bis zur Übernahme durch den französischen Computerhersteller Bull war die 1989 gegründete science + computing ag ein eigenständiges Unternehmen.\cite{bull} Im Jahr 2014 wurde die BULL-Gruppe ihrerseits durch die ATOS SE übernommen wodurch auch die science + computing ag nun zum ATOS-Gesamtkonzern gehört.\cite{atos}\\
+ATOS SE ist ein International agierender Konzern mit knapp 100.000 Mitarbeitern, einem jährlichen Umsatz von 14 Milliarden Dollar und Hauptsitz in Bezons (Frankreich). Nach der Forbes Liste der 2000 größten Unternehmen der Welt belegt ATOS SE mit den oben genannten Werten den Platz 858 (Stand Juni 2018).\cite{forbes} Im Zuge der Übernahme durch ATOS SE wird die Marke s+c seit 2016 nicht mehr weitergeführt. Stattdessen wird nun die Konzernmarke ATOS verwendet.
+
+\subsubsection{Arbeitsumgebung}
+Die Durchführung der Projektarbeit findet im Team \ac{CAE}3 der science + computing ag statt. Im Team \ac{CAE}3 werden Kunden betreut, die unter Verwendung von High Perfomance Computing Berechnungen anstellen. Der Fokus des Teams liegt dabei auf Kundenkreisen die sich im Bereich \ac{CAE} betätigen. Im Team gibt es verschiedene Kompetenzen um die volle Bandbreite der Kundenwünsche abdecken zu können. Zu den Kernkompetenzen gehören hierbei Weiter-/Entwicklung von systemunterstützender Software, Administration von Computerclustern inklusive Überwachung der Systemkomponenten sowie Administration und Bereitstellung von speziellen Speicherinfrastrukturen.\\
+Die Evaluierung welche Teil dieses Praxisberichts ist, soll erste Informationen liefern aus denen sich die Nutzbarkeit von Secrets Management Software zur interne Nutzung ableiten lässt. Der praktische Teil der Evaluierung wird auf einer virtualisierten Umgebung auf Basis von VMware Workstation durchgeführt.
+
+\subsubsection{Unternehmensspezifische Anforderungen}
+Bei s+c gibt es laufend Projekte, die sich mit zukunftsweisenden Technologien beschäftigen, um eine Übernahme in das Leistungsportfolio der Firma zu erörtern. Bei den Projekten geht es sowohl um die Verbesserung eigener Geschäftsprozesse und Arbeitsabläufe als auch um die Optimierung der Leistungen gegenüber dem Kunden. Wichtige Faktoren die bei einer derartigen Einschätzung betrachtet werden müssen sind Einsatzmöglichkeiten, Einsatzbereiche, Kosten, Schnittstellen und Skalierbarkeit. 
+                                                                                                          
+Über die Einsatzmöglichkeiten kann entschieden werden, wenn klar ist, welche Voraussetzungen die Secrets Management Software zum Betrieb benötigt und ob sich der Einsatz mit rechtlichen und betriebsratlichen Beschränkungen vereinbaren lässt. Dem Trend zu einheitlichen Arbeitsmitteln folgend ist der Einsatzbereich so weit wie möglich zu wählen, ohne dabei jedoch die Einzelnen Bereiche in ihrer Arbeit zu beeinträchtigen. Nach erfolgreicher Evaluierung kann ein produktives Pilotprojekt in einem definierten Umfeld gestartet werden. Zum Zweck der Evaluierung sollte eine Testversion oder die kostenfreie Version des Secrets Management Systems eingesetzt werden.\\
+Weiterhin sollte eine Kalkulation angestellt werden, welche eine qualifizierte Aussage über die Wirtschaftlichkeit der kostenpflichtigen Version gegenüber der kostenfreien Version macht. Dabei ist zu beachten,  inwiefern interne Kompetenzen zum Betrieb der kostenfreien Version verwendet werden können, welche den kommerziellen Support ersetzten könnten. Weiterhin ist ein finanzieller Vergleich vom Status Quo zum geplanten Ziel über einen definierten Zeitraum anzustellen. Finanzielle Erwägungen sind jedoch nicht Teil der vorliegenden Arbeit und werden nur der Vollständigkeit halber erwähnt.\\ 
+Um qualifizierte Aussagen über den Aufwand treffen zu können ist es wichtig die Schnittstellen zu bestehenden Systemen zu bewerten und auf ihre Funktionalität zu untersuchen. Das Secrets Management Konzept ist derart anzulegen, dass es sich möglichst einfach in eine bestehende Umgebung integrieren lässt. Bei der Evaluierung muss auch darauf geachtet werden inwiefern sich eine Secrets Management Software in großen Umgebungen einsetzten lässt. Dabei ist es von Vorteil wenn die Software über die Möglichkeit verfügt über mehrere Hardwareinstanzen hinaus erweiterbar zu sein. Außerdem ist zu betrachten ob das System auch rechenzentrenübergreifend eingesetzt werden kann. Letzteres ist vorallem bei sehr großen Umgebungen von Relevanz.
+\newpage
+
+\section{Theoretische Grundlagen}
 Das folgende Kapitel liefert die theoretischen Grundlagen für die praktische Umsetzung der Projektarbeit. Es wird eine Breite Übersicht über den Themenkomplex des Secrets Management gegeben und es wird gezeigt welche Softwareprodukte aktuell in Unternehmen zum Einsatz kommen um Probleme die mit den Themenkomplexen Authentifizierung und Autorisierung in Verbindung stehen zu lösen. Außerdem wird aufgezeigt welche neuen Herausforderungen das Arbeiten unter Verwendung von Cloud Computing mit sich bringt. 
 
 \subsection{Das Passwort}
@@ -390,15 +434,34 @@ Auf Grund der vielen Angriffsmöglichkeiten gibt es Stimmen, die das Ende des Pa
 \label{subsec:ident}
 Vorwiegend wird der Begriff der Identität in der Soziologie besprochen, er spielt allerdings auch in der Informatik eine wichtige Rolle. Identitäten sind definierte Zusammensetzungen von Rollen und Eigenschaften eines Objekts. Zu dieser Kombination kommt ein, innerhalb einer Organisationseinheit, eindeutiger Identifikator. Durch ihre Beschreibung kann abgeleitet werden wie die Identität vorzugehen hat und welche Schnittstellen für sie von Relevanz sind. Zudem wird davon ausgegangen, dass eine Identität einer gewissen Persistenz unterliegt, das heißt, dass sich Eigenschaften und Rollen nicht ständig ändern. Genauso wie es möglich ist, dass mehrere Objekte die gleiche Zusammensetzung von Eigenschaften haben, kann es ebenso vorkommen, dass einzelne Objekte mehreren Identitäten zugeordnet werden. Für Menschen die sich selten im Kontext der \ac{IT} Administration bewegen mag der Gedanke Nahe liegen, dass es sich bei einer Identität um eine natürliche Person handelt. Dieser Schluss ist zwar nicht falsch, greift aber zu kurz, denn nicht ausschließlich natürliche Personen erfüllen die Voraussetzungen die eine Identität ausmachen. Neben natürlichen Personen werden auch \ac{IT}-Systeme und \ac{IT}-Anwendungen durch den Begriff der Identität beschrieben. \cite[S. 21ff]{kerberos2}
 
-\subsection{Digitale Zertifikate}
+\subsection{\ac{PKI}}
 \label{subsec:zert}
 Neben der in Kapitel \vref{subsec:pass} beschriebenen Authentifizierungsmethode via Passwort gibt es weitere Möglichkeiten die Integrität einer Identität gegenüber einem informationstechnischen System nachzuweisen. Eine wichtige Rolle spielen hierbei sogenannte digitale Zertifikate. Diese Zertifikate können dazu verwendet werden den öffentlichen Schlüssel eines asymmetrischen Verschlüsselungssystems, einer Identität zuzuordnen. Der öffentliche Schlüssel wird zu diesem Zweck mit mehreren Merkmalen verknüpft, die gesammelt dazu geeignet sind den Eigentümer des Schlüssels eindeutig zu authentifizieren. Zur Validierung eines Zertifikats wird eine sogenannte \ac{CA} verwendet; diese übernimmt die Aufgabe der Verknüpfung der zu authentifizierenden Identität und dem öffentlichen Schlüssel.\newline
+Bei der Verwendung eines asymmetrischen Verschlüsselungssystems können Nachrichten, die zur Übertragung über unsichere Netzwerke (zum Beispiel da Internet) bestimmt sind, verschlüsselt werden. Zu diesem Zweck wird der öffentliche Schlüssel des Kommunikationspartners benötigt, um den zu übermittelnden Klartext mit dessen Hilfe zu verschlüsseln. Der verschlüsselte Text kann nun nur noch mit dem privaten Schlüssel entschlüsselt und damit gelesen werden. Dieser Vorgang wird in Abbildung \vref{fig:crypt} nochmal visuell dargestellt.\cite[S. 5]{crypto}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{crypt.png}
+	\caption[Ablauf Verslüsselung]{Ablauf einer Verschlüsselung mit asymmetrischer Verschlüsselung\cite[S. 6]{crypto}}
+	\label{fig:crypt}
+\end{figure}
 Grundlage für eine erfolgreiche Authentifizierung mit digitalen Zertifikaten ist das Vertrauen gegenüber der \ac{CA}. Jedes Zertifikat enthält eine Seriennummer die von der \ac{CA} nur einmal vergeben wird, damit kann der Halter des Schlüssels eindeutig identifizieren werden. Die bekannteste Implementierung einer derartigen \ac{PKI} liegt der Standart des X.509 Zertifikat zugrunde, welcher zum Beispiel bei der Absicherung von Netzwerkkommunikation mit \ac{TLS} (häufig als \ac{SSL} bezeichnet) eingesetzt wird. Neben der Seriennummer enthalten digitale Zertifikate Informationen wie Versionsnummer, die Identität, die Gültigkeitsdauer, die digitale Signatur der validierenden \ac{CA}, Informationen zum verwendeten Verschlüsselungsalgorithmus und zum Gültigkeitsbereich sowie des vorgesehenen Anwendungsbereichs des kryptographischen Schlüssels.\cite[S. 144]{kerberos2}\\
 Das Zertifikat an sich enthält also ausschließlich öffentliche Informationen und kann somit nicht allein zur Authentisierung verwendet werden. Allein der Besitz des privaten Gegenstücks zum öffentlichen Schlüssel, der im Zertifikat seine Zuordnung erhält, eignet sich zum eindeutigen Identitätsnachweis. Der kritische Punkt ist der private Schlüssel, welcher unbedingt vor dem Zugriff dritter geschützt werden muss, denn andernfalls kann ein unrechtmäßiger Besitzer das Zertifikat verwenden um sich für den tatsächlichen Halter des Zertifikats auszugeben und damit beispielsweise an geheime Informationen gelangen. Typischerweise sind derartige Zertifikate ein bis zwei Jahre gültig. \cite[S. 145f]{kerberos2}\\
+Tiefergehende Informationen zu \ac{PKI} und Verschlüsselung im Allgemeinen sind im Buch unter der Quelle \cite{crypto} zu finden.
+
+
+
+
 
 \subsection{Tokenbasierte Authentifizierung und Autorisierung}
 \label{subsec:token}
-Ein Token wird verwendet um einen Zugangsschlüssel zu erzeugen welcher sich dazu eignet sich gegenüber einem geschützten System zu authentifizieren. Beim Token handelt es sich um ein Stück Hardware das nicht selten über ein LCD-Display verfügt um dort den generierten Zugangsschlüssel auszugeben. Umgangssprachlich wird auch der erzeugte Zugangsschlüssel in der \ac{IT} oft als Token bezeichnet zur Unterscheidung wir im Folgenden von Hardware- bzw. Software-Token gesprochen. Wenn nur von Token die Rede ist sind in dieser Arbeit Software-Token gemeint. \cite[S.141ff]{kerberos2}
+Ein Token wird verwendet um einen Zugangsschlüssel zu erzeugen welcher sich dazu eignet sich gegenüber einem geschützten System zu authentifizieren. Beim Token handelt es sich, wie in Abbildung \vref{fig:token} zu sehen ist, um ein Stück Hardware das nicht selten über ein LCD-Display verfügt um dort den generierten Zugangsschlüssel auszugeben. Umgangssprachlich wird auch der erzeugte Zugangsschlüssel in der \ac{IT} oft als Token bezeichnet zur Unterscheidung wir im Folgenden von Hardware- bzw. Software-Token gesprochen. Wenn nur von Token die Rede ist sind in dieser Arbeit Software-Token gemeint. \cite[S.141ff]{kerberos2}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{token.jpg}
+	\caption[Token]{Foto eines Hardware-Token\cite{token}}
+	\label{fig:token}
+\end{figure}
 
 \subsection{Cloud Computing}
 \label{subsec:cloud}
@@ -409,12 +472,14 @@ Der Begriff des Cloud Computing beschreibt den bedarfsorientierten Zugriff auf I
 \textbf{Skalierbarkeit:} Wenn die vorangegangen Punkte kombiniert werden, ergibt sich daraus die Möglichkeit flexibel und bedarfsgerecht Ressourcen zu erhöhen und wieder freizugeben. In vielen Fällen erfolgt dieser Prozess vollautomatisiert und nimmt dem Nutzer in diesem Bereich jegliche nicht-monetäre Ressourcenplanung ab. \cite[S. 9]{cloudsec}\\
 \textbf{Verbrauchsabhängige Bezahlung:} Die Bezahlung von Cloud Diensten orientiert sich nicht selten an den tatsächlich verbrauchten Ressourcen in Relation zur zeitlichen Belegung. So können relativ einfach Kalkulationen angestellt werden, aus denen sich ergibt ob sich die Nutzung von Cloud Diensten, für einen definierten Einsatzzweck, lohnt. \cite[S. 9]{cloudsec}\\
 
-\textbf{Dynamische Zertifizierung:} das in Kapitel \vref{subsec:zert} beschriebene Verfahren der Nutzung von digitalen Zertifikaten in seiner klassischen Form, stößt beim Betrieb von Cloud Anwendungen an seine Grenzen und wird daher durch neue Konzepte wie zum Beispiel die dynamische Zertifizierung ersetzt. Klassische Methoden zur Zertifizierung liegt die Annahme zu Grunde, dass Identitäten über längere Zeit eine konstante Zusammensetzung von Rollen und Eigenschaften haben. Falls nicht manuell getriggert, wird nach der definierten Gültigkeitsperiode eines Zertifikats geprüft ob das Objekt, weiterhin die Voraussetzungen für den Zertifizierungsprozess erfüllt, um bei erfolgreicher Prüfung eine Rezertifizierung einzuleiten.\cite{cloudabs}
+\subsection{Dynamische Zertifizierung} 
+Das in Kapitel \vref{subsec:zert} beschriebene Verfahren der Nutzung von digitalen Zertifikaten in seiner klassischen Form, stößt beim Betrieb von Cloud Anwendungen an seine Grenzen und wird daher durch neue Konzepte wie zum Beispiel die dynamische Zertifizierung ersetzt. Klassische Methoden zur Zertifizierung liegt die Annahme zu Grunde, dass Identitäten über längere Zeit eine konstante Zusammensetzung von Rollen und Eigenschaften haben. Falls nicht manuell getriggert, wird nach der definierten Gültigkeitsperiode eines Zertifikats geprüft ob das Objekt, weiterhin die Voraussetzungen für den Zertifizierungsprozess erfüllt, um bei erfolgreicher Prüfung eine Rezertifizierung einzuleiten.\cite{cloudabs}
 
 Durch die Schnelllebigkeit von Cloud-Diensten kommt es häufig vor, dass sich die Eigenschaften eines Dienstes im laufenden Cloudbetrieb ändern. Durch den Aufbau von Cloudumgebungen sind diese Änderungen für den Endnutzer allerdings nicht erkennbar und ein Zertifikat, welches nach den klassischen Prozessen erzeugt wurde lässt darauf schließen, dass der Dienst für die Gültigkeitsdauer des Zertifikats weiterhin die Ursprünglichen Eigenschaften aufweist. Dynamische Zertifizierung versucht dieses Problem zu lösen indem eine ständige Kontrolle der Zertifikatsanforderungen von Cloud-Diensten zur Laufzeit durchgeführt wird, um Änderungen in den Eigenschaften direkt protokollieren zu können. Um ein kontinuierliches Audit der Dienste realisieren zu können, werden verschiedene Ansätze verfolgt. Neben spezieller Test- und Monitoringsoftware, die eine Anwendung zur Laufzeit überprüft, können auch sogenannte Trusted Platform Module verwendet werden. Diest Module erzeugen dann eine Prüfsumme über ein gewünschte Ziel (zum Beispiel die zu kontrollierende Cloud-Anwendung) und vergleichen sie dann mit dem zuvor gespeicherten historischen Wert der Prüfsumme. Um solche Auditierungsvorgänge in bestehende Zertifizierungsmodelle zu integrieren, werden häufig zusätzlich ausgebildete Auditoren beschäftigt, die Änderungen in Dokumenten und bei den beteiligten Identitäten feststellen sollen.\cite[S. 114ff]{cloudsec}
 
-\subsection{Vergleichende Aufstellung unterschiedlicher Softwareprodukte}
-\label{subsubsec:stand}
+\section{Umsetzung in Software}
+\label{sec:soft}
+\textbf{Vergleichende Aufstellung unterschiedlicher Softwareprodukte:}
 Um die in Kapitel \vref{subsec:einfuehrung} beschriebenen Themenkomplexe der Autorisierung und Authentifizierung in Firmenumgebungen umzusetzen gibt es verschiedene Ansätze. Im folgenden sollen einige gängige Softwareprodukte, die die genannten Aufgaben erfüllen sollen vorgestellt und auf ihre Tauglichkeit zur voll umfänglichen Erfüllung der in Kapitel \vref{subsubsec:anforderung} beschriebenen Anforderung untersucht.
 \begin{table}[h]
 \centering
@@ -451,7 +516,7 @@ Um die in Kapitel \vref{subsec:einfuehrung} beschriebenen Themenkomplexe der Aut
 \end{table}
 Die Programme werden in unterschiedlichen Versionen angeboten. Einige der beschriebenen Funktionen stehen möglicherweise in der kostenfreien Version nicht zur Verfügung.
 
-\subsubsection{Kerberos}
+\subsection{Kerberos}
 Der Name Kerberos kommt ursprünglich aus der griechischen Mythologie, wo er für den dreiköpfigen Hund verwendet wurde, der den Eingang zur Unterwelt bewacht. 
 Das Projekt wurde in den achtziger Jahren am \ac{MIT} als Teil des sogenannten Athena-Projekts ins Leben gerufen. Die großen Stärken von Kerberos liegen in der Authentifizierung und der verschlüsselten Nachrichtenübermittlung. Schon zu Beginn des Projekts lag, neben den Sicherheitsaspekten, der Fokus auf der Skalierbarkeit des Systems. 
 Verschlüsselt wird mit symmetrischer Verschlüsselung und einem vorher vereinbarten geheimen Schlüssel. Kerberos unterstützt auch den Einsatz von Passwörtern, ist aber ursprünglich nicht dafür entwickelt worden. 
@@ -466,12 +531,12 @@ Die Authentifizierung mit Kerberos wird über sogenannte Tickets organisiert. De
 \end{figure}
 Kritisch im Zusammenhang mit Kerberos ist die Fokussierung auf einen Zentralen Server, dieser muss so dimensioniert sein, dass er alle Anfragen verarbeiten kann und, dass durch einen Hardwaredefekt der Betrieb nicht stoppt. Ein weiterer Nachteil ist die fehlende Verschlüsselung des Netzwerkverkehrs. Außerdem werden Sitzungsschlüssel zwischenzeitlich auf dem Client gespeichert und sind so ein leichtes Ziel für Angreifer die Zugriff auf die Clientmaschine haben. Es kann ebenfalls kritisiert werden, dass die Änderung eines Nutzerpassworts mit der Änderung des geheimen Schlüssels einhergeht. Kerberos erfüllt seine Aufgaben sehr zuverlässig, was durch seine Popularität untermauert wird. Mit diversen Erweiterungen lassen sich die erwähnten Unzulänglichkeiten auch umgehen.\cite[vgl. S.138f]{kerberos2}
 
-\subsubsection{Pleasant Password Server}
+\subsection{Pleasant Password Server}
 Beim Pleasant Password Server handelt es sich nach eigenen Angaben um einen serverbasierten KeePass Passwort Safe. Im Unterschied zu seinem kleinen Bruder ist der Pleasant Password Server allerdings, wie der Name schon vermuten lässt, keine reine Client Software mehr, sondern er fügt sich als Serverdienst in \ac{IT}-Umgebungen ein. Das Ziel der Anwendung ist es eine sichere Ablagemöglichkeit für Passwörter, Produkt-Keys, Kreditkarteninformationen und Dateien zu bieten. Zur verschlüsselten Netzwerkkommunikation werden \ac{TLS}-Zertifikate verwendet. Die Client-Software wird als installierbares Programm zur Verfügung gestellt welches auf einigen gängigen Betriebssystemen installiert werden kann. Die Serveranwendung hingegen wird ausschließlich für Microsoft Windows zur Verfügung gestellt. Zusätzlich zur normalen Client-Software wird einen Webanwendung mitgeliefert, die clientseitig plattformunabhängige Nutzung ermöglicht.\cite{pleasant}\\
 Eine Rollen- und Eintragsbasierte Rechtevergabe ist vorgesehen, womit der Zugriff durch ausschließlich autorisierte Identitäten sichergestellt werden soll. Mit seiner Initialen Veröffentlichung im Oktober 2012 handelt es sich beim Pleasant Password Server noch um eine relativ junge Software, die jedoch durch den Hersteller, dem Versionsstand nach zu urteilen, regelmäßig mit Updates versorgt wird.\cite{pleasant}\\
 Wie aus Tabelle \vref{tab:ver} hervorgeht, erfüllt die Software schon relativ viele der festgelegten Kriterien. Da es sich jedoch nicht um ein quelloffenes Programm handelt, gibt es wenige Informationen über die internen Mechanismen und deren Sicherheit. Aus dem Lizenzmodell geht zudem hervor, dass sich die Software eher an kleine bis mittelständige Unternehmen richtet.
 
-\subsubsection{Hashicorp Vault}
+\subsection{Hashicorp Vault}
 \label{subsubsec:vault}
 Bei Vault handelt es sich dem Hersteller Hashicorp zufolge um ein vollumfängliches Secrets Management System. Die Software wird in der Community Edition unter einer quelloffenen Lizenz veröffentlicht und verfügt über eine umfangreiche Dokumentation. Folgende Funktionen und Funktionsweisen liefert Vault dem Hersteller zufolge:
 
@@ -483,39 +548,20 @@ Dateien mit sensiblen Inhalte, können durch Vault verschlüsselt werden, ohne d
 Alle Geheimnisse welche durch Vault gespeichert werden haben eine Gültigkeitsdauer. Nach Ablauf der zugeordneten Gültigkeitsdauer werden die betroffenen Geheimnisse durch Vault widerrufen. Clients können durch eine Schnittstellen zu Anwendungsprogrammierung (API) die Gültigkeit eines Geheimnisses verlängern bzw. erneuern.
 Geheimnisse können auch durch Administratoren widerrufen werden. Dabei bietet Vault die Funktion, dass bei Bedarf ganze Baumstrukturen an Geheimnissen auf einmal ihre Gültigkeit verlieren. Es kann auf unterschiedliche Weisen gefiltert werden, so können zum Beispiel alle Geheimnisse widerrufen werden auf die ein spezieller Benutzer zugegriffen hat.\\
 
-\textbf{Die Komponenten von Vault:}
+\textbf{Die Komponenten von Vault (siehe Abbildung \vref{fig:vault}):}
 
 \textit{Storage Backend:} Vault benötigt ein Storage Backend um verschlüsselte Daten abzulegen. Die einzige Anforderung an das Storage Backend ist, dass es möglichst strapazierbar ist. Vault vertraut dem Storage Backend nicht und es wird nicht davon ausgegangen, dass es speziell gegen fremde Zugriffe geschützt ist. 
 \newline\textit{Barriere:} Zwischen Storage und Vault wird die Kommunikation durch eine Art Kontrollpunkt geprüft. Durch diesen Mechanismus soll sichergestellt werden, dass alle Daten welche von Vault in Richtung Storage Backend übermittelt werden, zwangsläufig verschlüsselt werden. Außerdem ist der Mechanismus dafür zuständig alle Daten die aus dem Storage Backend gelesen werden zu verifizieren und zu entschlüsseln. 
 \newline\textit{Secrets Speicher:} Der Secrets Speicher ist dafür Zuständig auf Anfrage ein angefordertes Geheimnis preiszugeben. Bei einigen Systemen ist der Prozess statisch organisiert. Das bedeutet, dass bei der gleichen Anfrage die gleiche Rückgabe zu erwarten ist. Andere Systeme arbeiten hier komplexer, sie sind dazu in der Lage dynamische Zugangsdaten zu erzeugen. Diese Möglichkeit schafft eine zusätzliche Sicherheitsebene. Das Feature steht allerdings nicht für jede Anwendung zur Verfügung.
 \newline\textit{Client Software-Token:} Ein Client Software-Token wird ausgestellt, um einen Client über die Dauer einer Sitzung gegenüber Vault zu authentisieren.
 \newline\textit{Server:} Vault wird als einzelne Binärdatei zur Verfügung gestellt, sie kann sowohl als Client als auch als Server ausgeführt werden. Wenn der Server gestartet wurde, kümmert er sich um die Kommunikation mit Hintergrunddiensten und stellt ein \ac{API} für die Clientinteraktion bereit. Außerdem ist er verantwortlich für die Anwendung der \ac{ACL} und den Widerruf abgelaufener Geheimnisse. Neben einigen weiteren Aufgaben erstellt der Server auch ein Log in welchem Interaktionen mit Vault dokumentiert wird. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{vault.png}
+	\caption[Vault]{Komponenten von Vault\cite{vault}}
+	\label{fig:vault}
+\end{figure}
 
-\subsection{Motivation}
-In den vorigen Abschnitten wurden Problematiken und Widersprüche aufgezeigt, die zur Wahl des Themas für die vorliegende Arbeit geführt haben. Der Diskurs um Sicherheits- und Secrets- Management in großen Firmenumgebungen und der Trend hin zur Auslagerung eigener Rechenzentren zu Cloud-Providern, wirft die Frage nach funktionierenden Sicherheitskonzepten auf. Nicht zu Letzt, die zunehmenden erfolgreichen Angriffe, die auf ein unzureichendes Sicherheitskonzept zurückzuführen sind werfen die Frage nach einem Umfangreichen Sicherheitssystem auf, welches dazu in der Lage ist neue Bedrohungen und sich verändernde Bedingungen abzudecken.\\
-Eine der wichtigsten Herausforderungen bei Cloudumgebungen stellt nicht allein das Management von Zugangsdaten von Benutzern dar, es wird zunehmend wichtiger auch die Verwaltung von Diensten und deren Zugangsdaten zu beleuchten. Klassischerweise geht es dabei zum Beispiel um Datenbankpasswörter, es kommen aber immmer mehr sogenannte Microservices dazu. Bei Mirsoservices handelt es sich um kleine Programme, die meist eine einzige Aufgabe erfüllen und über eine \ac{API} steuerbar sind. Wenn im Netzwerk viele Microservices aktiv sind, die nicht unwahrscheinlich auch untereinander kommunizieren und sich Authentifizieren müssen, verliert ein Administrator leicht die Übersicht.\\
-Auf Grund der Problematiken die in Kapitel \vref{subsec:pass} aufgezeigt wurden ist es also essentiell auch hier für einen möglichst sicheren Ablauf zu sorgen um zu erreichen, dass es für Angreifer sehr schwer wird gefälschte Dienste einzuschleusen um an geheime Informationen zu kommen, bzw. bestehende Dienst für diesen Zweck zu missbrauchen.\footnote{Eigene Darstellung zur Basis der vorangegangen Abschnitte}
-
-\subsection{Projektumgebung}
-\label{subsec:proj}
-Das Thema Sicherheit in der Datenverarbeitung ist seit der Einführung eben jener ein wichtiges Thema. Über die Jahre haben sich die Möglichkeiten zur Absicherung in der \ac{IT} stetig weiterentwickelt, sodass die Absicherung von Computern, Netzwerken, Servern und ganz allgemein Informationen zu einem wichtigen Zweig der Branche geworden ist. Mit neuen Technologien stellt sich auch die Frage nach den Sicherheitsaspekten.\\
-Cloud Computing ist aktuell ein sehr wichtiger und schnell wachsendes Faktor in der \ac{IT}-Branche, im Ausland werden Technologien rund um das Thema Cloud stark gefördert und es gibt eine Vielzahl an Softwareprodukten die sich diesem Feld verpflichtet haben. Für die Nutzung der Vorteile dieser Technologien in Deutschland gibt es einige Faktoren die es zu betrachten gilt. Zum Beispiel gilt es zu kalkulieren, ob eine Verlagerung von Anwendungen oder Daten auf Cloud Infrastruktur wirtschaftlich ist oder nicht. Dabei spielt die vorhandene Infrastruktur eine Zentrale Rolle und es berücksichtigt werden ob ein schrittweiser oder teilweiser Umzug das Mittel der Wahl sein könnte. Vor diesem Hintergrund spielt das Thema Sicherheit eine wichtige Rolle. Daten auf ``fremder`` Hardware zu speichern, wie es in Cloud Umgebungen gängige Praxis ist, stellt ein Risiko dar. Es muss darauf geachtet werden, dass kritische Daten und Anwendungen nur autorisierten Identitäten zur Verfügung gestellt werden. Weiterhin ist abzuwägen in wie fern sich die aktuelle Software, welche zur Authentifizierung und Autorisierung eingesetzt wird, dazu geeignet ist die genannten Herausforderungen zu bewältigen. In dieser Arbeit sollen Aspekte wie dieser genauer beleuchtet werden.
-
-\subsubsection{Unternehmensvorstellung}
-Die science + computing ag, kurz s+c, ist als Tochergesellschaft der ATOS SE ein Unternehmen des \ac{IT}-Dienstleistungs- und Consultingbereichs. Mit seinen knapp 300 Mitarbeitern betätigt sich die s+c hauptsächlich in den Bereichen High Performance Computing, \ac{IT}-Sicherheit, 3D-Virtualisierung und System-Management. Durch OpenSoftware-Dienstleistungen und diverse Softwareprodukte betätigt sich das Unternehmen zudem im Bereich der Softwareentwicklung. Neben Großkunden der Automobilindustrie besteht der diverse Kundenkreis der s+c aus Mikroelektronikherstellern, Chemie- und Pharmaunternehmen, Maschinen- und Anlagenbauern, Forschungs- und Bildungseinrichtungen sowie Unternehmen aus der Luft- und Raumfahrtbrache.\\
-Zum Hauptsitz in Tübingen kommen noch vier weitere Standorte in Berlin, Düsseldorf, Ingolstadt und München hinzu. Bis zur Übernahme durch den französischen Computerhersteller Bull war die 1989 gegründete science + computing ag ein eigenständiges Unternehmen.\cite{bull} Im Jahr 2014 wurde die BULL-Gruppe ihrerseits durch die ATOS SE übernommen wodurch auch die science + computing ag nun zum ATOS-Gesamtkonzern gehört.\cite{atos}\\
-ATOS SE ist ein International agierender Konzern mit knapp 100.000 Mitarbeitern, einem jährlichen Umsatz von 14 Milliarden Dollar und Hauptsitz in Bezons (Frankreich). Nach der Forbes Liste der 2000 größten Unternehmen der Welt belegt ATOS SE mit den oben genannten Werten den Platz 858 (Stand Juni 2018).\cite{forbes} Im Zuge der Übernahme durch ATOS SE wird die Marke s+c seit 2016 nicht mehr weitergeführt. Stattdessen wird nun die Konzernmarke ATOS verwendet.
-
-\subsubsection{Arbeitsumgebung}
-Die Durchführung der Projektarbeit findet im Team \ac{CAE}3 der science + computing ag statt. Im Team \ac{CAE}3 werden Kunden betreut, die unter Verwendung von High Perfomance Computing Berechnungen anstellen. Der Fokus des Teams liegt dabei auf Kundenkreisen die sich im Bereich \ac{CAE} betätigen. Im Team gibt es verschiedene Kompetenzen um die volle Bandbreite der Kundenwünsche abdecken zu können. Zu den Kernkompetenzen gehören hierbei Weiter-/Entwicklung von systemunterstützender Software, Administration von Computerclustern inklusive Überwachung der Systemkomponenten sowie Administration und Bereitstellung von speziellen Speicherinfrastrukturen.\\
-Die Evaluierung welche Teil dieses Praxisberichts ist, soll erste Informationen liefern aus denen sich die Nutzbarkeit von Secrets Management Software zur interne Nutzung ableiten lässt. Der praktische Teil der Evaluierung wird auf einer virtualisierten Umgebung auf Basis von VMware Workstation durchgeführt.
-                                                                                                                         
-\subsubsection{Unternehmensspezifische Anforderungen}
-Bei s+c gibt es laufend Projekte, die sich mit zukunftsweisenden Technologien beschäftigen, um eine Übernahme in das Leistungsportfolio der Firma zu erörtern. Bei den Projekten geht es sowohl um die Verbesserung eigener Geschäftsprozesse und Arbeitsabläufe als auch um die Optimierung der Leistungen gegenüber dem Kunden. Wichtige Faktoren die bei einer derartigen Einschätzung betrachtet werden müssen sind Einsatzmöglichkeiten, Einsatzbereiche, Kosten, Schnittstellen und Skalierbarkeit. \\                                                                                                                                                                                                                                                                                                                                                                                                                     
-Über die Einsatzmöglichkeiten kann entschieden werden, wenn klar ist, welche Voraussetzungen die Secrets Management Software zum Betrieb benötigt und ob sich der Einsatz mit rechtlichen und betriebsratlichen Beschränkungen vereinbaren lässt. Dem Trend zu einheitlichen Arbeitsmitteln folgend ist der Einsatzbereich so weit wie möglich zu wählen, ohne dabei jedoch die Einzelnen Bereiche in ihrer Arbeit zu beeinträchtigen. Nach erfolgreicher Evaluierung kann ein produktives Pilotprojekt in einem definierten Umfeld gestartet werden. Zum Zweck der Evaluierung sollte eine Testversion oder die kostenfreie Version des Secrets Management Systems eingesetzt werden.\\
-Weiterhin sollte eine Kalkulation angestellt werden, welche eine qualifizierte Aussage über die Wirtschaftlichkeit der kostenpflichtigen Version gegenüber der kostenfreien Version macht. Dabei ist zu beachten,  inwiefern interne Kompetenzen zum Betrieb der kostenfreien Version verwendet werden können, welche den kommerziellen Support ersetzten könnten. Weiterhin ist ein finanzieller Vergleich vom Status Quo zum geplanten Ziel über einen definierten Zeitraum anzustellen. Finanzielle Erwägungen sind jedoch nicht Teil der vorliegenden Arbeit und werden nur der Vollständigkeit halber erwähnt.\\ 
-Um qualifizierte Aussagen über den Aufwand treffen zu können ist es wichtig die Schnittstellen zu bestehenden Systemen zu bewerten und auf ihre Funktionalität zu untersuchen. Das Secrets Management Konzept ist derart anzulegen, dass es sich möglichst einfach in eine bestehende Umgebung integrieren lässt. Bei der Evaluierung muss auch darauf geachtet werden inwiefern sich eine Secrets Management Software in großen Umgebungen einsetzten lässt. Dabei ist es von Vorteil wenn die Software über die Möglichkeit verfügt über mehrere Hardwareinstanzen hinaus erweiterbar zu sein. Außerdem ist zu betrachten ob das System auch rechenzentrenübergreifend eingesetzt werden kann. Letzteres ist vorallem bei sehr großen Umgebungen von Relevanz.
-\newpage
 \section{Evaluierung von Hashicorp Vault}
 \label{sec:eval}
 Auf Grund von teaminternen Erwägungen wird als Secrets Management Software Hashicorp Vault evaluiert. Faktoren, die hierbei eine Rolle spielen, sind unter anderem das schnelle Wachstum des Projekts, der Funktionsumfang, die Quelloffenheit und die Einbettung in bestehende Evaluierungsprozesse. Einige Softwareprodukte die sich im gleichen Umfeld wie Hashicorp Vault befinden werden im folgenden kurz vorgestellt:\cite{github}
@@ -614,7 +660,7 @@ Als Key-Value Speicher wird Consul installiert. Die Installation erfolgt analog 
 
 \subsubsection{Installation von Open\acs{LDAP}}
 \label{subsubsec:instl}
-Um OpenLDAP ohne großen Aufwand zu installieren und zu konfigurieren wird auf die Installation über einen Docker\footnote{Docker ist eine Software die dazu verwendet werden kann um jegliche Aufgaben wie das erstellen, das starten/stoppen oder das löschen von Containern vorzunehmen} Container zurückgegriffen. Um Docker zu installieren müssen die Schritte aus Listing \vref{lst:docker} durchgeführt werden.
+Um OpenLDAP ohne großen Aufwand zu installieren und zu konfigurieren wird auf die Installation über einen Docker Container zurückgegriffen. Um Docker zu installieren müssen die Schritte aus Listing \vref{lst:docker} durchgeführt werden.
 
 \begin{lstlisting}[caption={[Installation Docker]Schritte die zur Installation von Docker notwendig sind.\cite{docker}}, label=lst:docker, captionpos=b, basicstyle=\ttfamily]
 $ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
@@ -672,10 +718,19 @@ Neben der LDAP Authentifizierung werden von Vault noch eine Reihe weiterer Authe
 	\item \textbf{Benutzername \& Passwort:} In Vault integrierte Benutzerverwaltung
 \end{itemize}
 
+Im Abbildung \vref{fig:vaultauth} ist dargestellt wie der Autorisierungsablauf mit Vault funktioniert, wenn die klassische Authentifizierung mit Benutzername und Passwort gewählt wird.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{vaultauth.jpg}
+	\caption[Vault Autorisierung]{Ablauf der Vault Autorisierung \cite{vaultauth2}}
+	\label{fig:vaultauth}
+\end{figure}
+
 \textbf{Zwischenfazit:} Die Verwendung von LDAP als Authentifizierungsdienst funktioniert wie beschrieben und ermöglicht es somit, Vault in Umgebungen mit existierender Benutzerverwaltung durch LDAP, mit relativ kleinem Konfigurationsaufwand zu integrieren. Weitere Authentifizierungsdienste müssten noch getestet werden.
 
 \subsubsection{\acs{PKI} Integration} 
-Zur Evaluierung der \ac{PKI} Integration von Vault wird auf die Authentifizierung mit \ac{TLS} Zertifikaten umgestellt. Dieser Schritt ist nicht nötig, liefert aber einen weiteren Anwendungsfall zum Testen der Funktionalität der Integration. Zuerst wird eine \ac{CA} benötigt welche dann verwendet werden kann um weitere Zertifikate zu beglaubigen. Zu diesem Zweck wird das quelloffene Programm OpenSSL verwendet. Zuerst wird ein Schlüsselpaar nach dem kryptographischen Standard RSA erzeugt \inline|sudo openssl genrsa -out rootCA.key 4096|, mit dem Kommando \inline|openssl req -x509 -new -nodes -key rootCA.key -sha512 -days 1024 -out rootCA.pem| wird dann ein Zertifikat erzeugt, welches dann als \ac{CA} verwendet werden kann. Dieses Zertifikat wird dann auf allen Servern der Infrastruktur zur Liste der vertrauenswürdigen Zertifikaten hinzugefügt. Mit Hilfe dieses Zertifikats können nun Client Zertifikate erstellt werden die dann zur Authentifizierung beim Vault-Server verwendet werden können. Zu diesem Zweck wird wieder ein RSA Schlüsselpaar erzeugt um daraus dann Zertifikate zu erstellen, die von der \ac{CA} beglaubigt werden. Für den Consul-Server würde das dann so aussehen: \inline|openssl x509 -req -in consul.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out consul.crt -days 500 -sha512|.\cite{openssl}\newline
+Zur Evaluierung der \ac{PKI} Integration von Vault wird auf die Authentifizierung mit \ac{TLS} Zertifikaten umgestellt. Dieser Schritt ist nicht nötig, liefert aber einen weiteren Anwendungsfall zum Testen der Funktionalität der Integration. Zuerst wird eine \ac{CA} benötigt welche dann verwendet werden kann um weitere Zertifikate zu beglaubigen. Zu diesem Zweck wird das quelloffene Programm OpenSSL verwendet. Zuerst wird ein Schlüsselpaar nach dem kryptographischen Standard RSA erzeugt \inline|sudo openssl genrsa -out rootCA.key 4096|, mit dem Kommando\\ \inline|openssl req -x509 -new -nodes -key rootCA.key -sha512 -days 1024 -out rootCA.pem|\\ wird dann ein Zertifikat erzeugt, welches dann als \ac{CA} verwendet werden kann. Dieses Zertifikat wird dann auf allen Servern der Infrastruktur zur Liste der vertrauenswürdigen Zertifikaten hinzugefügt. Mit Hilfe dieses Zertifikats können nun Client Zertifikate erstellt werden die dann zur Authentifizierung beim Vault-Server verwendet werden können. Zu diesem Zweck wird wieder ein RSA Schlüsselpaar erzeugt um daraus dann Zertifikate zu erstellen, die von der \ac{CA} beglaubigt werden. Für den Consul-Server würde das dann so aussehen:\cite{openssl}\\ \inline|openssl x509 -req -in consul.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out consul.crt -days 500 -sha512|\newline
 Zur Integration in Vault wird eine sogenannte Intermediate\ac{CA} (intermediate ist englisch für Zwischenglied) erstellt. Dieser Schritt wird aus Sicherheitsgründen empfohlen. Nun wird das Zertifikat und der private Schlüssel der Intermediate\ac{CA} zu Vault hinzugefügt und es wird die \ac{PKI} Funktionalität aktiviert. Mit Hilfe dieser Funktionalität lassen sich nun neue Benutzerzertifikate erstellen oder neue \ac{TLS}-Zertifikate zur verschlüsselten Kommunikation und jegliches weitere Anwendungsbeispiel für X.509 Zertifikate. Zum testen dieser Funktionalität kann das Skript in Listing \vref{lst:skript} verwendet werden, bin dem von Vault ein Zertifikat angefordert wird welches eine Gültigkeitsdauer von 10 Minuten hat. Wie in Kapitel \vref{subsec:cloud} beschrieben ist eine solche Funktionalität im bereich Cloud Computing sehr hilfreich im Zusammenhang mit dynamischer Zertifizierung.  
 
 
