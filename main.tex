@@ -331,6 +331,7 @@ The evaluation leads to the result, that Vault is a useful security extension. I
 	\acro{CentOS Linux:}{ein Akronym für Community Enterprise Operating System. CentOS wird durch den Softwarehersteller Red Hat herausgebracht und ist eine lizenzkostenfreie Version von Red Hat Linux Enterprise.\cite[S. 1]{centos}}
 	\acro{Chef:}{ist eine Automatisierungssoftware, die es sich zum Ziel gemacht hat, Infrastruktur als Code darzustellen. Die Konfiguration und Verteilung von Software in Cloudumgebungen, aber auch privaten Rechenzentren, kann durch Chef automatisiert werden.\cite{chef2}}
 	\acro{Computercluster:}{eine Ansammlung von, meist identischer, Harware, welche zu einer logischen Einheit zusammengefasst wird. Der Cluster wird meist verwendet um komplexe Berechungen zu lösen, die auf einzenen Computern sehr lange dauern würde.}
+	\acro{Crontab:}{kurz für chronograph table (etwa: Uhr Tabelle) ist ein Dienst zur Ablaufplanung einzelner Skripte. Mit gegebener Minute, Stunde, Tag, Woche, oder Monat wird eine regelmäßige Ausführung eins Skripts oder eines Kommanozeinbefehls ausgelöst.\cite[S. 212]{cron}}
 	\acro{Dienst:}{eine autarke Einheit, welche eine spezifizierte Aufgabe bzw. Funktionalitaet erfuellt und diese ueber keine klar definierte Schnittstelle zur Verfuegung stellt}
 	\acro{Docker:}{Docker ist eine technologie wie eingesetzt wird um eine Virtulisierung auf Betriebssystemebene zu erreichen. Diese Form der Virtualisierung ist bekannt unter der Bezeichnung Container. Es ist von zentraler Bedeutung diese Form der Virtualisierung von der Hardwarevirtulisierung abzugrenzen. Docker nutzt im gegensatz zur herkömmlichen Virtualisierung neben weiteren Betriebssystemkomponenten, vor allem den Linux Kernel um ihn zwischen mehreren virtuellen Containern zu teilen.\cite[S. 2]{docker2}}
 	\acro{KeePass Passwort Safe:}{ein quelloffener Passwortmanager, dazu designed wurde viele Passörter auf sichere Art und Weise zu speichern. Der Zugang zu diesem Passwortsafe wird allein durch ein einziges Masterpasswort gewährt.}
@@ -469,7 +470,7 @@ Ein Token wird verwendet um einen Zugangsschlüssel zu erzeugen welcher sich daz
 Der Begriff des Cloud Computing beschreibt den bedarfsorientierten Zugriff auf Internetdienste und andere \ac{IT} Ressourcen die durch den Provider schlüsselfertig zur Verfügung gestellt werden und dynamisch an den Bedarf des Kunden angepasst werden können. Bei der Bereitstellung von Cloud Services wird zwischen folgenden Charakteristika unterschieden\cite[S. 8]{cloudsec}:\\
 \textbf{Bedarfsgerechter Zugriff:} Der Bedarf des Kunden kann in Echtzeit an die aktuellen Bedürfnisse angepasst werden und findet insbesondere ohne menschliche Interaktion auf Seite des Providers statt. Parameter die unter diese Art von Anpassungen fallen sind Rechenleistung, Speichergröße und Bandbreitenkapazität.\cite[S. 8]{cloudsec}\\
 \textbf{Netzwerkanbindung:}  Viele Cloud Provider ermöglichen den Zugriff auf ihre Dienste von sehr unterschiedlichen Endgeräten. Eine Steuerung über Smartphone oder Tablet ist dabei keine Seltenheit. Die Netzwerkanbindung ist durch eine Breitbandverbindung realisiert und verfügt über definierte Schnittstellen.\cite[S. 8]{cloudsec}\\
-\textbf{Ressourcenbündelung:} Durch gesetzliche Vorschriften und eigenen Sicherheitsbeschränkungen sind einige Nutzer verpflichtet bestimmte Daten auf Servern in festgelegten geografischen Regionen zu lagern. Dieses Vorgehen widerspricht dem Prinzip der Ressourcenbündelung, die sieht nämlich vor, dass die Bereitstellung der gewünschten Ressource, durch dasjenige Rechenzentrum geschieht, welches diesem Zeitpunkt am wenigsten Auslastung zu verzeichnen hat. Einige Cloud Provider bieten daher die Möglichkeit der regionalen Eingrenzung an.\cite[S. 8]{cloudsec}\\
+\textbf{Ressourcenbündelung:} Durch gesetzliche Vorschriften (wie zum Beispiel Artikel 4 Absatz 7 und Artikel 28, Datenschutzgrundverordnung der Europäischen Union) und eigenen Sicherheitsbeschränkungen sind einige Nutzer verpflichtet bestimmte Daten auf Servern in festgelegten geografischen Regionen zu lagern. Dieses Vorgehen widerspricht dem Prinzip der Ressourcenbündelung, die sieht nämlich vor, dass die Bereitstellung der gewünschten Ressource, durch dasjenige Rechenzentrum geschieht, welches diesem Zeitpunkt am wenigsten Auslastung zu verzeichnen hat. Einige Cloud Provider bieten daher die Möglichkeit der regionalen Eingrenzung an.\cite[S. 8]{cloudsec}\\
 \textbf{Skalierbarkeit:} Wenn die vorangegangen Punkte kombiniert werden, ergibt sich daraus die Möglichkeit flexibel und bedarfsgerecht Ressourcen zu erhöhen und wieder freizugeben. In vielen Fällen erfolgt dieser Prozess vollautomatisiert und nimmt dem Nutzer in diesem Bereich jegliche nicht-monetäre Ressourcenplanung ab. \cite[S. 9]{cloudsec}\\
 \textbf{Verbrauchsabhängige Bezahlung:} Die Bezahlung von Cloud Diensten orientiert sich nicht selten an den tatsächlich verbrauchten Ressourcen in Relation zur zeitlichen Belegung. So können relativ einfach Kalkulationen angestellt werden, aus denen sich ergibt ob sich die Nutzung von Cloud Diensten, für einen definierten Einsatzzweck, lohnt. \cite[S. 9]{cloudsec}\\
 
@@ -478,6 +479,7 @@ Das in Kapitel \vref{subsec:zert} beschriebene Verfahren der Nutzung von digital
 
 Durch die Schnelllebigkeit von Cloud-Diensten kommt es häufig vor, dass sich die Eigenschaften eines Dienstes im laufenden Cloudbetrieb ändern. Durch den Aufbau von Cloudumgebungen sind diese Änderungen für den Endnutzer allerdings nicht erkennbar und ein Zertifikat, welches nach den klassischen Prozessen erzeugt wurde lässt darauf schließen, dass der Dienst für die Gültigkeitsdauer des Zertifikats weiterhin die ursprünglichen Eigenschaften aufweist. Dynamische Zertifizierung versucht dieses Problem zu lösen indem eine ständige Kontrolle der Zertifikatsanforderungen von Cloud-Diensten zur Laufzeit durchgeführt wird, um Änderungen in den Eigenschaften direkt protokollieren zu können.\newline Um ein kontinuierliches Audit der Dienste realisieren zu können, werden verschiedene Ansätze verfolgt. Neben spezieller Test- und Monitoringsoftware, die eine Anwendung zur Laufzeit überprüft, können auch sogenannte Trusted Platform Module verwendet werden. Diese Module erzeugen dann eine Prüfsumme über ein gewünschte Ziel (zum Beispiel die zu kontrollierende Cloud-Anwendung) und vergleichen sie dann mit dem zuvor gespeicherten historischen Wert der Prüfsumme. Um solche Auditierungsvorgänge in bestehende Zertifizierungsmodelle zu integrieren, werden häufig zusätzlich ausgebildete Auditoren beschäftigt, die Änderungen in Dokumenten und bei den beteiligten Identitäten feststellen sollen.\cite[S. 114ff]{cloudsec}
 
+\newpage
 \section{Umsetzung in Software}
 \label{sec:soft}
 \textbf{Vergleichende Aufstellung unterschiedlicher Softwareprodukte:}
@@ -589,12 +591,15 @@ Die Wahl ist schließlich auf \textbf{Hashicorp Vault} gefallen, da keine der an
 
 \subsection{Anforderungen}
 \label{subsec:anf}
-Wie schon in den Kapiteln \vref{subsubsec:anforderung} und im Kapitel \vref{subsec:proj} beschrieben, gibt es einige Grundfunktionen und Tendenzen, welche die Anforderungen an das Projekt eingrenzen und, wie in den einleitenden Worten zu Kapitel \vref{sec:eval} beschrieben, auch zur Auswahl von Hashicorp Vault geführt haben. All diese Voraussetzungen wurden vor dem Hintergrund bestimmt, dass die Software sich gut in den sogenannten Cloud Native Stack integrieren lässt. Der Cloud Native Stack ist eine Sammlung von Software die unter dem Dach der Cloud Native Computing Foundation gesammelt wird und neben klassischen Automatisierungswerkzeugen wie Ansible und Puppet bzw. dem Cloud Computing Betriebssystem OpenStack eine dritte Säule im Bereich des Cloud Computing darstellt. Diese dritte Säule beruht auf der Ausführung von Software in Containern\footnote{Bei Containern handelt es sich um ein Softwarekonstrukt, das es ermöglicht auf vorkonfigurierte Programme in beliebig vielen Instanzen auszuführen bei relativer Unabhängigkeit der zugrundeliegenden Hardware.} und dem Management beziehungsweise der Verteilung dieser Container durch ein Programm Namens Kubernetes.\newline
-Zur Projektdurchführung und praktischen Evaluierung soll in einem ersten Schritt eine virtualisierte Infrastruktur aufgebaut werden, die aus einem Vault-Server, einem Consul-Server\footnote{Server zur Speicherung von Paaren aus einem Schlüssel(wort) und einem dazugehörigen Wert}, einem \acs{LDAP}-Server und einem Web-Server besteht. Dabei sind alle Server gleichzeitig auch Vault-Clients. Die Funktionen welche objektiv testbar sind sollen dann anhand dieser Testumgebung geprüft werden. Der Fokus soll dabei auf die Installation,  die Anbindung an das \ac{LDAP} und die automatische Zertifikatausstellung gelegt werden.
+Wie schon in den Kapiteln \vref{subsubsec:anforderung} und im Kapitel \vref{subsec:proj} beschrieben, gibt es einige Grundfunktionen und Tendenzen, welche die Anforderungen an das Projekt eingrenzen und, wie in den einleitenden Worten zu Kapitel \vref{sec:eval} beschrieben, auch zur Auswahl von Hashicorp Vault geführt haben. All diese Voraussetzungen wurden vor dem Hintergrund bestimmt, dass die Software sich gut in den sogenannten Cloud Native Stack integrieren lässt. Die Integrationsfähigkeit lässt sich zum Beispiel am Projekt Vault Operator \cite{operator} festmachen.
+
+Vault Operator ist ein Programm, das automatisiert einen Vault Cluster in einer Kubernetesumgebung aufsetzt und verwaltet. Der Cloud Native Stack ist eine Sammlung von Software die unter dem Dach der Cloud Native Computing Foundation gesammelt wird und neben klassischen Automatisierungswerkzeugen wie Ansible und Puppet bzw. dem Cloud Computing Betriebssystem OpenStack eine dritte Säule im Bereich des Cloud Computing besetzt. Diese Säule beruht auf der Ausführung von Software in Containern und dem Management beziehungsweise der Verteilung dieser Container durch das Orchestrierungssystem Kubernetes.
+
+Zur Projektdurchführung und praktischen Evaluierung soll in einem ersten Schritt eine virtualisierte Infrastruktur aufgebaut werden, die aus einem Vault-Server, einem Consul-Server\footnote{Server zur Speicherung von Paaren aus einem Schlüssel(wort) und einem dazugehörigen Wert}, einem \acs{LDAP}-Server und einem Web-Server besteht. Dabei sind alle Server gleichzeitig auch Vault-Clients. Die Funktionen welche objektiv testbar sind werden dann anhand dieser Testumgebung geprüft. Der Fokus soll dabei auf die Installation,  die Anbindung an das \ac{LDAP} und die automatische Zertifikatausstellung gelegt werden.
 
 \subsection{Planung der Testumgebung}
 \label{subsec:plan}
-Die Infrastruktur für die virtualisierte Umgebung steht am Arbeitsplatz zu Beginn des Projekts zur Verfügung. Als Basisbetriebssystem für die Server wird das Linux-Derivat CentOS in der Version 7.4.1708 eingesetzt. Es sollen vier virtuell Maschinen installiert werden wobei Jeder Serverdienst, mit Ausnahme von Consul eine eigene virtuelle Maschine bekommt. Consul wird zusammen mit Vault auf dem selben Host installiert. Alle Server sollen, wie in Abbildung \vref{fig:test} gezeigt, über ein lokales Netzwerk miteinander verbunden werden.\newline
+Die Infrastruktur für die virtualisierte Umgebung steht am Arbeitsplatz zu Beginn des Projekts zur Verfügung. Als Basisbetriebssystem für die Server wird das Linux-Derivat CentOS in der Version 7.4.1708 eingesetzt. Es sollen vier virtuell Maschinen installiert werden wobei jeder Serverdienst, mit Ausnahme von Consul eine eigene virtuelle Maschine bekommt. Consul wird zusammen mit Vault auf dem selben Host installiert. Alle Server werden, wie in Abbildung \vref{fig:test} gezeigt, über ein lokales Netzwerk miteinander verbunden werden.\newline
 
 \begin{figure}[h]
 	\centering
@@ -603,7 +608,7 @@ Die Infrastruktur für die virtualisierte Umgebung steht am Arbeitsplatz zu Begi
 	\label{fig:test}
 \end{figure}
 
-Die Benutzerauthentifizierung soll sowohl über \ac{LDAP} also auch über die durch Vault zur Verfügung gestellte zertifikatbasierte Authentifizierung eingerichtet werden. Der Webserver soll automatisiert mit neuen \ac{TLS}-Zertifikaten versorgt werden, die eine sehr kurze Gültigkeit haben sollen. Zu Testzwecken sollen Zertifikate mit 10 Minuten Gültigkeit erstellt werden. Die Netzwerkkommunikation zwischen allen Servern soll durch \ac{TLS}-Verschlüsselung abgesichert werden. Zur Bereitstellung der Zertifikate soll eine Zertifizierungsstelle in Vault integriert werden, welche bei Bedarf und erfolgreicher Authentifizierung automatisch ein neues Zertifikat ausstellt. 
+Die Benutzerauthentifizierung ist sowohl über \ac{LDAP} also auch über die durch Vault zur Verfügung gestellte zertifikatbasierte Authentifizierung einzurichten. Der Webserver soll automatisiert mit neuen \ac{TLS}-Zertifikaten versorgt werden, welches sich durch eine sehr kurze Gültigkeit auszeichnet. Zu Testzwecken werden Zertifikate mit 10 Minuten Gültigkeit erstellt. Die Netzwerkkommunikation zwischen allen Servern ist durch \ac{TLS}-Verschlüsselung abzusichern. Zur Bereitstellung der Zertifikate soll eine Zertifizierungsstelle in Vault integriert werden, welche bei Bedarf und erfolgreicher Authentifizierung automatisch ein neues Zertifikat ausstellt. 
 \subsection{Aufbau Testumgebung}
 Die Grundstruktur wie in Kapitel \vref{subsec:plan} beschrieben wird umgesetzt indem eine virtuelle Maschine mit CentOS in der Version 7.4.1708 installiert wird. Die Daten der zugrundeliegenden virtualisierten Hardware sind folgende:
 \begin{itemize}
@@ -626,8 +631,8 @@ Um Vault zu installieren gibt es zwei Möglichkeiten. Es kann der Quellcode heru
 	$ mv vault /bin/
 \end{lstlisting}
 
-Bei der Initialisierung von Vault werden 5 Entsiegelungsschlüssel erzeugt, von denen 3 notwendig sind um den Vault-Server zu starten und damit Zugriff auf die gespeicherten Daten zu gewähren. Die Ausgabe Auf der Kommandozeile wird in Listing \vref{lst:key} dargestellt.
-Diese Informationen dürfen bei einer Produktiven Umgebung nie zusammen aufbewahrt werden. Am besten ist es die die Entsiegelungsschlüssel an 5 verschiedene vertraute Personen zu verteilen und diese Aufzufordern die Schlüssel an einem sicheren Ort (zum Beispiel einem Safe) aufzubewahren. Der ``Initial Root Token`` der in Zeile 7 gelistet ist wird zur initialen Konfiguration verwendet und darf danach auch nicht mehr verwendet werden, da bei Benutzung eines Tokens ohne Zuordenbarkeit keine Auditierbarkeit gewährleistet werden kann.
+Bei der Initialisierung von Vault werden 5 Entsiegelungsschlüssel erzeugt, von denen 3 notwendig sind um den Vault-Server zu starten und damit Zugriff auf die gespeicherten Daten zu gewähren. Die Ausgabe auf der Kommandozeile wird in Listing \vref{lst:key} dargestellt.
+Diese Informationen dürfen bei einer produktiven Umgebung nie zusammen aufbewahrt werden. Am besten ist es die die Entsiegelungsschlüssel an 5 verschiedene vertraute Personen zu verteilen und diese aufzufordern die Schlüssel an einem sicheren Ort (zum Beispiel einem Safe) aufzubewahren. Der ``Initial Root Token`` der in Zeile 7 gelistet ist wird zur initialen Konfiguration verwendet und darf danach auch nicht mehr verwendet werden, da Benutzung eines Tokens ohne Zuordnung keine aussagekräftige Protokollierung ermöglicht.
 
 \begin{lstlisting}[caption={[Initialisierung Vault] Ausgabe der 5 Schlüsselfragmente von denen 3 nötig sind um den Hauptschlüssel zu rekonstruieren}, label=lst:key, captionpos=b, basicstyle=\ttfamily]
 Unseal Key 1: elzCj8fW+Lt139n7PY8qLiU/r7Q3b2M8wM91ZD3p5csl
@@ -641,7 +646,8 @@ Initial Root Token: 65233b80-17b8-a1d2-8d59-c9df16a66707
 \end{lstlisting}
 
 
-Im Anschluss an diese Schritte ist der der Anleitung \url{https://www.vaultproject.io/intro/getting-started/deploy.html} zu folgen um die Installation abzuschließen. Um den Vault-Server als Server-Dienst einsetzten zu können, muss die in Listing \vref{lst:service} gezeigte Service Datei erstellt werden und in das Verzeichnis /etc/systemd/system/ gespeichert werden.
+Im Anschluss an diese Schritte ist der Anleitung \url{https://www.vaultproject.io/intro/getting-started/deploy.html} zu folgen um die Installation abzuschließen. Um den Vault-Server als Server-Dienst einsetzten zu können, muss die in Listing \vref{lst:service} gezeigte Service Datei erstellt werden und in das Verzeichnis /etc/systemd/system/ gespeichert werden.\\
+Linux Betriebssysteme arbeiten heutzutage fast ausschließlich mit \inline|systemd| als Verwaltungswerkzeug für das Starten und Stoppen von Systemkomponenten. Das Betriebssystem wird mit Hilfe dieses Systems gestartet und es kann eine genaue Reihenfolge festgelegt werden in der verschiedene Systemdienste gestartet werden sollen. Neben den Komponenten die zum starten des Betriebssystems notwendig sind, lässt sich auch jeder weitere Dienst mit \inline|systemd| verwalten. Mit dem Kommando \inline|systemctl| (Systemcontrol) lassen sich Dienste manuell Starten und Stoppen. Indem man einen Link der Service Datei in den Pfad \inline|/etc/systemd/multi-user.target.wants/vault.service| schreibt wird der Dienst beim normalen Start des Betriebssystems automatisch gestartet.\cite{systemd}
 
 \begin{lstlisting}[caption={[Vault Service Datei]Datei zur Verwendung von Vault als Service. Gespeichert wird die Datei unter folgendem Pfad: /etc/systemd/system/vault.service}, label=lst:service, captionpos=b, basicstyle=\ttfamily]
 [Unit] 
@@ -677,7 +683,7 @@ Im Anschluss an die erfolgreiche Docker Installation wird dann Open\ac{LDAP} als
 Mit der Testumgebung sollen nun Funktionen getestet werden die sich aus dem Anforderungskatalog im Kapitel \vref{subsubsec:anforderung} ergeben haben und solche die im Kapitel \vref{subsec:anf} noch einmal näher beschrieben wurden.
 
 \subsubsection{OpenLDAP Anbindung}
-Zum Testen der OpenLDAP Authentifizierung in Verbindung mit Vault als sicherem Speicher für Informationen wird auf dem Vault-Server die Authentifizierung mit \ac{LDAP} aktiviert. Zu diesem Zweck muss das Kommando \inline|vault auth-enable ldap| eingegeben werden. In einem weiteren Schritt wird dem Vault-Server über seine \ac{API} die Konfiguration des LDAP-Servers übergeben. hierfür werden folgende Informationen benötigt\cite{vaultapi}:
+Zum Testen der OpenLDAP Authentifizierung in Verbindung mit Vault als sicherem Speicher für Informationen wird auf dem Vault-Server die Authentifizierung mit \ac{LDAP} aktiviert. Zu diesem Zweck muss das Kommando \inline|vault auth-enable ldap| eingegeben werden. In einem weiteren Schritt wird dem Vault-Server über seine \ac{API} die Konfiguration des LDAP-Servers übergeben. Hierfür werden folgende Informationen benötigt\cite{vaultapi}:
 \begin{itemize}
 	\item Die \ac{URL} unter welcher der LDAP-Server zu erreichen ist
 	\item Der administrative Benutzer der verwendet wird um die Verbindung herzustellen
@@ -686,7 +692,8 @@ Zum Testen der OpenLDAP Authentifizierung in Verbindung mit Vault als sicherem S
 	\item Der eindeutige Identifikator, an dem die Authentizität gemessen wird
 	\item Optional aber im Produktivbetrieb unbedingt zu empfehlen: Deaktivierung der Kommunikation über nicht verschlüsselte Kanäle 
 \end{itemize} 
-Nun können Zugriffsregeln erzeugt werden, die dann wiederum auf einzelne \ac{LDAP}-Benutzer, -Gruppen oder global angewendet werden können. Zugriffsregeln werden erzeugt indem Konfigurationsdateien geschrieben werden. Konfigurationsdateien sollen der Hashicorp eigenen Sprache \ac{HCL} verfasst werden, die für jegliche Konfigurationen eingesetzt wird. Ein Beispiel für eine Datei mit deren Hilfe Zugriffsregeln bestimmt werden können findet sich in Listing \vref{lst:hcl}. Dieses Beispiel kann auf Benutzer in der ``Clients``-Gruppe angewendet werden und verleiht Lesezugriff auf alle Daten unterhalb diese Endpunkts.\cite{vaultldap}
+Nun können Zugriffsregeln erzeugt werden, die dann wiederum auf einzelne \ac{LDAP}-Benutzer, -Gruppen oder global angewendet werden können. Zugriffsregeln werden erzeugt indem Konfigurationsdateien geschrieben werden.\\
+Konfigurationsdateien sollen der Hashicorp eigenen Sprache \ac{HCL} verfasst werden, die für jegliche Konfigurationen eingesetzt wird. Ein Beispiel für eine Datei mit deren Hilfe Zugriffsregeln bestimmt werden können findet sich in Listing \vref{lst:hcl}. Dieses Beispiel kann auf Benutzer in der ``Clients``-Gruppe angewendet werden und verleiht Lesezugriff auf alle Daten unterhalb diese Endpunkts.\cite{vaultldap}
 
 \begin{lstlisting}[caption={[Beispiel \acs{HCL}] Beispiel für eine Konfigurationsdatei im \ac{HCL}-Format\cite{vaultpol}}, label=lst:hcl, captionpos=b, basicstyle=\ttfamily] 
 path "secret/clients/*" {
@@ -694,8 +701,14 @@ capabilities = ["read","list"]
 }
 \end{lstlisting}
 
-Um die Regel nun in Vault verwenden zu können muss sie mit dem Kommando \inline|vault policy-write clients clients.hcl| der Liste an Regeln hinzugefügt werden, wobei die Datei clients.hcl Listing \vref{lst:hcl} entspricht. Anschließend kann dann  mit dem Kommando \inline|vault wirte auth/ldap/groups/clients policies=clients| die vorher festgelete Regel auf die \ac{LDAP} Gruppe ``Clients`` angewendet werden.\newline
-Auf einem eingerichteten Vault-Client kann nun mit dem Kommando \inline|vault auth -method=ldap username=test| auf Vault zugegriffen werden. Die zu erwartende Ausgabe nach erfolgreicher Authentifizierung wird in Listing \vref{lst:auth} dargestellt.\cite{vaultldap}
+Um die Regel nun in Vault verwenden zu können muss sie mit dem Kommando\\
+\inline|vault policy-write clients clients.hcl|\\
+der Liste an Regeln hinzugefügt werden, wobei die Datei clients.hcl Listing \vref{lst:hcl} entspricht. Anschließend kann dann  mit dem Kommando\\
+\inline|vault wirte auth/ldap/groups/clients policies=clients|\\
+die vorher festgelete Regel auf die \ac{LDAP} Gruppe ``Clients`` angewendet werden.\newline
+Auf einem eingerichteten Vault-Client kann nun mit dem Kommando\\
+\inline|vault auth -method=ldap username=test|\\
+auf Vault zugegriffen werden. Die zu erwartende Ausgabe nach erfolgreicher Authentifizierung wird in Listing \vref{lst:auth} dargestellt.\cite{vaultldap}
 
 \begin{lstlisting}[caption={[\acs{LDAP} Authentifizierung] Kommandozeilenausgabe nach erfolgreicher Authentifizierung durch \acs{LDAP}}, label=lst:auth, captionpos=b, basicstyle=\ttfamily] 
 Password (will be hidden):
@@ -707,14 +720,21 @@ token_duration: 2764799
 token_policies: [default clients]
 \end{lstlisting}
 
-Neben der LDAP Authentifizierung werden von Vault noch eine Reihe weiterer Authentifizierungsschnittstellen. Diese Schnittstellen sind nicht Teil der Evaluierung, werden aber der Vollständigkeit halber hier aufgelistet:\cite{vaultauth}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{kubauth.png}
+	\caption[Kubernetes Authentifizierung]{Vault mit Kubernetes Authentifizierung \cite{kubauth}}
+	\label{fig:kubauth}
+\end{figure}
+
+Neben der LDAP Authentifizierung werden von Vault noch eine Reihe weiterer Authentifizierungsschnittstellen unterstützt. Diese Schnittstellen sind nicht Teil der Evaluierung, werden aber der Vollständigkeit halber hier aufgelistet:\cite{vaultauth}
 \begin{itemize}
 	\item \textbf{\ac{AWS}:} Der Authentifizierungsdienst des Cloud Anbieters \ac{AWS}
 	\item \textbf{Microsoft Azure:} Der Authentifizierungsdienst des Cloud Anbieters Microsoft Azure
 	\item \textbf{Google Cloud:} Der Authentifizierungsdienst des Cloud Anbieters Google
 	\item \textbf{\acs{JWT}/\acs{OIDC}:} \ac{JWT} in Verbinung mit \ac{OIDC}, einer Authentifizierungsschicht die auf das Protokoll OAuth 2.0 aufsetzt
-	\item \textbf{Kubernetes:} Kubernetes (Kapitel \vref{subsec:anf}) verfügt auch über einen Authentifizierungsdienst
-	\item \textbf{GitHub:} Der Authentifizierungsdeinst der Onlineplattform GitHub welche verwendet wird um vernetzt und versioniert an Softwarprojekten zu arbeiten
+	\item \textbf{Kubernetes:} Kubernetes verfügt auch über einen eigenen, software-tokenbasierten Authentifizierungsdienst. Die Kopplung von Vault und der Kubernetesdistribution OpenShift ist in Abbildung \vref{fig:kubauth} dargestellt. Weiterführende Informationenen zum genauen Ablauf finden sich in Quelle \cite{kubauth}.
+	\item \textbf{GitHub:} Der Authentifizierungsdeinst der Onlineplattform GitHub. GitHub wird dazu verwendet vernetzt und versioniert an Softwarprojekten zu arbeiten.\cite{githubs}
 	\item \textbf{\acs{RADIUS}:} \ac{RADIUS} 
 	\item \textbf{\acs{TLS} Zertifikate:} X.509 Zertifikate die auch zur Authentifizierung verwendet werden können
 	\item \textbf{Token:} Kommen zum Beispiel bei Kerberos zum Einsatz (siehe Kapitel \vref{subsec:token})
@@ -733,11 +753,11 @@ Im Abbildung \vref{fig:vaultauth} ist dargestellt wie der Autorisierungsablauf m
 \textbf{Zwischenfazit:} Die Verwendung von LDAP als Authentifizierungsdienst funktioniert wie beschrieben und ermöglicht es somit, Vault in Umgebungen mit existierender Benutzerverwaltung durch LDAP, mit relativ kleinem Konfigurationsaufwand zu integrieren. Weitere Authentifizierungsdienste müssten noch getestet werden.
 
 \subsubsection{\acs{PKI} Integration} 
-Zur Evaluierung der \ac{PKI} Integration von Vault wird auf die Authentifizierung mit \ac{TLS} Zertifikaten umgestellt. Dieser Schritt ist nicht nötig, liefert aber einen weiteren Anwendungsfall zum Testen der Funktionalität der Integration. Zuerst wird eine \ac{CA} benötigt welche dann verwendet werden kann um weitere Zertifikate zu beglaubigen. Zu diesem Zweck wird das quelloffene Programm OpenSSL verwendet. Zuerst wird ein Schlüsselpaar nach dem kryptographischen Standard RSA erzeugt \inline|sudo openssl genrsa -out rootCA.key 4096|, mit dem Kommando\\ \inline|openssl req -x509 -new -nodes -key rootCA.key -sha512 -days 1024 -out rootCA.pem|\\ wird dann ein Zertifikat erzeugt, welches dann als \ac{CA} verwendet werden kann. Dieses Zertifikat wird dann auf allen Servern der Infrastruktur zur Liste der vertrauenswürdigen Zertifikaten hinzugefügt. Mit Hilfe dieses Zertifikats können nun Client Zertifikate erstellt werden die dann zur Authentifizierung beim Vault-Server verwendet werden können. Zu diesem Zweck wird wieder ein RSA Schlüsselpaar erzeugt um daraus dann Zertifikate zu erstellen, die von der \ac{CA} beglaubigt werden. Für den Consul-Server würde das dann so aussehen:\cite{openssl}\\ \inline|openssl x509 -req -in consul.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out consul.crt -days 500 -sha512|\newline
+Zur Evaluierung der \ac{PKI} Integration von Vault wird auf die Authentifizierung mit \ac{TLS} Zertifikaten umgestellt. Dieser Schritt ist nicht nötig, liefert aber einen weiteren Anwendungsfall zum Testen der Funktionalität der Integration. Zuerst wird eine \ac{CA} benötigt welche dann verwendet werden kann um weitere Zertifikate zu beglaubigen. Zu diesem Zweck wird das quelloffene Programm OpenSSL verwendet. Zuerst wird ein Schlüsselpaar nach dem kryptographischen Standard RSA erzeugt\\\inline|sudo openssl genrsa -out rootCA.key 4096|\\ mit dem Kommando\\\inline|openssl req -x509 -new -nodes -key rootCA.key -sha512 -days 1024 -out rootCA.pem|\\ wird dann ein Zertifikat erzeugt, welches dann als \ac{CA} verwendet werden kann. Dieses Zertifikat wird dann auf allen Servern der Infrastruktur zur Liste der vertrauenswürdigen Zertifikaten hinzugefügt. Mit Hilfe dieses Zertifikats können nun Client Zertifikate erstellt werden die dann zur Authentifizierung beim Vault-Server verwendet werden können. Zu diesem Zweck wird wieder ein RSA Schlüsselpaar erzeugt um daraus dann Zertifikate zu erstellen, die von der \ac{CA} beglaubigt werden. Für den Consul-Server sieht es so aus:\cite{openssl}\\\inline|openssl x509 -req -in consul.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out consul.crt -days 500 -sha512|\newline
 Zur Integration in Vault wird eine sogenannte Intermediate\ac{CA} (intermediate ist englisch für Zwischenglied) erstellt. Dieser Schritt wird aus Sicherheitsgründen empfohlen. Nun wird das Zertifikat und der private Schlüssel der Intermediate\ac{CA} zu Vault hinzugefügt und es wird die \ac{PKI} Funktionalität aktiviert. Mit Hilfe dieser Funktionalität lassen sich nun neue Benutzerzertifikate erstellen oder neue \ac{TLS}-Zertifikate zur verschlüsselten Kommunikation und jegliches weitere Anwendungsbeispiel für X.509 Zertifikate. Zum testen dieser Funktionalität kann das Skript in Listing \vref{lst:skript} verwendet werden, bin dem von Vault ein Zertifikat angefordert wird welches eine Gültigkeitsdauer von 10 Minuten hat. Wie in Kapitel \vref{subsec:cloud} beschrieben ist eine solche Funktionalität im bereich Cloud Computing sehr hilfreich im Zusammenhang mit dynamischer Zertifizierung.  
 
 
-\begin{lstlisting}[caption={[Skript PKI] Shell Skript zum Erstellen eines neuen Benutzerzertifikats unter Verwendung der Vault \ac{PKI}}, label=lst:skript, captionpos=b, basicstyle=\ttfamily] 
+\begin{lstlisting}[caption={[Skript PKI] Shell Skript zum Erstellen eines neuen Serverzertifikats unter Verwendung der Vault \ac{PKI}}, label=lst:skript, captionpos=b, basicstyle=\ttfamily] 
 #!/bin/bash
 
 # export location of vault server to environment
@@ -762,13 +782,13 @@ systemctl restart httpd
 
 \end{lstlisting}
 
-Dieses Skript kann als Cronjob\footnote{Ein Cronjob ist ein Skript oder Kommando, welches in regelmäßigen Abständen automatisch ausgeführt wird.} alle fünf bis zehn Minuten ausgeführt werden und lässt damit die lückenlose verschlüsselte Kommunikation mit dem Webserver zu und dies unter Verwendung von sehr kurzlebigen \ac{TLS}-Zertifikaten. 
+Dieses Skript kann als Cronjob alle fünf bis zehn Minuten ausgeführt werden und lässt damit die lückenlose verschlüsselte Kommunikation mit dem Webserver zu und dies unter Verwendung von sehr kurzlebigen \ac{TLS}-Zertifikaten. 
 
 \textbf{Zwischenfazit:} Die PKI Integration mit Vault funktioniert wie beschrieben. Im verwendeten Anwendungsbeispiel ist die Rückgabe des Zertifikats als reiner Text jedoch relativ unpraktisch, da die Ausgabe noch mit in weiteren Schritten zur Verwendung durch den Web-Server aufbereitet werden muss. Eine Ausgabe in einem Format wie \ac{JSON} oder als einzelne Dateien, ließe eine einfachere Weiterverarbeitung zu.
 
 \subsubsection{Weitere Funktionen}
 
-Einige Funktionen sind sehr einfach zu testen oder ergeben sich schon aus den vorangegangenen Schritten, so zum Beipiel das ver- und entsiegeln von Vault. Nachdem Vault installiert und initialisiert wurde, existieren wie in Kapitel \vref{subsubsec:instv} beschrieben fünf Entsiegelungsschlüssel und ein Root-Token. Um eine installierte Vault Instanz zu starten müssen drei der fünf Entsiegelungsschlüssel zur Verfügung stehen. Die Werte sind konfigurierbar und können auch noch nach der Initialisierung verändert werden. Es ist also möglich einer weiteren vertrauten Person einen Entsiegelungsschlüssel auszustellen und/oder den Mindestanzahl der benötigten Schlüssel herauf oder herab zu setzten. Die Schlüssel werden durch ihre Besitzer eingegeben nachdem sie das Kommando \inline| vault operator unseal| abgesetzt haben. Die Ausgabe nach Eingabe des ersten Schlüssels wird in Listing \vref{lst:unseal} dargestellt. Jede weitere Eingabe zählt den Index im Feld ``Unseal Progress`` um eins hoch bis der Wert unter dem Feld ``Threshold`` erreicht ist. 
+Einige Funktionen sind sehr einfach zu testen oder ergeben sich schon aus den vorangegangenen Schritten, so zum Beipiel das ver- und entsiegeln von Vault. Nachdem Vault installiert und initialisiert wurde, existieren wie in Kapitel \vref{subsubsec:instv} beschrieben fünf Entsiegelungsschlüssel und ein Root-Token. Um eine installierte Vault Instanz zu starten müssen drei der fünf Entsiegelungsschlüssel zur Verfügung stehen. Die Werte sind konfigurierbar und können auch noch nach der Initialisierung verändert werden. Es ist also möglich einer weiteren vertrauten Person einen Entsiegelungsschlüssel auszustellen und/oder die Mindestanzahl der benötigten Schlüssel herauf oder herab zu setzten. Die Schlüssel werden durch ihre Besitzer eingegeben nachdem sie das Kommando\\\inline| vault operator unseal|\\abgesetzt haben. Die Ausgabe nach Eingabe des ersten Schlüssels wird in Listing \vref{lst:unseal} dargestellt. Jede weitere Eingabe zählt den Index im Feld ``Unseal Progress`` um eins hoch bis der Wert unter dem Feld ``Threshold`` erreicht ist. 
 \begin{lstlisting}[caption={[Entsiegelungsprozess] Erster Schritt im Entsiegelungsprozess von Vault}, label=lst:unseal, captionpos=b, basicstyle=\ttfamily] 
 Unseal Key (will be hidden): 
 Key                Value
@@ -782,17 +802,35 @@ Unseal Nonce       74b3babc-7387-a571-801a-d7ba06667ac3
 Version            0.9.5
 HA Enabled         true
 \end{lstlisting}
-Sollte es zu einem Sicherheitsvorfall kommen und die Gefahr bestehen, dass Geheimnisse abgegriffen werden, kann bei rechtzeitigem Erkennen des Vorfalls mit dem Kommando \inline|vault operator seal| von allen autorisierten Benutzern, Vault für jegliche Interaktion gesperrt werden. Nachdem der Vault-Server-Prozess beendet wurde oder Vault per Kommando versiegelt wurde kann erst wieder Zugeriffen werden wenn er wie oben Beschrieben entsiegelt wird. Mit dieser Funktionalität ist ein \textbf{Notfallplan} bei einem Sicherheitsvorfall gegeben.
+Sollte es zu einem Sicherheitsvorfall kommen und die Gefahr bestehen, dass Geheimnisse abgegriffen werden, kann bei rechtzeitigem Erkennen des Vorfalls mit dem Kommando\\\inline|vault operator seal|\\von allen autorisierten Benutzern, Vault für jegliche Interaktion gesperrt werden. Nachdem der Vault-Server-Prozess beendet wurde oder Vault per Kommando versiegelt wurde kann erst wieder zugeriffen werden wenn er wie oben Beschrieben entsiegelt wird. Mit dieser Funktionalität ist ein \textbf{Notfallplan} bei einem Sicherheitsvorfall gegeben.
 
-Um die Verfügbarkeit von Vault zu erhöhen, kann die \textbf{Hochverfügbarkeitsfunktion} aktiviert werden und der Vault-Server Dienst kann auf mehreren Servern gleichzeitig laufen. Die tatsächliche Schwachstelle im Bezug auf die Verfügbarkeit ergibt sich jedoch auch dem Key-Value Speicher im Hintergrund. Bei der Wahl des Speichers sollte darauf geachtet werden, dass die Technologie über Ausfallsicherheitsoptionen verfügt. Wie in Listing \vref{lst:unseal} zu sehen ist wird der Status der Hochverfügbarkeitsfunktion in der Ausgabe unter dem Feld ``HA Enabled`` gezeigt.
+Die Auditlogfunktion kann durch das Kommando \inline|vault audit enable [file socket syslog]| aktiviert werden. Dabei wird mit den Schlüsselwörtern ``file``, ``socket`` und ``syslog`` das Ziel des Auditlogs angegeben.
 
-Einen die Auditlog funktion kann durch das Kommando \inline|vault audit enable [file socket syslog]| aktiviert werden. Dabei wird mit den Schlüsselwörtern ``file``, ``socket`` und ``syslog`` das Ziel des Auditlogs angegeben.
+Um die Verfügbarkeit von Vault zu erhöhen, kann die \textbf{Hochverfügbarkeitsfunktion} aktiviert werden und der Vault-Server Dienst kann auf mehreren Servern gleichzeitig laufen. Die tatsächliche Schwachstelle im Bezug auf die Verfügbarkeit ergibt sich jedoch auch dem Key-Value Speicher im Hintergrund. Bei der Wahl des Speichers sollte darauf geachtet werden, dass die Technologie über Ausfallsicherheitsoptionen verfügt. Wie in Listing \vref{lst:unseal} zu sehen ist wird der Status der Hochverfügbarkeitsfunktion in der Ausgabe unter dem Feld ``HA Enabled`` gezeigt.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{vaultha.png}
+	\caption[Vault High Availability]{Hochverfügbarkeits-Setup mit drei Vault Servern und einem Consulcluster über mehrere Verfügbarkeitszonen\cite{vaultha}}
+	\label{fig:vaultha}
+\end{figure}
+
+Ein Beispiel für einen derartigen Anwendungsfall ist in Abbildung \vref{fig:vaultha} dargestellt. Die Darstellung zeigt einen Hochverfügbarkeitsaufbau von Vault mit einem Consulcluster als Storage Backend. Der Load Balancer prüft welcher Vault aktiv ist und vermittelt alle Anfragen an ihn. Sollte beim aktiven Server eine Fehlfunktion auftreten wird automatisch einer der beiden übrigen Server aktiv. Hochverfügbarkeitslösungen über mehrere Standorte sind nur in der kostenpflichtigen Version von Vault verfügbar. 
  
 \newpage
 \section{Fazit und Ausblick}
 \label{sec:ausblick}
 
-Hashicorp Vault stellt sich als brauchbare Lösung zum Management von geheimen Informationen dar und wird diesem Anspruch auch gerecht. Der Fokus liegt dabei eindeutig auf der Verwendung in Cloudumgebungen. Die Installation ist sehr einfach und die Bereitstellung der Software also einzelne Datei ist komfortabel. In der von mir zu Beginn des Projekts verwendeten Version von Vault (Version 0.8.3) sind sehr viele Funktionen die für den produktiven Einsatz in großen Unternehmen nützlich sind ausschließlich in der kostenpflichtigen Variante verfügbar und konnten daher von mir nicht getestet werden. Seit Version 0.9.3 ist jedoch auch die Funktion der graphischen Oberfläche in die kostenfreie Version übergegangen und fügt damit einen wichtigen Faktor was die Benutzerfreundlichkeit angeht hinzu.\newline
+Die Anforderungen die Großunternehmen an das Secrets Management ihrer \ac{IT}-Infrastruktur stellen, können durch historisch Gewachsene Umgebungen heute oft nur mit einer Vielzahl an Softwareelementen erreicht werden. Oft ist die Umstellung auf neue Softwareprodukte sehr teuer und die Migration der Zugriffsregeln und Authentifizierungsmethoden ist eine große Hürde. Der Trend zur Verlagerung von Diensten in die Cloud und die Angst der Unternehmen Abgehängt zu werden führt oft dazu, dass an den Sicherheitskonzepten gespart wird. Vault ist ein Produkt, dass einige Probleme die mit dem Umzug in die Cloud aufkommen erfolgreich lösen kann. Die Software kann aber auch in Umgebungen die nicht mit Cloud Diensten arbeiten eine wertvolle Erweiterung sein. Dort wo Funktionen wie Verschlüsselung, sichere Passwortspeicherung und Zertifikatausstellung einer Automatisierung bedürfen, weil sie aktuell durch einen Flickenteppich an kleinen Anwendungen und Skripten realisiert sind, kann Vault einen großen Vorteil bringen.
+
+Vor allem dann, wenn bereits ein funktionierendes Authentifizierungssystem im Einsatz ist, lässt sich Vault relativ problemlos in das bestehende System integrieren und stellt schon allein durch die starke verschlüsselte Ablage von Zugangsdaten einen Vorteil gegenüber herkömmlichen Systemen dar. Auch die Transportverschlüsselung, die bei Vault zum Standardrepertoire gehört kann unter Umständen einen deutlichen Sicherheitsvorteil bieten. 
+Die Problematik die sich daraus ergibt, dass eine fortwährende Authentifizierung gegenüber Vault stattfinden muss bleibt jedoch bestehen und lässt sich, nicht abschließend lösen. Der Einstiegspunkt um einen Sitzungstoken von Vault zu erhalten ist weiterhin ein kritischer Punkt und es muss auf die verwendete Authentifizierungssoftware vertraut werden. Die In Kapitel \vref{sec:grund} besprochenen Probleme und Gegenmaßnahmen bleiben also Teil des Secrets Management und können durch Vault lediglich auf tieferen Ebenen verbessert werden.
+
+Für den Produktivbetrieb gibt es unter der Addresse \url{https://www.vaultproject.io/uides/operations/index.html} einige nützliche Anwendungsfälle die bei der Umsetzung sehr hilfreich sein können. Die Dokumentation ist sehr ausführlich und hilfreich bei der Realisierung von verschiedenen Szenarien wie etwa dem Aufbau einer Hochverfügbarkeitslösung von Vault. Sobald zusätzliche Softwarekomponenten notwendig werden (zum Beispiel Storage Engine) werden in den Anwendungsbeispielen allerdings keine Softwareprodukte von Drittanbietern beschrieben. Die Agenda von Hashicorp den eigenen Softwarestack in dieser Beziehung zu bevorzugen ist deutlich erkennbar.
+
+Während der Evaluierung ließ sich das Kommandozeilenwerkzeug mit dem Vault auf Server- und Clientseite angesprochen wird, relativ komfortabel verwenden. Anwender werden sich aber eher schwer tun mit einem Kommandozeilenwerkzeug zu arbeiten. Seit Version 0.10 von Vault ist die graphische Oberfläche von Vault Teil der quelloffenen Version. Die Evaluierung hat zu einem Zeitpunkt stattgefunden, als die Oberfläche nur in der kostenpflichtigen Version zur Verfügung stand und konnte aus diesem Grund nicht bewertet werden. 
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
