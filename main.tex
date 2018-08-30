@@ -481,6 +481,10 @@ Das in Kapitel \vref{subsec:zert} beschriebene Verfahren der Nutzung von digital
 
 Durch die Schnelllebigkeit von Cloud-Diensten kommt es häufig vor, dass sich die Eigenschaften eines Dienstes im laufenden Cloudbetrieb ändern. Durch den Aufbau von Cloudumgebungen sind diese Änderungen für den Endnutzer allerdings nicht erkennbar und ein Zertifikat, welches nach den klassischen Prozessen erzeugt wurde lässt darauf schließen, dass der Dienst für die Gültigkeitsdauer des Zertifikats weiterhin die ursprünglichen Eigenschaften aufweist. Dynamische Zertifizierung versucht dieses Problem zu lösen indem eine ständige Kontrolle der Zertifikatsanforderungen von Cloud-Diensten zur Laufzeit durchgeführt wird, um Änderungen in den Eigenschaften direkt protokollieren zu können.\newline Um ein kontinuierliches Audit der Dienste realisieren zu können, werden verschiedene Ansätze verfolgt. Neben spezieller Test- und Monitoringsoftware, die eine Anwendung zur Laufzeit überprüft, können auch sogenannte Trusted Platform Module verwendet werden. Diese Module erzeugen dann eine Prüfsumme über ein gewünschte Ziel (zum Beispiel die zu kontrollierende Cloud-Anwendung) und vergleichen sie dann mit dem zuvor gespeicherten historischen Wert der Prüfsumme. Um solche Auditierungsvorgänge in bestehende Zertifizierungsmodelle zu integrieren, werden häufig zusätzlich ausgebildete Auditoren beschäftigt, die Änderungen in Dokumenten und bei den beteiligten Identitäten feststellen sollen.\cite[S. 114ff]{cloudsec}
 
+\subsection{Authentifizierung von Diensten}
+\label{subsec:servauth}
+Wenn sich Endverbraucher gegenüber einen Dienst authentifizieren müssen, dann passiert das meistens in Form von Benutzername und Passwort. Wenn sich jedoch Dienst A gegenüber gegenüber Dienst B authentifizieren muss, dann passiert das entweder durch die Weiterleitung des Zugriffstokens der dem Nutzer Nutzer vom Authentifizierungsdienst beim zu
+
 \newpage
 \section{Umsetzung in Software}
 \label{sec:soft}
